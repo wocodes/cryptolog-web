@@ -1,17 +1,10 @@
 <template>
-    <LoginPage/>
+<!--  <div id="nav">-->
+<!--    <router-link to="/">Home</router-link> |-->
+<!--    <router-link to="/about">About</router-link>-->
+<!--  </div>-->
+  <router-view/>
 </template>
-
-<script>
-import LoginPage from "@/auth/login/Login";
-
-export default {
-  name: 'App',
-  components: {
-      LoginPage,
-  }
-}
-</script>
 
 <style>
 #app {
@@ -20,6 +13,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

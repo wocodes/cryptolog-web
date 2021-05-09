@@ -119,7 +119,7 @@
 <script>
 
 export default {
-  name: "login-page",
+  name: "login",
   components: {
 
   }
