@@ -48,17 +48,27 @@
                                     <div class="text-gray-500 text-center mb-3 font-bold">
                                         <small>Or sign up with credentials</small>
                                     </div>
-                                    <form>
+                                    <form @submit.prevent="doRegister">
+                                        <div class="relative w-full mb-3">
+                                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2">Fullname</label>
+                                            <input
+                                            type="text"
+                                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                            placeholder="Fullname"
+                                            style="transition: all 0.15s ease 0s;"
+                                            v-model="user.name"
+                                        />
+                                        </div>
                                         <div class="relative w-full mb-3">
                                             <label
-                                                class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                                for="grid-password"
+                                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
                                             >Email</label
                                             ><input
-                                            type="email"
-                                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                            placeholder="Email"
-                                            style="transition: all 0.15s ease 0s;"
+                                                type="email"
+                                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                                                placeholder="Email"
+                                                style="transition: all 0.15s ease 0s;"
+                                                v-model="user.username"
                                         />
                                         </div>
                                         <div class="relative w-full mb-3">
@@ -71,12 +81,13 @@
                                             class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                                             placeholder="Password"
                                             style="transition: all 0.15s ease 0s;"
+                                            v-model="user.password"
                                         />
                                         </div>
                                         <div class="text-center mt-6">
                                             <button
                                                 class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                                                type="button"
+                                                type="submit"
                                                 style="transition: all 0.15s ease 0s;"
                                             >
                                                 Sign Up
@@ -101,10 +112,26 @@
 </template>
 <script>
 
-export default {
-    name: "register",
-    components: {
+import Axios from "../../../config/axios";
 
+export default {
+    name: "Register",
+    data() {
+        return {
+            user: {
+                name: null,
+                username: null,
+                password: null
+            }
+        }
+    },
+
+    methods: {
+        doRegister() {
+            Axios.post('/user/register', this.user)
+                .then(resp => console.log(resp))
+                .catch(err => console.error(err));
+        }
     }
 }
 </script>

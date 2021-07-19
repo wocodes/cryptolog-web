@@ -48,17 +48,18 @@
                   <div class="text-gray-500 text-center mb-3 font-bold">
                     <small>Or sign in with credentials</small>
                   </div>
-                  <form>
+                  <form @submit.prevent="doLogin">
                     <div class="relative w-full mb-3">
                       <label
                         class="block uppercase text-gray-700 text-xs font-bold mb-2"
                         for="grid-password"
-                        >Email</label
+                        >Username/Email</label
                       ><input
-                        type="email"
+                        type="text"
                         class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Email"
+                        placeholder="Username/Email"
                         style="transition: all 0.15s ease 0s;"
+                        v-model="user.username"
                       />
                     </div>
                     <div class="relative w-full mb-3">
@@ -71,6 +72,7 @@
                         class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
                         placeholder="Password"
                         style="transition: all 0.15s ease 0s;"
+                        v-model="user.password"
                       />
                     </div>
                     <div>
@@ -88,7 +90,7 @@
                     <div class="text-center mt-6">
                       <button
                         class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                        type="button"
+                        type="submit"
                         style="transition: all 0.15s ease 0s;"
                       >
                         Sign In
@@ -118,10 +120,33 @@
 </template>
 <script>
 
-export default {
-  name: "login",
-  components: {
+import Axios from "../../../config/axios";
+import {saveToStorage} from "../../../helpers/storage";
+import {EMAIL_KEY, TOKEN_KEY, USER_NAME_KEY} from "../../../helpers/constants";
 
+export default {
+  name: "Login",
+  data() {
+    return {
+      user: {
+        username: null,
+        password: null
+      }
+    }
+  },
+
+  methods: {
+    doLogin() {
+      Axios.post('/user/login', this.user)
+      .then(resp => {
+        saveToStorage(EMAIL_KEY, resp.data.data.email);
+        saveToStorage(USER_NAME_KEY, resp.data.data.name);
+        saveToStorage(TOKEN_KEY, resp.data.data.token);
+
+        this.$router.replace({name: "dashboard"})
+      })
+      .catch(err => console.error(err));
+    }
   }
 }
 </script>
