@@ -13,6 +13,7 @@
     "@saeris/vue-spinners": "^1.0.8",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "javascript-time-ago": "^2.3.8",
     "nprogress": "^0.2.0",
     "vue": "^3.0.0",
     "vue-loading-overlay": "^4.0.3",

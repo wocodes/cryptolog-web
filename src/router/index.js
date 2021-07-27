@@ -28,7 +28,13 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '../components/dashboard/Dashboard')
+    component: () => import(/* webpackChunkName: "dashboard" */ '../components/Dashboard/Dashboard.vue')
+  },
+
+  {
+    path: '/assets/log',
+    name: 'logs',
+    component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
   },
 
   { path: "/:pathMatch(.*)*", redirect: "/" }
