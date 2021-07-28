@@ -9,6 +9,10 @@
                 <StatCards />
                 <hr class="m-8">
                 <div class="text-left">
+                    <div class="h-80">
+                        <h1 class="text-2xl font-bold mb-6 mr-2">Pie Chart View of Asset Types</h1>
+                    </div>
+
                     <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">Top Performing Assets</h1>
                     <small><em>(Refreshes every 30 minutes)</em></small>
 

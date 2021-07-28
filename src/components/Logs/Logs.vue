@@ -8,8 +8,8 @@
             <div class="col-span-4 m-6">
                 <hr class="m-8">
                 <div class="text-left">
-                    <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">Top Performing Assets</h1>
-                    <small><em>(Refreshes every 5 minutes)</em></small>
+                    <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">All Assets</h1>
+                    <small><em>(Refreshes every 30 minutes)</em></small>
 
                     <button class="bg-green-700 font-bold py-1 px-2 rounded-md inline-block float-right text-sm text-white"
                             @click="fetchUpdatedAssetsData">
