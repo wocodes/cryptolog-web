@@ -37,6 +37,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
   },
 
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
+  },
+
   { path: "/:pathMatch(.*)*", redirect: "/" }
 ]
 

@@ -18,7 +18,11 @@
                         </svg>
                     </button>
 
-                    <AssetList :data="topPerformingAssets" />
+                    <AssetList :data="allAssets"
+                               :thStyle="'border-blue-200 bg-blue-100'"
+                               :tdStyle="'border-gray-300 bg-gray-200 font-md font-bold'"
+                               :cssStyle="'font-size:16px'"
+                    />
                 </div>
             </div>
         </div>
@@ -40,7 +44,7 @@
         components: {AssetList, SideBar, TopBar},
         data() {
             return {
-                topPerformingAssets: null,
+                allAssets: null,
             }
         },
 
@@ -52,7 +56,7 @@
             fetchTopPerformingAssets() {
                 Axios.get("/logs")
                     .then(resp => {
-                        this.topPerformingAssets = resp.data.data
+                        this.allAssets = resp.data.data.data
                     })
                     .catch(err => console.log(err));
             },

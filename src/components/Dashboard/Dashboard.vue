@@ -9,9 +9,28 @@
                 <StatCards />
                 <hr class="m-8">
                 <div class="text-left">
-                    <div class="h-80">
-                        <h1 class="text-2xl font-bold mb-6 mr-2">Pie Chart View of Asset Types</h1>
+                    <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12">
+                        <div class="w-full bg-white rounded-xl shadow-lg justify-center">
+                            <h1 class="text-center text-xl font-bold mb-5 mr-2 block">Cryptos</h1>
+                            <apexchart
+                                    width="400"
+                                    type="pie"
+                                    :options="chartOptions"
+                                    :series="series"
+                            ></apexchart>
+                        </div>
+
+                        <div class="w-full mx-auto bg-white rounded-xl shadow-lg justify-center">
+                            <h1 class="text-center text-xl font-bold mb-5 mr-2">Stocks</h1>
+                            <apexchart
+                                    width="400"
+                                    type="pie"
+                                    :options="chartOptions"
+                                    :series="series"
+                            ></apexchart>
+                        </div>
                     </div>
+
 
                     <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">Top Performing Assets</h1>
                     <small><em>(Refreshes every 30 minutes)</em></small>
@@ -23,7 +42,9 @@
                         </svg>
                     </button>
 
-                    <AssetList :data="topPerformingAssets" />
+                    <AssetList :data="topPerformingAssets"
+                               :thStyle="'border-blue-200 bg-blue-100'"
+                               :tdStyle="'border-green-200 bg-green-100'" />
                 </div>
             </div>
         </div>
@@ -38,15 +59,20 @@
     import TimeAgo from 'javascript-time-ago'
     import en from 'javascript-time-ago/locale/en'
     import AssetList from "../AssetList";
+    import VueApexCharts from "vue3-apexcharts";
 
     TimeAgo.addDefaultLocale(en)
 
     export default {
         name: "Dashboard",
-        components: {AssetList, StatCards, SideBar, TopBar},
+        components: {AssetList, StatCards, SideBar, TopBar, apexchart: VueApexCharts},
         data() {
             return {
-                topPerformingAssets: null,
+                topPerformingAssets: {},
+                chartOptions: {
+                    labels: ['BTC', 'ETH', 'DOGE', 'ADA', 'VET', 'ETC'],
+                },
+                series: [30, 40, 35, 50, 49, 60, 70, 91]
             }
         },
 
@@ -56,9 +82,9 @@
 
         methods: {
             fetchTopPerformingAssets() {
-                Axios.get("/logs")
+                Axios.get("/logs", {params: {'mode': 'top-performing'}})
                     .then(resp => {
-                        this.topPerformingAssets = resp.data.data
+                        this.topPerformingAssets = resp.data.data.data
                     })
                     .catch(err => console.log(err));
             },

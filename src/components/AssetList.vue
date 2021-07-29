@@ -1,6 +1,6 @@
 <template>
     <div>
-        <table class="border-collapse border-1 border-blue-800 font-xs w-full" style="font-size:12px;">
+        <table class="border-collapse border-1 border-blue-800 font-sm w-full" v-bind:style="style">
             <thead>
             <tr>
                 <th :class="thClassStyle" scope="col">SN</th>
@@ -57,14 +57,28 @@
             data: {
                 type: Object,
                 required: true
+            },
+            thStyle: {
+                type: String,
+                required: false
+            },
+            tdStyle: {
+                type: String,
+                required: false
+            },
+            cssStyle: {
+                type: String,
+                required: false,
+                default: null
             }
         },
 
         data() {
             return {
+                style: this.cssStyle ?? "font-size:14px;",
                 timeAgo: new TimeAgo('en-US'),
-                thClassStyle: 'p-2 border border-blue-200 bg-blue-100',
-                tdClassStyle: 'p-2 border border-green-200 bg-green-100',
+                thClassStyle: 'p-2 border '+this.thStyle,
+                tdClassStyle: 'p-2 border '+this.tdStyle,
             }
         }
     }
