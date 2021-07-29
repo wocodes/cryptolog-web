@@ -9,7 +9,7 @@
                 <StatCards />
                 <hr class="m-8">
                 <div class="text-left">
-                    <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12">
+                    <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12"> <!-- DUMMY CHART DATA VIEW -->
                         <div class="w-full bg-white rounded-xl shadow-lg justify-center">
                             <h1 class="text-center text-xl font-bold mb-5 mr-2 block">Cryptos</h1>
                             <apexchart
@@ -69,7 +69,7 @@
         data() {
             return {
                 topPerformingAssets: {},
-                chartOptions: {
+                chartOptions: { // DUMMY CHART DATA
                     labels: ['BTC', 'ETH', 'DOGE', 'ADA', 'VET', 'ETC'],
                 },
                 series: [30, 40, 35, 50, 49, 60, 70, 91]
