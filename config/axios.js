@@ -9,7 +9,7 @@ let headers = {
 };
 
 const Axios = axios.create({
-    baseURL: 'http://api.assetlog.wip/api',
+    baseURL: process.env.API_URL,
     headers: headers
 });
 
