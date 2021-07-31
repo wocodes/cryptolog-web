@@ -15,6 +15,7 @@
 <script>
     import {TOKEN_KEY} from "../../helpers/constants";
     import {deleteFromStorage} from "../../helpers/storage";
+    import Axios from "../../config/axios";
 
     export default {
         name: "TopBar",
@@ -24,8 +25,9 @@
 
                 // redirect to login page
                 this.$router.replace({name: "login"});
-            }
-        }
+            },
+        },
+
     }
 </script>
 

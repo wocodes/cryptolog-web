@@ -115,7 +115,7 @@ export default {
             console.log(this.log)
             Axios.post("/logs", this.log)
                 .then(resp => {
-                    console.log(resp.data)
+                    this.showSuccessToast(resp.data.message)
                 })
                 .catch(err => console.error(err));
         },

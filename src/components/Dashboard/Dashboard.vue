@@ -10,25 +10,25 @@
                 <hr class="m-8">
                 <div class="text-left">
                     <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12"> <!-- DUMMY CHART DATA VIEW -->
-                        <div class="w-full bg-white rounded-xl shadow-lg justify-center">
+                        <div class="w-full bg-white rounded-xl shadow-lg justify-center" v-if="chartDataLoaded">
                             <h1 class="text-center text-xl font-bold mb-5 mr-2 block">Cryptos</h1>
                             <apexchart
                                     width="400"
                                     type="pie"
-                                    :options="chartOptions"
-                                    :series="series"
+                                    :options="chart.options"
+                                    :series="chart.series"
                             ></apexchart>
                         </div>
 
-                        <div class="w-full mx-auto bg-white rounded-xl shadow-lg justify-center">
-                            <h1 class="text-center text-xl font-bold mb-5 mr-2">Stocks</h1>
-                            <apexchart
-                                    width="400"
-                                    type="pie"
-                                    :options="chartOptions"
-                                    :series="series"
-                            ></apexchart>
-                        </div>
+<!--                        <div class="w-full mx-auto bg-white rounded-xl shadow-lg justify-center">-->
+<!--                            <h1 class="text-center text-xl font-bold mb-5 mr-2">Stocks</h1>-->
+<!--                            <apexchart-->
+<!--                                    width="400"-->
+<!--                                    type="pie"-->
+<!--                                    :options="chartOptions"-->
+<!--                                    :series="series"-->
+<!--                            ></apexchart>-->
+<!--                        </div>-->
                     </div>
 
 
@@ -42,9 +42,11 @@
                         </svg>
                     </button>
 
-                    <AssetList :data="topPerformingAssets"
-                               :thStyle="'border-blue-200 bg-blue-100'"
-                               :tdStyle="'border-green-200 bg-green-100'" />
+                    <div v-if="topPerformingAssets">
+                        <AssetList :data="topPerformingAssets"
+                                   :thStyle="'border-blue-200 bg-blue-100'"
+                                   :tdStyle="'border-green-200 bg-green-100'" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,23 +70,39 @@
         components: {AssetList, StatCards, SideBar, TopBar, apexchart: VueApexCharts},
         data() {
             return {
-                topPerformingAssets: {},
-                chartOptions: { // DUMMY CHART DATA
-                    labels: ['BTC', 'ETH', 'DOGE', 'ADA', 'VET', 'ETC'],
+                topPerformingAssets: null,
+                chartDataLoaded: false,
+                chart:{
+                    options: { // DUMMY CHART DATA
+                        labels: [],
+                    },
+                    series: []
                 },
-                series: [30, 40, 35, 50, 49, 60, 70, 91]
             }
         },
 
         mounted() {
             this.fetchTopPerformingAssets();
+            this.getEarningsSummary();
         },
 
         methods: {
+            getEarningsSummary() {
+                Axios.get("/assets/report/earnings-summary")
+                    .then(resp => {
+                        this.chart.options.labels = Object.keys(resp.data.data);
+                        this.chart.series = Object.values(resp.data.data).map(item => item.value);
+
+                        this.chartDataLoaded = true;
+
+                    })
+                    .catch(err => console.log(err));
+            },
+
             fetchTopPerformingAssets() {
                 Axios.get("/logs", {params: {'mode': 'top-performing'}})
                     .then(resp => {
-                        this.topPerformingAssets = resp.data.data.data
+                        this.topPerformingAssets = resp.data.data
                     })
                     .catch(err => console.log(err));
             },

@@ -6,7 +6,7 @@
             </div>
             <div class="text-right w-full">
                 <div class="text-gray-500 text-lg font-medium">Total Assets</div>
-                <p class="text-black text-5xl">16</p>
+                <p class="text-black text-5xl">{{ totalAssets }}</p>
             </div>
         </div>
 
@@ -16,15 +16,40 @@
             </div>
             <div class="text-right w-full">
                 <div class="text-gray-500 text-lg font-medium">Total Value</div>
-                <p class="text-black text-5xl">#100,000</p>
+                <p class="text-black text-5xl">${{ totalValue }}</p>
+                <small>&#8358;{{ (totalValue * 500).toLocaleString() }}</small>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import Axios from "../../../config/axios";
+
     export default {
-        name: "StatCards"
+        name: "StatCards",
+        data() {
+            return {
+                totalAssets: 0,
+                totalValue: 0,
+            }
+        },
+        methods: {
+            getDashboardStats() {
+                Axios.get("/user/dashboard/stats")
+                    .then(resp => {
+                        this.totalAssets = resp.data.data.assets_count;
+                        this.totalValue = resp.data.data.assets_value;
+
+                    })
+                    .catch(err => console.log(err));
+            },
+        },
+
+        mounted() {
+            this.getDashboardStats();
+        }
+
     }
 </script>
 

@@ -44,9 +44,9 @@ const routes = [
   },
 
   {
-    path: '/assets/add',
-    name: 'add-asset',
-    component: () => import(/* webpackChunkName: "logs" */ '../components/Asset/Create.vue')
+    path: '/logs/add',
+    name: 'add-log',
+    component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Create.vue')
   },
 
   { path: "/:pathMatch(.*)*", redirect: "/" }

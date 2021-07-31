@@ -29,8 +29,8 @@
                 <td :class="tdClassStyle">{{ asset.platform.name }}</td>
                 <td :class="tdClassStyle">{{ asset.asset.symbol }}</td>
                 <td :class="tdClassStyle">{{ asset.quantity_bought }}</td>
-                <td :class="tdClassStyle">{{ asset.initial_value }}</td>
-                <td :class="tdClassStyle">{{ asset.current_value }}</td>
+                <td :class="tdClassStyle">${{ asset.initial_value }}</td>
+                <td :class="tdClassStyle">${{ asset.current_value }}</td>
                 <td :class="tdClassStyle">${{ asset.profit_loss }}</td>
                 <td :class="tdClassStyle">{{ asset['24_hr_change'] }}</td>
                 <td :class="tdClassStyle">{{ asset.status }}</td>
