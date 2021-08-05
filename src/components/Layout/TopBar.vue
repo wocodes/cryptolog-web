@@ -13,9 +13,8 @@
 </template>
 
 <script>
-    import {TOKEN_KEY} from "../../helpers/constants";
-    import {deleteFromStorage} from "../../helpers/storage";
-    import Axios from "../../config/axios";
+    import {TOKEN_KEY} from "../../../helpers/constants";
+    import {deleteFromStorage} from "../../../helpers/storage";
 
     export default {
         name: "TopBar",

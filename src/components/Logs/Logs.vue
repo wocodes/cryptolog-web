@@ -1,75 +1,64 @@
 <template>
-    <div class="bg-gray-100">
-        <TopBar />
 
-        <div class="grid grid-cols-5 gap-4">
-            <SideBar />
+    <hr class="m-8">
+    <div class="text-left">
+        <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">All Assets</h1>
+        <small><em>(Refreshes every 30 minutes)</em></small>
 
-            <div class="col-span-4 m-6">
-                <hr class="m-8">
-                <div class="text-left">
-                    <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">All Assets</h1>
-                    <small><em>(Refreshes every 30 minutes)</em></small>
+        <button class="bg-green-700 font-bold py-1 px-2 rounded-md inline-block float-right text-sm text-white"
+                @click="fetchUpdatedAssetsData">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+            </svg>
+        </button>
 
-                    <button class="bg-green-700 font-bold py-1 px-2 rounded-md inline-block float-right text-sm text-white"
-                            @click="fetchUpdatedAssetsData">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-
-                    <AssetList :data="allAssets"
-                               :thStyle="'border-blue-200 bg-blue-100'"
-                               :tdStyle="'border-gray-300 bg-gray-200 font-md font-bold'"
-                               :cssStyle="'font-size:16px'"
-                    />
-                </div>
-            </div>
-        </div>
+        <AssetList :data="allAssets"
+                   :thStyle="'border-blue-200 bg-blue-100'"
+                   :tdStyle="'border-gray-300 bg-gray-200 font-md font-bold'"
+                   :cssStyle="'font-size:16px'"
+        />
     </div>
 </template>
 
 <script>
-    import TopBar from "../TopBar";
-    import SideBar from "../SideBar";
-    import Axios from "../../../config/axios";
-    import TimeAgo from 'javascript-time-ago'
-    import en from 'javascript-time-ago/locale/en'
-    import AssetList from "../AssetList";
+import Axios from "../../../config/axios";
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+import AssetList from "../AssetList";
 
-    TimeAgo.addDefaultLocale(en)
+TimeAgo.addDefaultLocale(en)
 
-    export default {
-        name: "AssetSummary",
-        components: {AssetList, SideBar, TopBar},
-        data() {
-            return {
-                allAssets: null,
-            }
+export default {
+    name: "AssetSummary",
+    components: {AssetList},
+    data() {
+        return {
+            allAssets: null,
+        }
+    },
+
+    mounted() {
+        this.fetchTopPerformingAssets();
+    },
+
+    methods: {
+        fetchTopPerformingAssets() {
+            Axios.get("/logs")
+                .then(resp => {
+                    this.allAssets = resp.data.data.data
+                })
+                .catch(err => console.log(err));
         },
 
-        mounted() {
-            this.fetchTopPerformingAssets();
-        },
-
-        methods: {
-            fetchTopPerformingAssets() {
-                Axios.get("/logs")
-                    .then(resp => {
-                        this.allAssets = resp.data.data.data
-                    })
-                    .catch(err => console.log(err));
-            },
-
-            fetchUpdatedAssetsData() {
-                Axios.get("/logs/update")
-                    .then(() => {
-                        this.fetchTopPerformingAssets();
-                    })
-                    .catch(err => console.log(err));
-            }
+        fetchUpdatedAssetsData() {
+            Axios.get("/logs/update")
+                .then(() => {
+                    this.fetchTopPerformingAssets();
+                })
+                .catch(err => console.log(err));
         }
     }
+}
 </script>
 
 <style scoped>
