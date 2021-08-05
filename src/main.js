@@ -20,6 +20,7 @@ createApp(App)
         methods: {
             showSuccessToast(text,title="") {
                 this.$swal({
+                    title: title,
                     html: `<span style="color:#fff">${text}</span>`,
                     toast: true,
                     position: 'top-end',

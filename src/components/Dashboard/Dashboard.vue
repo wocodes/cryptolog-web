@@ -102,7 +102,7 @@
             fetchTopPerformingAssets() {
                 Axios.get("/logs", {params: {'mode': 'top-performing'}})
                     .then(resp => {
-                        this.topPerformingAssets = resp.data.data
+                        this.topPerformingAssets = resp.data.data.data
                     })
                     .catch(err => console.log(err));
             },

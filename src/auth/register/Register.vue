@@ -41,7 +41,7 @@
                                     </div>
                                     <hr class="mt-6 border-b-1 border-gray-400" />
                                 </div>
-                                <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+                                <div class="flex-auto px-4 lg:px-10 pt-0">
                                     <div class="text-gray-500 text-center mb-3 font-bold">
                                         <small>Or sign up with credentials</small>
                                     </div>
@@ -92,12 +92,18 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="flex flex-wrap mt-6">
-                                <div class="w-1/2 text-right">
-                                    <a href="#pablo" class="text-gray-300"
-                                    ><small>Sign In</small></a
-                                    >
+
+                                <div class="flex flex-wrap font-bold text-blue text-lg my-2">
+                                    <div class="w-1/2">
+                                        <a href="#" class="text-black">
+                                            <small>Already have an account?</small>
+                                        </a>
+                                    </div>
+                                    <div class="w-1/2">
+                                        <router-link :to="{name: 'login'}">
+                                            <small>Log in</small>
+                                        </router-link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
