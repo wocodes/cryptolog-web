@@ -112,7 +112,7 @@
 </template>
 <script>
 // @ is an alias to /src
-import NavbarComponent from "@/components/Navbar.vue";
+import NavbarComponent from "@/components/Layout/Navbar.vue";
 
 export default {
     name: "Home",

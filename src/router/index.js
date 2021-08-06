@@ -26,27 +26,34 @@ const routes = [
   },
 
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */ '../components/Dashboard/Dashboard.vue')
-  },
+    path: '/app',
+    name: 'app',
+    component: () => import(/* webpackChunkName: "main-view" */ '../components/Layout/MainView.vue'),
+    children: [
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: () => import(/* webpackChunkName: "dashboard" */ '../components/Dashboard/Dashboard.vue')
+      },
 
-  {
-    path: '/assets/log',
-    name: 'logs',
-    component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
-  },
+      {
+        path: '/assets/log',
+        name: 'logs',
+        component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
+      },
 
-  {
-    path: '/settings',
-    name: 'settings',
-    component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
-  },
+      {
+        path: '/settings',
+        name: 'settings',
+        component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
+      },
 
-  {
-    path: '/logs/add',
-    name: 'add-log',
-    component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Create.vue')
+      {
+        path: '/logs/add',
+        name: 'add-log',
+        component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Create.vue')
+      },
+    ]
   },
 
   { path: "/:pathMatch(.*)*", redirect: "/" }
