@@ -99,12 +99,14 @@ export default {
 
     methods: {
         addAsset: function () {
-            console.log(this.log)
+            this.showLoader();
+
             Axios.post("/logs", this.log)
                 .then(resp => {
                     this.showSuccessToast(resp.data.message)
                 })
-                .catch(err => console.error(err));
+                .catch(err => console.error(err))
+                .finally(() => this.hideLoader())
         },
     }
 }
