@@ -1,28 +1,35 @@
 import axios from "axios";
-import {getFromStorage} from "../helpers/storage";
-// import NProgress from "nprogress/nprogress"
+import {deleteFromStorage, getFromStorage} from "../helpers/storage";
 import 'nprogress/nprogress.css';
-import {TOKEN_KEY} from "../helpers/constants";
+import {USER_TOKEN_KEY} from "../helpers/constants";
 
 let headers = {
-    'Authorization': "Bearer " + getFromStorage(TOKEN_KEY)
+    'Authorization': "Bearer " + getFromStorage(USER_TOKEN_KEY)
 };
 
 const Axios = axios.create({
     baseURL: process.env.API_URL,
-    headers: headers
+    headers: headers,
+    validateStatus: function(status) {
+        console.log('status', status);
+        // if (window.location.pathname === '/' && status === 401) {
+        //     window.location.reload();
+        // } else
+        if (window.location.pathname !== '/' && status === 401) {
+            deleteFromStorage(USER_TOKEN_KEY);
+            window.location.reload();
+        }
+
+        return status >= 200 && status < 300; // default
+    }
 });
 
-
-Axios.interceptors.request.use(request => {
-    // NProgress.start()
-
-    return request;
+Axios.interceptors.request.use(config => {
+    return config;
 });
-//
-// Axios.interceptors.response.use(response => {
-//     NProgress.done();
-//     return response;
-// });
+
+Axios.interceptors.response.use(response => {
+    return response;
+});
 
 export default Axios;

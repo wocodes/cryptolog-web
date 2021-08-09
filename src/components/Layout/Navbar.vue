@@ -13,27 +13,26 @@
                     <li class="flex items-center">
                         <a class="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                             href="#">
-                            <i class="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2"></i>
-                            Asset Log
+                            <img src="/images/logo.png" alt="logo" width="170px"/>
                         </a>
                     </li>
                 </ul>
                 <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
                     <li class="flex items-center">
-                        <a
+                        <router-link :to="{name: 'login'}"
                             class="bg-blue-400 text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
-                            style="transition: all 0.15s ease 0s;" href="/login"
+                            style="transition: all 0.15s ease 0s;"
                         >
                             <i class="fas fa-user"></i> Sign In
-                        </a>
+                        </router-link>
                     </li>
                     <li class="flex items-center">
-                        <a
+                        <router-link :to="{name: 'register'}"
                             class="bg-white text-gray-800 active:bg-gray-100 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
-                            style="transition: all 0.15s ease 0s;" href="/register"
+                            style="transition: all 0.15s ease 0s;"
                         >
                             <i class="fas fa-user-alt"></i> Sign Up
-                        </a>
+                        </router-link>
                     </li>
                 </ul>
             </div>

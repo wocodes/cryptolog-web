@@ -4,7 +4,7 @@ module.exports = {
     pages: {
         index: {
             entry: 'src/main.js',
-            title: 'Curacel HMO-Client Portal'
+            title: 'AssetLog - Your Money Tracker'
         }
     },
     configureWebpack: {

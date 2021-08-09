@@ -41,7 +41,7 @@
                 <td :class="tdClassStyle">
                     {{ timeAgo.format(new Date(asset.last_updated_at)) }}
                 </td>
-                <td :class="tdClassStyle">#{{ asset.profit_loss_naira }}</td>
+                <td :class="tdClassStyle">&#8358;{{ asset.profit_loss_naira }}</td>
             </tr>
             </tbody>
         </table>

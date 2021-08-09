@@ -118,7 +118,7 @@
 
 import Axios from "../../../config/axios";
 import {saveToStorage} from "../../../helpers/storage";
-import {EMAIL_KEY, TOKEN_KEY, USER_NAME_KEY} from "../../../helpers/constants";
+import {USER_EMAIL_KEY, USER_TOKEN_KEY, USER_NAME_KEY} from "../../../helpers/constants";
 
 export default {
   name: "Login",
@@ -135,9 +135,9 @@ export default {
     doLogin() {
       Axios.post('/user/login', this.user)
       .then(resp => {
-        saveToStorage(EMAIL_KEY, resp.data.data.email);
+        saveToStorage(USER_EMAIL_KEY, resp.data.data.email);
         saveToStorage(USER_NAME_KEY, resp.data.data.name);
-        saveToStorage(TOKEN_KEY, resp.data.data.token);
+        saveToStorage(USER_TOKEN_KEY, resp.data.data.token);
 
         this.showSuccessToast(resp.data.message);
 
