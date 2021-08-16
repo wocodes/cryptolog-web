@@ -10,10 +10,21 @@
                      <input type="checkbox"
                             name="meta"
                             v-model="meta.value"
+                            @change="performSecondaryAction(meta)"
                             class="appearance-none checked:bg-blue-600 checked:border-transparent rounded focus:outline-none"
                      />
                      <span class="font-medium">{{ meta.name }}</span>
                  </label>
+
+                 <div v-if="meta.id==='settings.hide_balance' && hideBalanceIsToggled"
+                      class="ml-7 mt-1">
+                     <small class="block font-bold">Duration (days)</small>
+                     <input type="number"
+                            v-model="meta.value"
+                            class="rounded h-8 w-25 border-gray"
+                     />
+                     <small class="text-red-500 block leading-1" style="width: 250px">Note: You won't be able to see your balance for the duration of this setting</small>
+                 </div>
              </div>
          </div>
      </div>
@@ -29,13 +40,20 @@ export default {
     name: "Settings",
     data() {
         return {
+            hideBalanceIsToggled: false,
             metas: []
-        }
+        };
     },
     created() {
         this.getMetas()
     },
     methods: {
+        performSecondaryAction(meta) {
+            if(meta.id === 'settings.hide_balance') {
+                this.hideBalanceIsToggled = !this.hideBalanceIsToggled;
+            }
+        },
+
         async saveSettings() {
             this.showLoader();
             try{

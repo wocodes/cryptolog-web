@@ -15,6 +15,10 @@
         <em>We suggest you <strong>HODL 20%</strong> of BTC for the next 2 months...</em>
     </Tip>
 
+    <Tip v-if="allowedToViewDevUpdate">
+        <em>Your ETH has grown over 20% in the last x days. This may be a good time to sell.</em>
+    </Tip>
+
     <StatCards />
     <hr class="m-8">
     <div class="text-left">

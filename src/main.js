@@ -69,8 +69,12 @@ createApp(App)
                 })
             },
 
-            showLoader() {
-                this.loader = this.$loading.show();
+            showLoader(state) {
+                this.loader = this.$loading.show({
+                    lockScroll: true
+                }, {
+                    default: `${state}. Please wait...`
+                });
             },
 
             hideLoader() {

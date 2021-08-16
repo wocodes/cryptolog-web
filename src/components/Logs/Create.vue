@@ -1,5 +1,4 @@
 <template>
-    <hr class="m-8">
     <div class="text-left">
         <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">Add Asset</h1>
 
@@ -10,46 +9,59 @@
                     <div class="">
                         <label class="block text-sm font-medium text-gray-700" for="asset-name">Asset
                             Type</label>
-                        <select  id="asset-name"
-                                 v-model="log.asset_id"
-                                 class="input-design"
-                                 name="asset-name">
-                            <option v-for="asset in assets" :value="asset.id" :key="asset.id">{{ asset.name }}</option>
+                        <select id="asset-type"
+                                v-model="selectedAssetType"
+                                class="input-design"
+                                name="asset-name"
+                                @change="loadAssetsOfAssetType"
+                        >
+                            <option v-for="assetType in assetTypes" :value="assetType" :key="assetType.id">{{ assetType.name }}</option>
                             <!--                                            All this will be changed later-->
                         </select>
                     </div>
 
-                    <div class="">
-                        <label class="block text-sm font-medium text-gray-700" for="asset-name">Exchange
-                            Name</label>
-                        <select id="exchnage-name"
+                    <div class="" v-if="assets.length">
+                        <label class="block text-sm font-medium text-gray-700" for="asset-name">Asset</label>
+                        <select  id="asset-name"
+                                 v-model="selectedAsset"
+                                 class="input-design"
+                                 name="asset-name"
+                                 @change="loadExchangesOfAsset"
+                        >
+                            <option v-for="asset in assets" :value="asset" :key="asset.id">{{ asset.name }}</option>
+                            <!--                                            All this will be changed later-->
+                        </select>
+                    </div>
+
+                    <div class="" v-if="assetPlatforms.length">
+                        <label class="block text-sm font-medium text-gray-700" for="asset-name">Exchange/Platform</label>
+                        <select id="exchange-name"
                                 v-model="log.platform_id"
                                 class="input-design"
                                 name="asset-name">
-                            <option v-for="platform in platforms" :key="platform.id" :value="platform.id">
+                            <option :value="null"></option>
+                            <option v-for="platform in assetPlatforms" :key="platform.id" :value="platform.id">
                                 {{ platform.name }}
                             </option>
-                            <option :value="null">None</option>
                             <!--                                            All this will be changed later-->
                         </select>
                     </div>
 
-                    <div class="">
-                        <label class="block text-sm font-medium text-gray-700" for="quantity">Amount</label>
+                    <div class="" v-if="selectedAssetType && selectedAsset">
+                        <label class="block text-sm font-medium text-gray-700" for="quantity">Quantity</label>
                         <input id="quantity" v-model="log.quantity_bought"
                                class="input-design"
                                type="text"/>
                     </div>
 
-                    <div class="">
-                        <label class="block text-sm font-medium text-gray-700" for="initial-value">Initial
-                            Value</label>
+                    <div class="" v-if="selectedAssetType && selectedAsset">
+                        <label class="block text-sm font-medium text-gray-700" for="initial-value">Amount/Price</label>
                         <input id="initial-value" v-model="log.initial_value"
                                class="input-design"
                                type="text"/>
                     </div>
 
-                    <div class="">
+                    <div class="" v-if="selectedAssetType && selectedAsset">
                         <label class="block text-sm font-medium text-gray-700" for="dob">Date of
                             purchase</label>
                         <input id="dob"
@@ -58,8 +70,6 @@
                                type="date"/>
                     </div>
                 </div>
-                <div>
-                </div>
             </div>
         </form>
         <button class="change-button" @click="addAsset" type="submit">Add</button>
@@ -67,49 +77,74 @@
 </template>
 
 <script>
-import Axios from "../../../config/axios";
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
+import Axios from '../../../config/axios';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en';
 
-TimeAgo.addDefaultLocale(en)
+TimeAgo.addDefaultLocale(en);
 
 export default {
-    name: "AddAsset",
+    name: 'AddAsset',
     data() {
         return {
             log: {},
+            assetTypes: [],
             assets: [],
-            platforms: []
-        }
+            assetPlatforms: [],
+            platforms: [],
+            selectedAssetType: null,
+            selectedAsset: null,
+            selectedExchange: null
+        };
     },
 
     created() {
-        Axios.get("/platforms")
+        this.showLoader('Fetching Asset Types');
+        Axios.get('/assets/types')
             .then(resp => {
-                this.platforms = resp.data
+                this.assetTypes = resp.data.data;
             })
-            .catch(err => console.error(err));
-
-        Axios.get("/assets")
-            .then(resp => {
-                this.assets = resp.data
-            })
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
+            .finally(() => this.hideLoader());
     },
 
     methods: {
-        addAsset: function () {
-            this.showLoader();
-
-            Axios.post("/logs", this.log)
+        addAsset () {
+            this.showLoader(`Saving Your ${this.selectedAssetType.name} Asset`);
+            this.log.asset_id = this.selectedAsset.id;
+            Axios.post('/logs', this.log)
                 .then(resp => {
-                    this.showSuccessToast(resp.data.message)
+                    this.showSuccessToast(resp.data.message);
                 })
                 .catch(err => console.error(err))
-                .finally(() => this.hideLoader())
+                .finally(() => this.hideLoader());
         },
+
+        loadAssetsOfAssetType () {
+            this.showLoader(`Fetching ${this.selectedAssetType.name} Assets`);
+            const data = {asset_type_id: this.selectedAssetType.id};
+
+            Axios.get('/assets', { params: data})
+                .then(resp => {
+                    this.assets = resp.data.data;
+                })
+                .catch(err => console.error(err))
+                .finally(() => this.hideLoader());
+        },
+
+        loadExchangesOfAsset () {
+            this.showLoader(`Fetching ${this.selectedAsset.name} Platforms`);
+            const data = {asset_id: this.selectedAsset.id};
+            Axios.get('/platforms', {params: data})
+                .then(resp => {
+                    this.assetPlatforms = resp.data.data;
+                })
+                .catch(err => console.error(err))
+                .finally(() => this.hideLoader());
+        }
+
     }
-}
+};
 </script>
 
 <style scoped>

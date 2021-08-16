@@ -45,7 +45,7 @@ const routes = [
       {
         path: '/settings',
         name: 'settings',
-        component: () => import(/* webpackChunkName: "logs" */ '../components/settings/Settings.vue')
+        component: () => import(/* webpackChunkName: "logs" */ '../components/Settings/Settings.vue')
       },
 
       {
