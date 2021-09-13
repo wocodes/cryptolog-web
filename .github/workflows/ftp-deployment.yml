@@ -34,5 +34,5 @@ jobs:
         username: advaaxrv
         password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
         local-dir: ./dist/
-        server-dir: /var/www/jaapps.com/apps/assetlog/
+        server-dir: /home/advaaxrv/jaapps.com/apps/assetlog/
 
