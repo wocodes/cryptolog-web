@@ -21,15 +21,15 @@
 </template>
 
 <script>
-import Axios from "../../../config/axios";
+import Axios from "../../../../config/axios";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
-import AssetList from "../AssetList";
+import AssetList from "../../AssetList";
 
 TimeAgo.addDefaultLocale(en)
 
 export default {
-    name: "AssetSummary",
+    name: "Logs",
     components: {AssetList},
     data() {
         return {
@@ -38,22 +38,23 @@ export default {
     },
 
     mounted() {
-        this.showLoader();
-        this.fetchTopPerformingAssets();
+        // this.showLoader();
+        this.fetchUserAssets();
     },
 
     methods: {
-        fetchTopPerformingAssets() {
+      fetchUserAssets() {
             Axios.get("/logs")
                 .then(resp => {
                     this.allAssets = resp.data.data.data
+                  console.log('asd', this.allAssets);
                 })
                 .catch(err => console.log(err))
-                .finally(() => this.hideLoader())
+                // .finally(() => this.hideLoader())
         },
 
         fetchUpdatedAssetsData() {
-            this.showLoader();
+            // this.showLoader();
             Axios.get("/logs/update")
                 .then(() => {
                     this.fetchTopPerformingAssets();

@@ -19,6 +19,7 @@
                 <th :class="thClassStyle" scope="col">Current Price</th>
                 <th :class="thClassStyle" scope="col">Updated</th>
                 <th :class="thClassStyle" scope="col">P/L (N)</th>
+                <th :class="thClassStyle" scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,11 @@
                     {{ timeAgo.format(new Date(asset.last_updated_at)) }}
                 </td>
                 <td :class="tdClassStyle">&#8358;{{ asset.profit_loss_naira }}</td>
+                <td :class="tdClassStyle">
+                  <button v-if="!asset.is_sold" :class="defaultActionBtnStyle" @click="markAsSold(asset.id)">Mark as Sold</button>
+
+                  <button v-if="asset.is_sold" :class="successActionBtnStyle">Sold</button>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -50,13 +56,14 @@
 
 <script>
     import TimeAgo from "javascript-time-ago";
+    import Axios from "../../config/axios";
 
     export default {
         name: "AssetList",
         props: {
             data: {
                 type: Object,
-                required: true
+                required: false
             },
             thStyle: {
                 type: String,
@@ -75,12 +82,34 @@
 
         data() {
             return {
-                style: this.cssStyle ?? "font-size:14px;",
-                timeAgo: new TimeAgo('en-US'),
-                thClassStyle: 'p-2 border '+this.thStyle,
-                tdClassStyle: 'p-2 border '+this.tdStyle,
+              style: this.cssStyle ?? "font-size:14px;",
+              timeAgo: new TimeAgo('en-US'),
+              thClassStyle: 'p-2 border '+this.thStyle,
+              tdClassStyle: 'p-2 border '+this.tdStyle,
+              actionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs ',
+              // defaultActionBtnStyle: this.actionBtnStyle + 'bg-blue-600',
+              // successActionBtnStyle: this.actionBtnStyle + 'bg-green-600',
+              // dangerActionBtnStyle: this.actionBtnStyle + 'bg-red-600',
+              defaultActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs bg-blue-600',
+              successActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs bg-green-600',
+              dangerActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs bg-red-600',
             }
+        },
+
+        mounted() {
+          this.actionBtnStyle = 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs ';
+        },
+
+      methods: {
+        markAsSold(assetId) {
+          Axios.put(`/assets/log/${assetId}/sold`)
+              .then((resp) => {
+                this.showSuccessToast(resp.data.message);
+                console.log('resp', resp)
+              })
+              .catch(err => console.log(err))
         }
+      }
     }
 </script>
 

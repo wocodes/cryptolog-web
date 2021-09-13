@@ -15,7 +15,8 @@
                                 name="asset-name"
                                 @change="loadAssetsOfAssetType"
                         >
-                            <option v-for="assetType in assetTypes" :value="assetType" :key="assetType.id">{{ assetType.name }}</option>
+                          <option :value="null">Select Asset Type</option>
+                          <option v-for="assetType in assetTypes" :value="assetType" :key="assetType.id">{{ assetType.name }}</option>
                             <!--                                            All this will be changed later-->
                         </select>
                     </div>
@@ -28,7 +29,8 @@
                                  name="asset-name"
                                  @change="loadExchangesOfAsset"
                         >
-                            <option v-for="asset in assets" :value="asset" :key="asset.id">{{ asset.name }}</option>
+                          <option :value="null">Select Asset</option>
+                          <option v-for="asset in assets" :value="asset" :key="asset.id">{{ asset.name }} ({{ asset.symbol }})</option>
                             <!--                                            All this will be changed later-->
                         </select>
                     </div>
@@ -39,7 +41,7 @@
                                 v-model="log.platform_id"
                                 class="input-design"
                                 name="asset-name">
-                            <option :value="null"></option>
+                            <option :value="null">Select Platform</option>
                             <option v-for="platform in assetPlatforms" :key="platform.id" :value="platform.id">
                                 {{ platform.name }}
                             </option>
@@ -77,14 +79,14 @@
 </template>
 
 <script>
-import Axios from '../../../config/axios';
+import Axios from '../../../../config/axios';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 
 TimeAgo.addDefaultLocale(en);
 
 export default {
-    name: 'AddAsset',
+    name: 'CreateLog',
     data() {
         return {
             log: {},
@@ -99,29 +101,29 @@ export default {
     },
 
     created() {
-        this.showLoader('Fetching Asset Types');
+        // this.showLoader('Fetching Asset Types');
         Axios.get('/assets/types')
             .then(resp => {
                 this.assetTypes = resp.data.data;
             })
             .catch(err => console.error(err))
-            .finally(() => this.hideLoader());
+            // .finally(() => this.hideLoader());
     },
 
     methods: {
         addAsset () {
-            this.showLoader(`Saving Your ${this.selectedAssetType.name} Asset`);
+            // this.showLoader(`Saving Your ${this.selectedAssetType.name} Asset`);
             this.log.asset_id = this.selectedAsset.id;
             Axios.post('/logs', this.log)
                 .then(resp => {
                     this.showSuccessToast(resp.data.message);
                 })
                 .catch(err => console.error(err))
-                .finally(() => this.hideLoader());
+                // .finally(() => this.hideLoader());
         },
 
         loadAssetsOfAssetType () {
-            this.showLoader(`Fetching ${this.selectedAssetType.name} Assets`);
+            // this.showLoader(`Fetching ${this.selectedAssetType.name} Assets`);
             const data = {asset_type_id: this.selectedAssetType.id};
 
             Axios.get('/assets', { params: data})
@@ -129,18 +131,18 @@ export default {
                     this.assets = resp.data.data;
                 })
                 .catch(err => console.error(err))
-                .finally(() => this.hideLoader());
+                // .finally(() => this.hideLoader());
         },
 
         loadExchangesOfAsset () {
-            this.showLoader(`Fetching ${this.selectedAsset.name} Platforms`);
+            // this.showLoader(`Fetching ${this.selectedAsset.name} Platforms`);
             const data = {asset_id: this.selectedAsset.id};
             Axios.get('/platforms', {params: data})
                 .then(resp => {
                     this.assetPlatforms = resp.data.data;
                 })
                 .catch(err => console.error(err))
-                .finally(() => this.hideLoader());
+                // .finally(() => this.hideLoader());
         }
 
     }

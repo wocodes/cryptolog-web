@@ -39,19 +39,25 @@ const routes = [
       {
         path: '/assets/log',
         name: 'logs',
-        component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Logs.vue')
+        component: () => import(/* webpackChunkName: "asset-logs" */ '../components/User/Logs/Logs.vue')
       },
 
       {
         path: '/settings',
         name: 'settings',
-        component: () => import(/* webpackChunkName: "logs" */ '../components/Settings/Settings.vue')
+        component: () => import(/* webpackChunkName: "user-settings" */ '../components/User/Settings/Settings.vue')
       },
 
       {
         path: '/logs/add',
         name: 'add-log',
-        component: () => import(/* webpackChunkName: "logs" */ '../components/Logs/Create.vue')
+        component: () => import(/* webpackChunkName: "add-log" */ '../components/User/Logs/CreateLog.vue')
+      },
+
+      {
+        path: '/admin/assets/add',
+        name: 'add-asset',
+        component: () => import(/* webpackChunkName: "add-asset" */ '../components/Admin/Asset/AddAsset.vue')
       },
     ]
   },

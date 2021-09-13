@@ -4,14 +4,14 @@
 </template>
 
 <script>
-import Axios from "../../../config/axios";
+import Axios from "../../../../config/axios";
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 
 TimeAgo.addDefaultLocale(en)
 
 export default {
-    name: "Logs",
+    name: "AssetSummary",
     data() {
         return {
             topPerformingAssets: null,

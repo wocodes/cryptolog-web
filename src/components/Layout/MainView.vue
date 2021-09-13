@@ -3,7 +3,7 @@
         <TopBar/>
 
         <div class="grid grid-cols-5 gap-4">
-            <SideBar />
+            <SideBar class="hidden md:block" />
 
             <div class="col-span-4 m-6">
                 <router-view/>

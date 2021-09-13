@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Axios from "../../../config/axios";
+import Axios from "../../../../config/axios";
 export default {
     name: "Settings",
     data() {
