@@ -72,8 +72,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   let openRoutes = ["/", "login", "register"];
+  let adminRoutes = ["/admin/assets/add"];
 
-  if (!openRoutes.includes(to.name) && !getFromStorage(USER_TOKEN_KEY)) {
+  if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
+    next();
+  } else if (!openRoutes.includes(to.name) && !getFromStorage(USER_TOKEN_KEY)) {
     next({ name: 'login' })
   } else if(openRoutes.includes(to.name) && getFromStorage(USER_TOKEN_KEY)) {
     next({ name: 'dashboard' })
