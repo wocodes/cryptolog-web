@@ -27,7 +27,7 @@
                 :key="index">
                 <td :class="tdClassStyle">{{ index+1 }}</td>
                 <td :class="tdClassStyle">{{ asset.asset.name }}</td>
-                <td :class="tdClassStyle">{{ asset.platform.name }}</td>
+                <td :class="tdClassStyle">{{ asset.platform?.name }}</td>
                 <td :class="tdClassStyle">{{ asset.asset.symbol }}</td>
                 <td :class="tdClassStyle">{{ asset.quantity_bought }}</td>
                 <td :class="tdClassStyle">${{ asset.initial_value }}</td>
@@ -101,6 +101,13 @@
         },
 
       methods: {
+        // roundInitialValue(value) {
+        //   let val = (value);
+        //   console.log('qwe', val);
+        //
+        //   return val;
+        // },
+
         markAsSold(assetId) {
           Axios.put(`/assets/log/${assetId}/sold`)
               .then((resp) => {

@@ -17,7 +17,7 @@ export default {
   },
 
   mounted() {
-    Axios.get("/assets")
+    Axios.get("/admin/assets")
         .then((resp) => {
           this.assets = resp.data.data
         })

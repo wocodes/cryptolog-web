@@ -35,18 +35,21 @@
                         </select>
                     </div>
 
-                    <div class="" v-if="assetPlatforms.length">
+                    <div class="" v-if="assetPlatformsOptions.length">
                         <label class="block text-sm font-medium text-gray-700" for="asset-name">Exchange/Platform</label>
-                        <select id="exchange-name"
-                                v-model="log.platform_id"
-                                class="input-design"
-                                name="asset-name">
-                            <option :value="null">Select Platform</option>
-                            <option v-for="platform in assetPlatforms" :key="platform.id" :value="platform.id">
-                                {{ platform.name }}
-                            </option>
-                            <!--                                            All this will be changed later-->
-                        </select>
+                      <!--
+                      TODO: The expected behaviour here is that when a user searches for a platform
+                            and doesn't see/select it from the options, then the searched value should be added to the
+                            empty options list and then allow the user select it, while the value will be passed to the
+                            backend for adding to db. Currently not working
+                      -->
+                        <Multiselect :options="assetPlatformsOptions"
+                                     v-model="log.platform_id"
+                                     :searchable="true"
+                                     :required="true"
+                                     @search-change="addValueToOptions($event)"
+                        >
+                        </Multiselect>
                     </div>
 
                     <div class="" v-if="selectedAssetType && selectedAsset">
@@ -83,16 +86,25 @@ import Axios from '../../../../config/axios';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 
+// consider removing as it was giving isues and was replaced with vueform/multiselect
+// import VueMultiselect from 'vue-multiselect'
+// import "vue-multiselect/dist/vue-multiselect.min.css"
+
+import Multiselect from '@vueform/multiselect';
+import '@vueform/multiselect/themes/default.css';
+
 TimeAgo.addDefaultLocale(en);
 
 export default {
     name: 'CreateLog',
+    components: { Multiselect },
     data() {
         return {
+          selectedPlatform: {},
             log: {},
             assetTypes: [],
             assets: [],
-            assetPlatforms: [],
+            assetPlatformsOptions: [],
             platforms: [],
             selectedAssetType: null,
             selectedAsset: null,
@@ -136,14 +148,24 @@ export default {
 
         loadExchangesOfAsset () {
             // this.showLoader(`Fetching ${this.selectedAsset.name} Platforms`);
-            const data = {asset_id: this.selectedAsset.id};
+            const data = {asset_type_id: this.selectedAssetType.id};
             Axios.get('/platforms', {params: data})
                 .then(resp => {
-                    this.assetPlatforms = resp.data.data;
+                    let options = resp.data.data.map(item => {
+                      return {label: item.name, value: item.id};
+                    });
+
+                    this.assetPlatformsOptions = options;
                 })
                 .catch(err => console.error(err))
                 // .finally(() => this.hideLoader());
-        }
+        },
+
+      addValueToOptions(e)
+      {
+        // console.log('asd', this.selectedPlatform);
+        console.log('eve', e);
+      }
 
     }
 };
