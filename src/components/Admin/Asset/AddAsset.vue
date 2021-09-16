@@ -70,7 +70,7 @@ export default {
     methods: {
       addAsset() {
         // this.showLoader(`Saving Your ${this.selectedAssetType.name} Asset`);
-        Axios.post('/assets', this.asset)
+        Axios.post('/admin/assets', this.asset)
             .then(resp => {
               this.showSuccessToast(resp.data.message);
             })
