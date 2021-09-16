@@ -46,7 +46,7 @@ export default {
       fetchUserAssets() {
             Axios.get("/logs")
                 .then(resp => {
-                    this.allAssets = resp.data.data.data
+                    this.allAssets = resp.data.data
                   console.log('asd', this.allAssets);
                 })
                 .catch(err => console.log(err))
