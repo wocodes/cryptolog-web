@@ -30,9 +30,9 @@
                 <td :class="tdClassStyle">{{ asset.platform?.name }}</td>
                 <td :class="tdClassStyle">{{ asset.asset.symbol }}</td>
                 <td :class="tdClassStyle">{{ asset.quantity_bought }}</td>
-                <td :class="tdClassStyle">${{ asset.initial_value }}</td>
-                <td :class="tdClassStyle">${{ asset.current_value }}</td>
-                <td :class="tdClassStyle">${{ asset.profit_loss }}</td>
+                <td :class="tdClassStyle">${{ asset.initial_value.toLocaleString() }}</td>
+                <td :class="tdClassStyle">${{ asset.current_value.toLocaleString() }}</td>
+                <td :class="tdClassStyle">${{ asset.profit_loss.toLocaleString() }}</td>
                 <td :class="tdClassStyle">{{ asset['24_hr_change'] }}</td>
                 <td :class="tdClassStyle">{{ asset.status }}</td>
                 <td :class="tdClassStyle">{{ asset.date_bought }}</td>
@@ -42,7 +42,7 @@
                 <td :class="tdClassStyle">
                     {{ timeAgo.format(new Date(asset.last_updated_at)) }}
                 </td>
-                <td :class="tdClassStyle">&#8358;{{ asset.profit_loss_naira }}</td>
+                <td :class="tdClassStyle">&#8358;{{ parseFloat(asset.profit_loss_naira).toLocaleString() }}</td>
                 <td :class="tdClassStyle">
                   <button v-if="!asset.is_sold" :class="defaultActionBtnStyle" @click="markAsSold(asset.id)">Mark as Sold</button>
 

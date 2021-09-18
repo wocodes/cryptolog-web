@@ -21,7 +21,6 @@
   </Tip>
 
   <StatCards />
-  <hr class="m-8">
   <div class="text-left">
     <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12"> <!-- DUMMY CHART DATA VIEW -->
       <div class="w-full bg-white rounded-xl shadow-lg justify-center" v-if="chartDataLoaded">
@@ -62,6 +61,7 @@
                  :tdStyle="'border-green-200 bg-green-100'" />
     </div>
   </div>
+  <hr class="m-8">
 </template>
 
 <script>

@@ -6,7 +6,9 @@
           <div class="text-right w-full">
               <div class="text-gray-500 text-lg font-medium">{{ cardTitle }}</div>
               <p class="text-black text-5xl">{{ value }}</p>
-              <small>{{ sub }}</small>
+              <small class="block text-base">{{ sub }}</small>
+
+              <slot class="block"></slot>
           </div>
       </div>
 </template>
