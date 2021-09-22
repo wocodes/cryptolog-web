@@ -177,9 +177,9 @@
                 const withdrawalAmount = document.getElementById('withdrawal-amount').value;
                 const withdrawalQuantity = document.getElementById('withdrawal-quantity').value;
                 const withdrawalDate = document.getElementById('withdrawal-date').value;
-                if (parseFloat(withdrawalAmount) > parseFloat(log.current_value)) {
-                  vm.$swal.showValidationMessage('Amount cannot be higher than current value');
-                }
+                // if (parseFloat(withdrawalAmount) > parseFloat(log.current_value)) {
+                //   vm.$swal.showValidationMessage('Amount cannot be higher than current value');
+                // }
 
                 if (parseFloat(withdrawalQuantity) > parseFloat(log.quantity_bought)) {
                   vm.$swal.showValidationMessage('Quantity cannot be higher than quantity bought');
