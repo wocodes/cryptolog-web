@@ -21,6 +21,11 @@
                                 <p class="mt-4 text-lg text-gray-300">
                                     AssetLog is a smart asset/investments tracker. We help you analysis your investment portfolio and share insights on how you can maximise your wealth.
                                 </p>
+
+                              <p>
+                                Asset log helps you log/keep track of all your financial/xxx assets e.g Cryptocurrency, real estate, foreign exchange, stocks, etc.
+                                Out robust analytical AI tool stays ahead of time to assists you to plan and prepare your future investments and avoidance of potential risks.
+                              </p>
                             </div>
                         </div>
                     </div>
