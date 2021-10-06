@@ -1,10 +1,13 @@
 <template>
-  <div>
-    {{ $store.state }}
+  <div v-if="!user.fiat_id">
+    <AddFiatModal />
   </div>
 
+  <div v-if="user.fiat_id && !user.has_api_keys">
+    <AddApiKeysModal />
+  </div>
 
-  <div>
+  <div v-if="user.finished_setup">
     <!-- Tips -->
 
     <!-- if average of top 10 assets are positive, show this else show thumbs down -->
@@ -76,10 +79,12 @@ import StatCards from "@/components/Dashboard/Stats";
 import VueApexCharts from "vue3-apexcharts";
 import Tip from "@/components/Shared/Tip";
 import Axios from "../../../config/axios";
+import AddFiatModal from "@/components/Dashboard/Welcome/AddFiatModal";
+import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
 
 export default {
   name: "UserDashboard",
-  components: {AssetList, StatCards, apexchart: VueApexCharts, Tip},
+  components: {AddApiKeysModal, AddFiatModal, AssetList, StatCards, apexchart: VueApexCharts, Tip},
   data() {
     return {
       topPerformingAssets: null,

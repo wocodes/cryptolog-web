@@ -16,22 +16,15 @@
 </template>
 
 <script>
-import {USER_EMAIL_KEY, USER_IS_ADMIN_KEY, USER_NAME_KEY, USER_TOKEN_KEY} from "../../../helpers/constants";
+    import {USER_TOKEN_KEY} from "../../../helpers/constants";
     import {deleteFromStorage} from "../../../helpers/storage";
 
     export default {
         name: "TopBar",
-        // data() {
-        //   return  {
-        //     user: this.store.state.user
-        //   }
-        // },
         methods: {
             logout() {
                 deleteFromStorage(USER_TOKEN_KEY);
-                deleteFromStorage(USER_NAME_KEY);
-                deleteFromStorage(USER_IS_ADMIN_KEY);
-                deleteFromStorage(USER_EMAIL_KEY);
+                deleteFromStorage('vuex')
 
                 // redirect to login page
                 this.$router.replace({name: "login"});
