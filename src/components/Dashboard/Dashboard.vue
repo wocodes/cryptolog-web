@@ -9,8 +9,11 @@
 import UserDashboard from "@/components/User/UserDashboard";
 import AdminDashboard from "@/components/Admin/AdminDashboard";
 export default {
-    name: "Dashboard",
+  name: "Dashboard",
   components: {AdminDashboard, UserDashboard},
+  mounted() {
+    console.log('user', this.$store.state.user);
+  }
 }
 </script>
 

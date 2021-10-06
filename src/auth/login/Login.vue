@@ -141,7 +141,7 @@ export default {
         saveToStorage(USER_IS_ADMIN_KEY, resp.data.data.is_admin);
 
         // console.log('user', resp.data.data);
-        // this.$store.commit('storeUser', resp.data.data);
+        this.$store.commit('storeUser', resp.data.data);
 
         this.showSuccessToast(resp.data.message);
 

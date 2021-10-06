@@ -12,8 +12,9 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 import {DEV_WHITELIST, USER_EMAIL_KEY, USER_IS_ADMIN_KEY, USER_NAME_KEY} from '../helpers/constants';
 import {getFromStorage} from "../helpers/storage";
+// import NProgress from "vue-nprogress";
 // import { useStore } from 'vuex';
-
+import VueSplash from 'vue-splash';
 
 createApp(App)
     .mixin({
@@ -57,9 +58,18 @@ createApp(App)
             },
 
             showErrorToast(text, title='') {
+                let errors = '<ul>';
+
+                if (text.response.data.errors) {
+                    let errorsArr = Object.values(text.response.data.errors);
+                    errorsArr = errorsArr.flat();
+                    errorsArr.forEach(error => errors += `<li>${error}</li>`);
+                }
+                errors += '</ul>';
+
                 this.$swal({
                     title,
-                    html: `<span style="color:#fff">${text}</span>`,
+                    html: `<span style="color:#fff">${errors}</span>`,
                     toast: true,
                     icon: 'error',
                     position: 'top-end',
@@ -93,4 +103,6 @@ createApp(App)
     .use(VueLoading)
     .use(router)
     .use(store)
+    // .use(NProgress)
+    .use(VueSplash)
     .mount('#app');

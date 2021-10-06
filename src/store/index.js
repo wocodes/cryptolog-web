@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
+    plugins: [createPersistedState()],
     state: {
         user: {},
         userMenu: [
@@ -32,6 +34,12 @@ export default createStore({
     mutations: {
         storeUser (state, user) {
             state.user = user;
+        }
+    },
+
+    actions: {
+        updateUserData (context, payload) {
+            context.commit('storeUser', payload);
         }
     }
 });
