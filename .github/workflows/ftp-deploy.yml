@@ -9,7 +9,7 @@ on:
  #   branches: [ build ]
 
   pull_request:
-    branches: [ master ]
+    branches: [ staging ]
     types: [ closed ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -38,4 +38,4 @@ jobs:
         username: advaaxrv
         password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
         local-dir: ./dist/
-        server-dir: /jaapps.com/apps/assetlog/
+        server-dir: /jaapps.com/apps/assetlog-staging/
