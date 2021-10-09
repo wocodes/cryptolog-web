@@ -5,7 +5,7 @@
         <div class="grid grid-cols-5 gap-4">
             <SideBar class="hidden md:block" />
 
-            <div class="col-span-4" ref="pageContainer" >
+            <div class="col-span-5 md:col-span-4 w-full" ref="pageContainer" >
                 <router-view/>
             </div>
         </div>

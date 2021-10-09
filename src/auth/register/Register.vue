@@ -1,129 +1,62 @@
 <template>
-    <div>
-        <main>
-            <section class="absolute w-full h-full">
-                <div
-                    class="absolute top-0 w-full h-full bg-gray-900"
-                    style="background-size: 100%; background-repeat: no-repeat;"
-                    :style="{'background-image': 'url(' + require('../../assets/img/register_bg_2.png').default + ')'}"
-                ></div>
-                <div class="container mx-auto px-4 h-full">
-                    <div class="flex content-center items-center justify-center h-full">
-                        <div class="w-full lg:w-4/12 px-4">
-                            <div
-                                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
-                            >
-                                <div class="rounded-t mb-0 px-6 py-6">
-                                    <div class="text-center mb-3">
-                                        <h6 class="text-gray-600 text-sm font-bold">
-                                            Sign up with
-                                        </h6>
-                                    </div>
-                                    <div class="btn-wrapper text-center">
-<!--                                        <button-->
-<!--                                            class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"-->
-<!--                                            type="button"-->
-<!--                                            style="transition: all 0.15s ease 0s;">-->
-<!--                                            -->
-<!--                                            <img alt="..." class="w-5 mr-1" src="../../assets/img/github.svg" />Github-->
-<!--                                        </button>-->
-                                        <button
-                                        class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                                        type="button"
-                                        style="transition: all 0.15s ease 0s;"
-                                    >
-                                        <img
-                                            alt="..."
-                                            class="w-5 mr-1"
-                                            src="../../assets/img/google.svg"
-                                        />Google
-                                    </button>
-                                    </div>
-                                    <hr class="mt-6 border-b-1 border-gray-400" />
-                                </div>
-                                <div class="flex-auto px-4 lg:px-10 pt-0">
-                                    <div class="text-gray-500 text-center mb-3 font-bold">
-                                        <small>Or sign up with credentials</small>
-                                    </div>
-                                    <form @submit.prevent="doRegister">
-                                        <div class="relative w-full mb-3">
-                                            <label class="block uppercase text-gray-700 text-xs font-bold mb-2">Fullname</label>
-                                            <input
-                                            type="text"
-                                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                            placeholder="Fullname"
-                                            style="transition: all 0.15s ease 0s;"
-                                            v-model="user.name"
-                                        />
-                                        </div>
-                                        <div class="relative w-full mb-3">
-                                            <label
-                                                    class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                            >Email</label
-                                            ><input
-                                                type="email"
-                                                class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                                placeholder="Email"
-                                                style="transition: all 0.15s ease 0s;"
-                                                v-model="user.username"
-                                        />
-                                        </div>
-                                        <div class="relative w-full mb-3">
-                                            <label
-                                                class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                                                for="grid-password"
-                                            >Password</label
-                                            ><input
-                                            type="password"
-                                            class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                                            placeholder="Password"
-                                            style="transition: all 0.15s ease 0s;"
-                                            v-model="user.password"
-                                        />
-                                        </div>
-                                        <div class="text-center mt-6">
-                                            <button
-                                                class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                                                type="submit"
-                                                style="transition: all 0.15s ease 0s;"
-                                            >
-                                                Sign Up
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
+    <page-template>
+        <form class="text-center md:text-left p-10 lg:text-left md:p-20 lg:p-28 xl:p-40 w-full lg:w-full"
+              @submit.prevent="doRegister">
+            <div class="flex flex-col space-y-3 pb-10">
+                <h1 class="text-2xl font-bold">Sign Up</h1>
+                <span class="text-sm text-gray-900">Create your assetlog account</span>
+            </div>
+            <!--Sign p with google-->
+            <div
+                class="flex space-x-2 justify-center items-end bg-white py-2 rounded-md transition duration-100 border-2 border-gray-200">
+                <img alt="" class=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png">
+                <button>Sign up with Google</button>
+            </div>
 
-                                <div class="flex flex-wrap font-bold text-blue text-lg my-2">
-                                    <div class="w-1/2">
-                                        <a href="#" class="text-black">
-                                            <small>Already have an account?</small>
-                                        </a>
-                                    </div>
-                                    <div class="w-1/2">
-                                        <router-link :to="{name: 'login'}">
-                                            <small>Log in</small>
-                                        </router-link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="text-center my-6">
+                <span class="text-mute">Or use your email</span>
+            </div>
+
+            <div class="flex flex-col space-y-6">
+                <div class="">
+                    <label class="block text-md mb-2" for="fullname">Full Name</label>
+                    <input id="fullname" v-model="user.name"
+                           class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none"
+                           name="password" placeholder="Eleanor Pena" required type="text">
                 </div>
-            </section>
-        </main>
+                <div class="">
+                    <label class="block text-md mb-2" for="email">Email</label>
+                    <input id="email" v-model="user.username"
+                           class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none"
+                           name="password" placeholder="someone@example.com" required type="email">
+                </div>
+                <div class="">
+                    <label class="block text-md mb-2" for="password">Password</label>
+                    <input id="password" v-model="user.password"
+                           class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none"
+                           name="password" placeholder="someone1234!8" required type="password">
+                </div>
+            </div>
 
-<!--      <SplashLoader /> NOT YET WORKING-->
-    </div>
+            <div class="pt-6">
+                <button class="auth-cta">Create Account</button>
+                <p class="mt-6 text-xs text-center">Already have an account?
+                    <router-link :to="{name: 'login'}" class="text-primary">Log in</router-link>
+                </p>
+            </div>
+        </form>
+    </page-template>
 </template>
 
 <script>
 import Axios from "../../../config/axios";
+import PageTemplate from "@/components/auth/pageTemplate";
 // import SplashLoader from "@/components/Shared/SplashLoader"; NOT YET WORKING
 
 export default {
-  name: "Register",
-  // components: {SplashLoader},  NOT YET WORKING
-  data() {
+    name: "Register",
+    components: {PageTemplate},
+    data() {
         return {
             user: {
                 name: null,
@@ -135,10 +68,9 @@ export default {
 
     methods: {
         doRegister() {
-          this.showLoader(`Registering...`);
+            this.showLoader();
             Axios.post('/user/register', this.user)
                 .then(resp => {
-
                     this.showSuccessToast(resp.data.message+"<br>You may now login");
                     this.$router.push('/login');
                 })

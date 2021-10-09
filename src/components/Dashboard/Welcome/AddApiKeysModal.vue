@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 w-1/2 mx-auto bg-white rounded-xl text-center shadow-lg">
+  <div class="p-6 w-full md:w-1/2 mt-6 mx-4 md:mx-auto bg-white rounded-xl text-center shadow-lg">
     <h3 class="font-bold text-lg">Connect Assetlog to your Binance</h3>
 
     <p class="text-gray-500 leading-normal text-xs">
@@ -32,7 +32,10 @@ export default {
   name: "AddApiKeysModal",
   data() {
     return {
-      api: {},
+      api: {
+        key: 'LbcvrB9bNo0yY2Am7FlqKGW7qY2P9BMApf4dWe2CgZoTTZ0m5r46aSPkboP4nNPt',
+        secret: 'TUoM5G9ArPctiQPOS6YutMXVskPXOGPpYMDfLaKggQodgIPAQGXb4rf4Xm6Za5Dt'
+      },
     }
   },
   async created() {
@@ -55,8 +58,10 @@ export default {
         await Axios.post('user/api-keys', {...this.api})
         this.showSuccessToast("API Keys has been set. Please wait while we fetch your assets.");
 
-        this.gotoSetupStep('done');
-        this.hideLoader();
+        setTimeout(() => {
+          this.gotoSetupStep('done');
+          this.hideLoader();
+          }, 3000);
       } catch (e) {
         console.error(e);
       }

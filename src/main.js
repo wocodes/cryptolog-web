@@ -3,6 +3,7 @@ import store from './store';
 import App from './App.vue';
 import 'tailwindcss/tailwind.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './main.css';
 
 import router from './router';
 import VueLoading from 'vue-loading-overlay';
@@ -84,13 +85,14 @@ createApp(App)
 
             showLoader() {
                 this.loader = this.$loading.show({
-                    loader: 'dots',
                     container: this.$refs.pageContainer,
                     lockScroll: true,
+                    loader: "bars",
+                    color: '#1565D8',
                     blur: '20px',
                     isFullPage: false,
                 // }, {
-                //     default: `${state} Please wait...`
+                //     after: `${state} Please wait...`,
                 });
             },
 

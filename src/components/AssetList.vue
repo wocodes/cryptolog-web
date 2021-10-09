@@ -49,7 +49,9 @@
                 <td :class="tdClassStyle">
                     {{ timeAgo.format(new Date(log.last_updated_at)) }}
                 </td>
-                <td :class="tdClassStyle">&#8358;{{ parseFloat(log.profit_loss_naira).toLocaleString() }}</td>
+                <td :class="tdClassStyle">
+                  &#8358;{{ parseFloat(log.profit_loss_fiat).toLocaleString() }}
+                </td>
                 <td :class="tdClassStyle">
                   <button v-if="!log.is_sold" :class="defaultActionBtnStyle" @click="markAsSold(log.id)">Mark as Sold</button>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AdminDashboard v-if="user.is_admin === 'true'"/>
+    <AdminDashboard v-if="user.is_admin"/>
     <UserDashboard v-else />
   </div>
 </template>
