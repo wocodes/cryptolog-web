@@ -82,16 +82,24 @@ createApp(App)
                 })
             },
 
-            showLoader(state='') {
+            showLoader() {
                 this.loader = this.$loading.show({
-                    lockScroll: true
-                }, {
-                    default: `${state} Please wait...`
+                    loader: 'dots',
+                    container: this.$refs.pageContainer,
+                    lockScroll: true,
+                    blur: '20px',
+                    isFullPage: false,
+                // }, {
+                //     default: `${state} Please wait...`
                 });
             },
 
             hideLoader() {
                 this.loader.hide();
+            },
+
+            gotoSetupStep(step) {
+                this.$store.commit('updateSetupStep', step)
             }
         }
     })
