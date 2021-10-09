@@ -1,6 +1,6 @@
 <template>
     <page-template>
-        <div class="text-center md:text-left lg:text-left md:p-20 lg:p-28 xl:p-40 lg:w-full w-full px-10">
+        <div class="text-center md:text-left lg:text-left md:p-20 lg:p-28 xl:p-40 lg:w-full w-full p-10">
             <div v-if="email_sent">
                 <div class="flex flex-col space-y-3">
                     <h1 class="text-2xl font-bold">Check your email</h1>
