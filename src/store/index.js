@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
+    plugins: [createPersistedState()],
     state: {
         user: {},
         userMenu: [
@@ -26,12 +28,29 @@ export default createStore({
                 name: 'Add Asset',
                 iconPath: '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />'
             }
-        ]
+        ],
+        setupSteps: {
+            fiat: false,
+            selectAssetLogger: false,
+            apiKeys: false,
+            done: false,
+        }
     },
 
     mutations: {
         storeUser (state, user) {
             state.user = user;
+        },
+
+        updateSetupStep (state, step=null) {
+            state.setupSteps['fiat'] = false;
+            state.setupSteps['selectAssetLogger'] = false;
+            state.setupSteps['apiKeys'] = false;
+            state.setupSteps['done'] = false;
+
+            if (step) {
+                state.setupSteps[step] = true;
+            }
         }
-    }
+    },
 });

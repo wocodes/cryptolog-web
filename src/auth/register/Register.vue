@@ -111,15 +111,19 @@
                 </div>
             </section>
         </main>
+
+<!--      <SplashLoader /> NOT YET WORKING-->
     </div>
 </template>
-<script>
 
+<script>
 import Axios from "../../../config/axios";
+// import SplashLoader from "@/components/Shared/SplashLoader"; NOT YET WORKING
 
 export default {
-    name: "Register",
-    data() {
+  name: "Register",
+  // components: {SplashLoader},  NOT YET WORKING
+  data() {
         return {
             user: {
                 name: null,
@@ -131,13 +135,17 @@ export default {
 
     methods: {
         doRegister() {
+          this.showLoader(`Registering...`);
             Axios.post('/user/register', this.user)
                 .then(resp => {
 
-                    this.showSuccessToast(resp.data.message+". You may now login");
-                    console.log(resp)
+                    this.showSuccessToast(resp.data.message+"<br>You may now login");
+                    this.$router.push('/login');
                 })
-                .catch(err => console.error(err));
+                .catch(err => {
+                  this.showErrorToast(err)
+                })
+                .finally(() => this.hideLoader())
         }
     }
 }
