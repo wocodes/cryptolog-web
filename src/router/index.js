@@ -26,6 +26,12 @@ const routes = [
   },
 
   {
+    path: '/forgot-password',
+    name: 'forgot-password',
+    component: () => import(/* webpackChunkName: "forgot-password" */ '../auth/forgot-password/VerifyEmail.vue')
+  },
+
+  {
     path: '/app',
     name: 'app',
     component: () => import(/* webpackChunkName: "main-view" */ '../components/Layout/MainView.vue'),
@@ -71,7 +77,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let openRoutes = ["/", "login", "register"];
+  let openRoutes = ["/", "login", "register","forgot-password"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
