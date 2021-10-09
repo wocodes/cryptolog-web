@@ -1,9 +1,9 @@
 <template>
     <page-template>
-        <form class="text-center md:text-left lg:text-left md:p-20 lg:p-28 xl:p-40 lg:w-full w-full py-10" @submit.prevent="doLogin">
+        <form class="text-center md:text-left lg:text-left md:p-20 lg:p-28 xl:p-40 lg:w-full w-full p-10" @submit.prevent="doLogin">
             <div class="flex flex-col space-y-3 pb-10">
                 <h1 class="text-2xl font-bold">Welcome Back</h1>
-                <span class="text-sm text-gray-900">Please, enter yout details to proceed</span>
+                <span class="text-sm text-gray-900">Please, enter your details to proceed</span>
             </div>
             <!--Sign in with google-->
             <div
