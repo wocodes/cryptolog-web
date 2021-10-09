@@ -15,7 +15,7 @@
     <SuccessAfterApiKeys class="m-auto"/>
   </div>
 
-  <div v-if="user.finished_setup || noPendingSetupStep()">
+  <div v-if="user.finished_setup">
     <!-- Tips -->
 
     <!-- if average of top 10 assets are positive, show this else show thumbs down -->
@@ -97,7 +97,8 @@ export default {
   components: {
     SuccessAfterApiKeys,
     AddApiKeysModal,
-    SelectSetupAssetLogger, AddFiatModal, AssetList, StatCards, apexchart: VueApexCharts, Tip},
+    SelectSetupAssetLogger, AddFiatModal, AssetList, StatCards, apexchart: VueApexCharts, Tip
+  },
   data() {
     return {
       topPerformingAssets: null,

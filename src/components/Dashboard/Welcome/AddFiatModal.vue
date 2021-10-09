@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 w-1/2 mx-auto bg-white rounded-xl text-center shadow-lg">
+  <div class="p-6 w-full md:w-1/2 mt-6 mx-4 md:mx-auto bg-white rounded-xl text-center shadow-lg">
     <h3 class="font-bold text-lg">Set up your local currency</h3>
 
 
