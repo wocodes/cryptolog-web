@@ -9,7 +9,7 @@ on:
  #   branches: [ build ]
 
   pull_request:
-    branches: [ master ]
+    branches: [ staging ]
     types: [ closed ]
 
   # Allows you to run this workflow manually from the Actions tab
