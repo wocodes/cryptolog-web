@@ -1,138 +1,76 @@
 <template>
-  <div>
-    <main>
-      <section class="absolute w-full h-full">
-        <div
-          class="absolute top-0 w-full h-full bg-gray-900"
-          style="background-size: 100%; background-repeat: no-repeat;"
-          :style="{'background-image': 'url(' + require('../../assets/img/register_bg_2.png').default + ')'}"
-        ></div>
-        <div class="container mx-auto px-4 h-full">
-          <div class="flex content-center items-center justify-center h-full">
-            <div class="w-full lg:w-4/12 px-4">
-              <div
-                class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0"
-              >
-                <div class="rounded-t mb-0 px-6 py-6">
-                  <div class="text-center mb-3">
-                    <h6 class="text-gray-600 text-sm font-bold">
-                      Sign in with
-                    </h6>
-                  </div>
-                  <div class="btn-wrapper text-center">
-<!--                    <button-->
-<!--                      class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"-->
-<!--                      type="button"-->
-<!--                      style="transition: all 0.15s ease 0s;">-->
-<!--                        <img alt="..." class="w-5 mr-1" src="../../assets/img/github.svg"/>Github-->
-<!--                    </button>-->
-                    <button
-                      class="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs"
-                      type="button"
-                      style="transition: all 0.15s ease 0s;"
-                    >
-                      <img
-                        alt="..."
-                        class="w-5 mr-1"
-                        src="../../assets/img/google.svg"
-                      />Google
-                    </button>
-                  </div>
-                  <hr class="mt-6 border-b-1 border-gray-400" />
-                </div>
-                <div class="flex-auto px-4 lg:px-10 pt-0">
-                  <div class="text-gray-500 text-center mb-3 font-bold">
-                    <small>Or sign in with credentials</small>
-                  </div>
-                  <form @submit.prevent="doLogin">
-                    <div class="relative w-full mb-3">
-                      <label
-                        class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                        for="grid-password"
-                        >Username/Email</label
-                      ><input
-                        type="text"
-                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Username/Email"
-                        style="transition: all 0.15s ease 0s;"
-                        v-model="user.username"
-                      />
-                    </div>
-                    <div class="relative w-full mb-3">
-                      <label
-                        class="block uppercase text-gray-700 text-xs font-bold mb-2"
-                        for="grid-password"
-                        >Password</label
-                      ><input
-                        type="password"
-                        class="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                        placeholder="Password"
-                        style="transition: all 0.15s ease 0s;"
-                        v-model="user.password"
-                      />
-                    </div>
-                    <div>
-                      <label class="inline-flex items-center cursor-pointer"
-                        ><input
-                          id="customCheckLogin"
-                          type="checkbox"
-                          class="form-checkbox border-0 rounded text-gray-800 ml-1 w-5 h-5"
-                          style="transition: all 0.15s ease 0s;"
-                        /><span class="ml-2 text-sm font-semibold text-gray-700"
-                          >Remember me</span
-                        ></label
-                      >
-                    </div>
-                    <div class="text-center mt-6">
-                      <button
-                        class="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                        type="submit"
-                        style="transition: all 0.15s ease 0s;"
-                      >
-                        Sign In
-                      </button>
-                    </div>
-                  </form>
-                </div>
-                  <div class="flex flex-wrap font-bold text-blue text-lg my-2">
-                      <div class="w-1/2">
-                          <a href="#" class="text-black">
-                              <small>Forgot password?</small>
-                          </a>
-                      </div>
-                      <div class="w-1/2">
-                          <router-link :to="{name: 'register'}">
-                              <small>Create new account</small>
-                          </router-link>
-                      </div>
-                  </div>
-              </div>
+    <page-template>
+        <form class="text-center md:text-left lg:text-left md:p-20 lg:p-28 xl:p-40 lg:w-full w-full py-10" @submit.prevent="doLogin">
+            <div class="flex flex-col space-y-3 pb-10">
+                <h1 class="text-2xl font-bold">Welcome Back</h1>
+                <span class="text-sm text-gray-900">Please, enter yout details to proceed</span>
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+            <!--Sign in with google-->
+            <div
+                class="flex space-x-2 justify-center items-end bg-white py-2 rounded-md transition duration-100 border-2 border-gray-200">
+                <img alt="" class=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png">
+                <button>Sign in with Google</button>
+            </div>
+
+            <div class="text-center my-6">
+                <span class="text-mute">Or use your email</span>
+            </div>
+
+            <div class="flex flex-col space-y-6">
+                <div class="">
+                    <label class="block text-md mb-2" for="email">Email</label>
+                    <input id="email" v-model="user.username"
+                           class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" name="email"
+                           placeholder="email" required type="email">
+                </div>
+                <div class="">
+                    <label class="block text-md mb-2" for="password">Password</label>
+                    <input id="password" v-model="user.password"
+                           class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" name="password"
+                           placeholder="password" required type="password">
+                </div>
+            </div>
+
+            <div class="w-full flex justify-between pt-3">
+                <div class="flex items-center">
+                    <input id="rememberme" class="w-3 h-3 mr-2" name="rememberme" type="checkbox"/>
+                    <label class="text-xs" for="rememberme">Remember Me</label>
+                </div>
+                <router-link :to="{name: 'forgot-password'}" class="text-xs text-primary">Forgot Password?</router-link>
+            </div>
+
+            <div class="pt-6">
+                <button class="auth-cta">Sign in</button>
+                <p class="mt-6 text-xs text-center">Don’t Have An Account?
+                    <router-link :to="{name: 'register'}" class="text-primary">Create new account</router-link>
+                </p>
+            </div>
+        </form>
+    </page-template>
 </template>
+
 <script>
 
 import Axios from "../../../config/axios";
 import {USER_TOKEN_KEY} from "../../../helpers/constants";
 import {saveToStorage} from "../../../helpers/storage";
+import PageTemplate from "@/components/auth/pageTemplate";
 
 export default {
-  name: "Login",
-  data() {
-    return {
-      user: {
-        username: null,
-        password: null
-      }
-    }
-  },
+    name: "Login",
+    components: {PageTemplate},
+    data() {
+        return {
+            user: {
+                username: null,
+                password: null
+            }
+        }
+    },
 
   methods: {
     doLogin() {
+        this.showLoader();
       Axios.post('/user/login', this.user)
       .then(resp => {
         saveToStorage(USER_TOKEN_KEY, resp.data.data.token);
@@ -142,8 +80,22 @@ export default {
 
         this.$router.replace({name: "dashboard"})
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err))
+      .finally(() => {
+          this.hideLoader();
+      });
     }
   }
 }
 </script>
+
+<style>
+.text-mute {
+    @apply text-gray-400;
+}
+
+.auth-cta {
+    @apply py-2 w-full rounded text-white;
+    background-color: #1565D8;
+}
+</style>
