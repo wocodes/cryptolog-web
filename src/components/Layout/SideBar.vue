@@ -11,7 +11,7 @@
             </li>
         </ul>
 
-      <ul class="list-none" v-if="user.is_admin === 'true'">
+      <ul class="list-none" v-if="user.is_admin">
         <li class="p-4" v-for="(menu, index) in adminMenu" :key="index">
           <router-link :to="{name: menu.to}" class="no-underline">
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@
         </li>
       </ul>
 
-      <ul class="list-none" v-if="user.is_admin !== 'true'">
+      <ul class="list-none" v-if="!user.is_admin">
         <li class="p-4" v-for="(menu, index) in userMenu" :key="index">
           <router-link :to="{name: menu.to}" class="no-underline">
             <svg xmlns="http://www.w3.org/2000/svg"
