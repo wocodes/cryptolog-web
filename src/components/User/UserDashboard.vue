@@ -1,10 +1,21 @@
 <template>
-  <div>
-    {{ $store.state }}
+  <div class="flex h-screen" v-if="!user.fiat_id || $store.state.setupSteps.fiat">
+    <AddFiatModal class="m-auto" />
   </div>
 
+  <div class="flex h-screen" v-if="$store.state.setupSteps.selectAssetLogger">
+    <SelectSetupAssetLogger class="m-auto" />
+  </div>
 
-  <div>
+  <div class="flex h-screen" v-if="$store.state.setupSteps.apiKeys">
+    <AddApiKeysModal class="m-auto"/>
+  </div>
+
+  <div class="flex h-screen" v-if="$store.state.setupSteps.done">
+    <SuccessAfterApiKeys class="m-auto"/>
+  </div>
+
+  <div v-if="user.finished_setup || noPendingSetupStep()">
     <!-- Tips -->
 
     <!-- if average of top 10 assets are positive, show this else show thumbs down -->
@@ -76,10 +87,17 @@ import StatCards from "@/components/Dashboard/Stats";
 import VueApexCharts from "vue3-apexcharts";
 import Tip from "@/components/Shared/Tip";
 import Axios from "../../../config/axios";
+import AddFiatModal from "@/components/Dashboard/Welcome/AddFiatModal";
+import SelectSetupAssetLogger from "@/components/Dashboard/Welcome/SelectSetupAssetLogger";
+import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
+import SuccessAfterApiKeys from "@/components/Dashboard/Welcome/SuccessAfterApiKeys";
 
 export default {
   name: "UserDashboard",
-  components: {AssetList, StatCards, apexchart: VueApexCharts, Tip},
+  components: {
+    SuccessAfterApiKeys,
+    AddApiKeysModal,
+    SelectSetupAssetLogger, AddFiatModal, AssetList, StatCards, apexchart: VueApexCharts, Tip},
   data() {
     return {
       topPerformingAssets: null,
@@ -102,6 +120,13 @@ export default {
   },
 
   methods: {
+    noPendingSetupStep() {
+      return (!this.$store.state.setupSteps.fiat &&
+          !this.$store.state.setupSteps.selectAssetLogger &&
+          !this.$store.state.setupSteps.apiKeys &&
+          !this.$store.state.setupSteps.done);
+    },
+
     getEarningsSummary() {
       Axios.get("/assets/report/earnings-summary")
           .then(resp => {
