@@ -11,21 +11,18 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
-import {DEV_WHITELIST, USER_EMAIL_KEY, USER_IS_ADMIN_KEY, USER_NAME_KEY} from '../helpers/constants';
-import {getFromStorage} from "../helpers/storage";
+import {DEV_WHITELIST} from '../helpers/constants';
+// import {getFromStorage} from "../helpers/storage";
+// import NProgress from "vue-nprogress";
 // import { useStore } from 'vuex';
-
+import VueSplash from 'vue-splash';
 
 createApp(App)
     .mixin({
         data() {
             return {
                 // store: useStore(),
-                user: {
-                  name: getFromStorage(USER_NAME_KEY),
-                  email: getFromStorage(USER_EMAIL_KEY),
-                  is_admin: getFromStorage(USER_IS_ADMIN_KEY),
-                },
+                user: this.$store.state.user,
                 loader: null,
                 allowedToViewDevUpdate: false,
                 tipsStyle: 'font-sm md:font-md bg-blue-100 border-t-4 border-blue-500 rounded-b text-teal-900 my-3 p-1 shadow-md flex text-left'
@@ -58,9 +55,18 @@ createApp(App)
             },
 
             showErrorToast(text, title='') {
+                let errors = '<ul>';
+
+                if (text.response.data.errors) {
+                    let errorsArr = Object.values(text.response.data.errors);
+                    errorsArr = errorsArr.flat();
+                    errorsArr.forEach(error => errors += `<li>${error}</li>`);
+                }
+                errors += '</ul>';
+
                 this.$swal({
                     title,
-                    html: `<span style="color:#fff">${text}</span>`,
+                    html: `<span style="color:#fff">${errors}</span>`,
                     toast: true,
                     icon: 'error',
                     position: 'top-end',
@@ -77,18 +83,25 @@ createApp(App)
                 })
             },
 
-            showLoader(state='') {
+            showLoader() {
                 this.loader = this.$loading.show({
+                    container: this.$refs.pageContainer,
                     lockScroll: true,
                     loader: "bars",
                     color: '#1565D8',
-                }, {
-                    after: `${state} Please wait...`,
+                    blur: '20px',
+                    isFullPage: false,
+                // }, {
+                //     after: `${state} Please wait...`,
                 });
             },
 
             hideLoader() {
                 this.loader.hide();
+            },
+
+            gotoSetupStep(step) {
+                this.$store.commit('updateSetupStep', step)
             }
         }
     })
@@ -96,4 +109,6 @@ createApp(App)
     .use(VueLoading)
     .use(router)
     .use(store)
+    // .use(NProgress)
+    .use(VueSplash)
     .mount('#app');

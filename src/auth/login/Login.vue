@@ -52,8 +52,8 @@
 <script>
 
 import Axios from "../../../config/axios";
+import {USER_TOKEN_KEY} from "../../../helpers/constants";
 import {saveToStorage} from "../../../helpers/storage";
-import {USER_EMAIL_KEY, USER_IS_ADMIN_KEY, USER_NAME_KEY, USER_TOKEN_KEY} from "../../../helpers/constants";
 import PageTemplate from "@/components/auth/pageTemplate";
 
 export default {
@@ -68,29 +68,24 @@ export default {
         }
     },
 
-    methods: {
-        async doLogin() {
-            try {
-                this.showLoader();
-                const {data: response} = await Axios.post('/user/login', this.user)
+  methods: {
+    doLogin() {
+        this.showLoader();
+      Axios.post('/user/login', this.user)
+      .then(resp => {
+        saveToStorage(USER_TOKEN_KEY, resp.data.data.token);
+        this.$store.commit('storeUser', resp.data.data);
 
-                saveToStorage(USER_EMAIL_KEY, response.data.email);
-                saveToStorage(USER_NAME_KEY, response.data.name);
-                saveToStorage(USER_TOKEN_KEY, response.data.token);
-                saveToStorage(USER_IS_ADMIN_KEY, response.data.is_admin);
+        this.showSuccessToast(resp.data.message);
 
-                // this.$store.commit('storeUser', resp.data.data);
-
-                this.showSuccessToast(response.message);
-                await this.$router.replace({name: "dashboard"})
-            } catch (e) {
-                console.error(e)
-            } finally {
-                this.hideLoader();
-            }
-
-        }
+        this.$router.replace({name: "dashboard"})
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+          this.hideLoader();
+      });
     }
+  }
 }
 </script>
 

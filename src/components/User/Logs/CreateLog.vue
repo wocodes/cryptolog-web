@@ -85,11 +85,6 @@
 import Axios from '../../../../config/axios';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
-
-// consider removing as it was giving isues and was replaced with vueform/multiselect
-// import VueMultiselect from 'vue-multiselect'
-// import "vue-multiselect/dist/vue-multiselect.min.css"
-
 import Multiselect from '@vueform/multiselect';
 import '@vueform/multiselect/themes/default.css';
 

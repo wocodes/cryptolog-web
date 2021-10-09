@@ -47,10 +47,11 @@
         </form>
     </page-template>
 </template>
-<script>
 
+<script>
 import Axios from "../../../config/axios";
 import PageTemplate from "@/components/auth/pageTemplate";
+// import SplashLoader from "@/components/Shared/SplashLoader"; NOT YET WORKING
 
 export default {
     name: "Register",
@@ -70,10 +71,13 @@ export default {
             this.showLoader();
             Axios.post('/user/register', this.user)
                 .then(resp => {
-                    this.showSuccessToast(resp.data.message + ". You may now login");
+                    this.showSuccessToast(resp.data.message+"<br>You may now login");
+                    this.$router.push('/login');
                 })
-                .catch(err => console.error(err))
-                .finally(() => this.hideLoader());
+                .catch(err => {
+                  this.showErrorToast(err)
+                })
+                .finally(() => this.hideLoader())
         }
     }
 }
