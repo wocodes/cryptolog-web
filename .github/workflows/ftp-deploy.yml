@@ -36,8 +36,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
-        server: premium66.web-hosting.com
-        username: advaaxrv
+        server: 156.67.74.201
+        username: u300464533
         password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
-        local-dir: ./dist/
-        server-dir: /jaapps.com/apps/assetlog-staging/
+        local-dir: ./
+        server-dir: /home/u300464533/domains/assetlog.xyz/public_html
