@@ -40,4 +40,4 @@ jobs:
         username: u300464533
         password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
         local-dir: ./
-        server-dir: /domains/assetlog.xyz/public_html/
+        server-dir: /domains/assetlog.xyz/public_html/staging/
