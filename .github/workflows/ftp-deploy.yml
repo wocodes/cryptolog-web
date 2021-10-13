@@ -29,15 +29,15 @@ jobs:
     - name: 🔨 Build Project
       run: |
         touch .env
-        echo "API_URL=https://api-assetlog-staging.jaapps.com/api" >> .env
+        echo "API_URL=https://api-staging.assetlog.xyz/api" >> .env
         npm install
         npm run build
 
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
-        server: premium66.web-hosting.com
-        username: advaaxrv
+        server: 156.67.74.201
+        username: u300464533
         password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
         local-dir: ./dist/
-        server-dir: /jaapps.com/apps/assetlog-staging/
+        server-dir: /domains/assetlog.xyz/public_html/staging/web/
