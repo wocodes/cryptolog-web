@@ -28,6 +28,8 @@ jobs:
 
     - name: 🔨 Build Project
       run: |
+        touch .env
+        echo "API_URL=https://api-assetlog-staging.jaapps.com/api" >> .env
         npm install
         npm run build
 
