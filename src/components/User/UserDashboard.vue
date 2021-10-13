@@ -1,17 +1,17 @@
 <template>
-  <div class="flex h-screen" v-if="!user.fiat_id || $store.state.setupSteps.fiat">
+  <div class="flex h-screen" v-if="!user.finished_setup && (!user.fiat_id || $store.state.setupSteps.fiat)">
     <AddFiatModal class="m-auto" />
   </div>
 
-  <div class="flex h-screen" v-if="$store.state.setupSteps.selectAssetLogger">
+  <div class="flex h-screen" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">
     <SelectSetupAssetLogger class="m-auto" />
   </div>
 
-  <div class="flex h-screen" v-if="$store.state.setupSteps.apiKeys">
+  <div class="flex h-screen" v-if="!user.finished_setup && $store.state.setupSteps.apiKeys">
     <AddApiKeysModal class="m-auto"/>
   </div>
 
-  <div class="flex h-screen" v-if="$store.state.setupSteps.done">
+  <div class="flex h-screen" v-if="!user.finished_setup && $store.state.setupSteps.done">
     <SuccessAfterApiKeys class="m-auto"/>
   </div>
 
