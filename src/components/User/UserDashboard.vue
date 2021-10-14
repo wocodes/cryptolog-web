@@ -36,19 +36,17 @@
       <em>Your ETH has grown over 20% in the last x days. This may be a good time to sell.</em>
     </Tip>
 
-    <StatCards />
+
+    <DashboardHeader />
+
+
+
+
+
+
     <div class="text-left">
       <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12"> <!-- DUMMY CHART DATA VIEW -->
-        <div class="w-full bg-white rounded-xl shadow-lg justify-center" v-if="chartDataLoaded">
-          <h1 class="text-center text-xl font-bold mb-5 mr-2 block">Cryptos</h1>
-          <apexchart
-              width="400"
-              type="pie"
-              :options="chart.options"
-              :series="chart.series"
-          ></apexchart>
-        </div>
-
+        <DashboardTotalAssetCard />
         <!--                        <div class="w-full mx-auto bg-white rounded-xl shadow-lg justify-center">-->
         <!--                            <h1 class="text-center text-xl font-bold mb-5 mr-2">Stocks</h1>-->
         <!--                            <apexchart-->
@@ -60,6 +58,8 @@
         <!--                        </div>-->
       </div>
 
+
+      <StatCards />
 
       <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">Top Performing Assets</h1>
       <small><em>(Refreshes every 30 minutes)</em></small>
@@ -84,38 +84,33 @@
 <script>
 import AssetList from "@/components/AssetList";
 import StatCards from "@/components/Dashboard/Stats";
-import VueApexCharts from "vue3-apexcharts";
 import Tip from "@/components/Shared/Tip";
 import Axios from "../../../config/axios";
 import AddFiatModal from "@/components/Dashboard/Welcome/AddFiatModal";
 import SelectSetupAssetLogger from "@/components/Dashboard/Welcome/SelectSetupAssetLogger";
 import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
 import SuccessAfterApiKeys from "@/components/Dashboard/Welcome/SuccessAfterApiKeys";
+import DashboardHeader from "@/components/Dashboard/DashboardHeader";
+import DashboardTotalAssetCard from "@/components/Dashboard/Welcome/DashboardTotalAssetCard";
 
 export default {
   name: "UserDashboard",
   components: {
+    DashboardTotalAssetCard,
+    DashboardHeader,
     SuccessAfterApiKeys,
     AddApiKeysModal,
-    SelectSetupAssetLogger, AddFiatModal, AssetList, StatCards, apexchart: VueApexCharts, Tip
+    SelectSetupAssetLogger, AddFiatModal, AssetList, StatCards, Tip
   },
   data() {
     return {
       topPerformingAssets: null,
-      chartDataLoaded: false,
-      chart:{
-        options: { // DUMMY CHART DATA
-          labels: [],
-        },
-        series: []
-      },
     }
   },
 
   mounted() {
     this.showLoader();
     this.fetchTopPerformingAssets();
-    this.getEarningsSummary();
 
     console.log('asd', this.$store)
   },
@@ -126,19 +121,6 @@ export default {
           !this.$store.state.setupSteps.selectAssetLogger &&
           !this.$store.state.setupSteps.apiKeys &&
           !this.$store.state.setupSteps.done);
-    },
-
-    getEarningsSummary() {
-      Axios.get("/assets/report/earnings-summary")
-          .then(resp => {
-            this.chart.options.labels = Object.keys(resp.data.data);
-            this.chart.series = Object.values(resp.data.data).map(item => item.value);
-
-            this.chartDataLoaded = true;
-
-          })
-          .catch(err => console.log(err))
-          .finally(() => this.hideLoader())
     },
 
     fetchTopPerformingAssets() {
