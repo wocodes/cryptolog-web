@@ -16,6 +16,7 @@ import {DEV_WHITELIST} from '../helpers/constants';
 // import NProgress from "vue-nprogress";
 // import { useStore } from 'vuex';
 import VueSplash from 'vue-splash';
+import SplitCarousel from "vue-split-carousel";
 
 createApp(App)
     .mixin({
@@ -111,4 +112,5 @@ createApp(App)
     .use(store)
     // .use(NProgress)
     .use(VueSplash)
+    .use(SplitCarousel)
     .mount('#app');

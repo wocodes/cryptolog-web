@@ -40,26 +40,16 @@
     <DashboardHeader />
 
 
-
-
-
-
     <div class="text-left">
       <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12"> <!-- DUMMY CHART DATA VIEW -->
-        <DashboardTotalAssetCard />
-        <!--                        <div class="w-full mx-auto bg-white rounded-xl shadow-lg justify-center">-->
-        <!--                            <h1 class="text-center text-xl font-bold mb-5 mr-2">Stocks</h1>-->
-        <!--                            <apexchart-->
-        <!--                                    width="400"-->
-        <!--                                    type="pie"-->
-        <!--                                    :options="chartOptions"-->
-        <!--                                    :series="series"-->
-        <!--                            ></apexchart>-->
-        <!--                        </div>-->
+        <DashboardTotalAssetCard v-if="earningsSummary" :chart-data="earningsSummary" />
+        <DashboardAssetsValue />
       </div>
 
+      <DashboardAssetsTickers class="mb-10" v-if="earningsSummary"
+                              :default-icon="earningsSummary.default_icon"
+                              :assets="earningsSummary" />
 
-      <StatCards />
 
       <h1 class="text-2xl font-bold mb-2 mr-2 inline-block">Top Performing Assets</h1>
       <small><em>(Refreshes every 30 minutes)</em></small>
@@ -83,7 +73,6 @@
 
 <script>
 import AssetList from "@/components/AssetList";
-import StatCards from "@/components/Dashboard/Stats";
 import Tip from "@/components/Shared/Tip";
 import Axios from "../../../config/axios";
 import AddFiatModal from "@/components/Dashboard/Welcome/AddFiatModal";
@@ -91,28 +80,32 @@ import SelectSetupAssetLogger from "@/components/Dashboard/Welcome/SelectSetupAs
 import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
 import SuccessAfterApiKeys from "@/components/Dashboard/Welcome/SuccessAfterApiKeys";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
-import DashboardTotalAssetCard from "@/components/Dashboard/Welcome/DashboardTotalAssetCard";
+import DashboardTotalAssetCard from "@/components/Dashboard/DashboardTotalAssetCard";
+import DashboardAssetsValue from "@/components/Dashboard/DashboardAssetsValue";
+import DashboardAssetsTickers from "@/components/Dashboard/DashboardAssetsTickers";
 
 export default {
   name: "UserDashboard",
   components: {
+    DashboardAssetsTickers,
+    DashboardAssetsValue,
     DashboardTotalAssetCard,
     DashboardHeader,
     SuccessAfterApiKeys,
     AddApiKeysModal,
-    SelectSetupAssetLogger, AddFiatModal, AssetList, StatCards, Tip
+    SelectSetupAssetLogger, AddFiatModal, AssetList, Tip
   },
   data() {
     return {
       topPerformingAssets: null,
+      earningsSummary: null
     }
   },
 
   mounted() {
     this.showLoader();
     this.fetchTopPerformingAssets();
-
-    console.log('asd', this.$store)
+    this.getEarningsSummary();
   },
 
   methods: {
@@ -139,6 +132,15 @@ export default {
             this.fetchTopPerformingAssets();
           })
           .catch(err => console.log(err));
+    },
+
+    getEarningsSummary() {
+      Axios.get("/assets/report/earnings-summary")
+          .then(resp => {
+            this.earningsSummary = resp.data.data;
+          })
+          .catch(err => console.log(err))
+          .finally(() => this.hideLoader())
     }
   }
 }

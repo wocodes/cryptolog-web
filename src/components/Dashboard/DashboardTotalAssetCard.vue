@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-white rounded-xl shadow-lg justify-center" v-if="chartDataLoaded">
+  <div class="w-full bg-white rounded-xl shadow-lg justify-center h-32" v-if="chartData && chartData.length">
     <apexchart
         width="250"
         type="pie"
@@ -11,11 +11,13 @@
 
 <script>
 import VueApexCharts from "vue3-apexcharts";
-import Axios from "../../../../config/axios";
 
 export default {
   name: "DashboardTotalAssetCard",
   components: {apexchart: VueApexCharts},
+  props: {
+    chartData: Array
+  },
   data() {
     return {
       chartDataLoaded: false,
@@ -78,25 +80,17 @@ export default {
     }
   },
 
-  created() {
-    this.getEarningsSummary();
+  mounted() {
+    this.populateChartData();
   },
 
   methods: {
-    getEarningsSummary() {
-      Axios.get("/assets/report/earnings-summary")
-          .then(resp => {
-            this.chart.options.labels = Object.keys(resp.data.data);
-            this.chart.series = Object.values(resp.data.data).map(item => item.value);
-
-            this.chartDataLoaded = true;
-
-          })
-          .catch(err => console.log(err))
-          .finally(() => this.hideLoader())
-      }
+    populateChartData() {
+      this.chart.options.labels = Object.values(this.chartData.map(dat => dat['name']));
+      this.chart.series = Object.values(this.chartData.map(dat => parseFloat(dat['current_value'])));
     }
   }
+}
 </script>
 
 <style scoped>
