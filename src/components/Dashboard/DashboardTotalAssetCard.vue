@@ -47,10 +47,10 @@ export default {
         //     // customLegendItems: [],
         //     // offsetX: 0,
         //     // offsetY: 0,
-        //     // labels: {
-        //     //   colors: undefined,
+        //     labels: {
+        //       colors: "#fff",
         //     //   useSeriesColors: false
-        //     // },
+        //     },
         //     // markers: {
         //     //   width: 12,
         //     //   height: 12,

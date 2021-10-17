@@ -1,7 +1,6 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import Home from '../views/Home.vue'
 import {getFromStorage} from "../../helpers/storage";
-import {USER_TOKEN_KEY} from "../../helpers/constants";
 
 const routes = [
   {
@@ -77,14 +76,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  let vuexStore = getFromStorage('vuex');
+  const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
   let openRoutes = ["/", "login", "register","forgot-password"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
     next();
-  } else if (!openRoutes.includes(to.name) && !getFromStorage(USER_TOKEN_KEY)) {
+  } else if (!openRoutes.includes(to.name) && !USER_TOKEN) {
     next({ name: 'login' })
-  } else if(openRoutes.includes(to.name) && getFromStorage(USER_TOKEN_KEY)) {
+  } else if(openRoutes.includes(to.name) && USER_TOKEN) {
     next({ name: 'dashboard' })
   } else {
     next()
