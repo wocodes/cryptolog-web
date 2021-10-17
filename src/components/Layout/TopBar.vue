@@ -16,14 +16,12 @@
 </template>
 
 <script>
-    import {USER_TOKEN_KEY} from "../../../helpers/constants";
     import {deleteFromStorage} from "../../../helpers/storage";
 
     export default {
         name: "TopBar",
         methods: {
             logout() {
-                deleteFromStorage(USER_TOKEN_KEY);
                 deleteFromStorage('vuex')
 
                 // redirect to login page

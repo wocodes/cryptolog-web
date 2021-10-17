@@ -12,10 +12,8 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 import {DEV_WHITELIST} from '../helpers/constants';
-// import {getFromStorage} from "../helpers/storage";
-// import NProgress from "vue-nprogress";
-// import { useStore } from 'vuex';
 import VueSplash from 'vue-splash';
+// import SplitCarousel from "vue-split-carousel"; // working better than others
 
 createApp(App)
     .mixin({
@@ -111,4 +109,5 @@ createApp(App)
     .use(store)
     // .use(NProgress)
     .use(VueSplash)
+    // .use(SplitCarousel)
     .mount('#app');

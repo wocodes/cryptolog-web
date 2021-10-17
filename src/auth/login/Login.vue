@@ -52,8 +52,6 @@
 <script>
 
 import Axios from "../../../config/axios";
-import {USER_TOKEN_KEY} from "../../../helpers/constants";
-import {saveToStorage} from "../../../helpers/storage";
 import PageTemplate from "@/components/auth/pageTemplate";
 
 export default {
@@ -73,7 +71,6 @@ export default {
         this.showLoader();
       Axios.post('/user/login', this.user)
       .then(resp => {
-        saveToStorage(USER_TOKEN_KEY, resp.data.data.token);
         this.$store.commit('storeUser', resp.data.data);
 
         this.showSuccessToast(resp.data.message);
