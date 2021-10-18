@@ -12,6 +12,7 @@
     "@jambonn/vue-concise-carousel": "^1.1.0",
     "@popperjs/core": "^2.9.2",
     "@saeris/vue-spinners": "^1.0.8",
+    "@splidejs/vue-splide": "^0.5.1",
     "@vueform/multiselect": "^2.2.0",
     "apexcharts": "^3.27.3",
     "axios": "^0.21.1",
@@ -19,6 +20,7 @@
     "dotenv-webpack": "^7.0.3",
     "javascript-time-ago": "^2.3.8",
     "nprogress": "^0.2.0",
+    "swiper": "^6.8.1",
     "vue": "^3.0.0",
     "vue-content-loading": "^1.6.0",
     "vue-loading-overlay": "^4.0.3",
@@ -30,6 +32,7 @@
     "vue-split-carousel": "^2.2.1",
     "vue-sweetalert2": "^5.0.2",
     "vue3-apexcharts": "^1.4.1",
+    "vueperslides": "^3.3.2",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },

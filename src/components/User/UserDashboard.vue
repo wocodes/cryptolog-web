@@ -47,7 +47,7 @@
 
       <div class="text-left">
         <!-- class attribute is intentionally spelled wrongly as clas in order to disable the effect -->
-        <div class="mt-4 mb-4 grid grid-cols-2 gap-4 mb-12">
+        <div class="hidden mt-4 mb-12 md:grid grid-cols-2 gap-4">
           <DashboardTotalAssetCard
               v-if="earningsSummary"
               :chart-data="earningsSummary"
@@ -58,20 +58,48 @@
           />
         </div>
 
-        <h5 class="font-bold">Assets</h5>
-        <DashboardAssetsTickers class="mb-10" v-if="earningsSummary"
+
+        <div class="block md:hidden mt-0 mb-2 grid gap-4">
+          <vueper-slides class="no-shadow"
+                         autoplay
+                         fixed-height="130px"
+                         :bullets="false"
+                         :arrows="false"
+                         :duration="7000"
+                         transition-speed="1500"
+                         :visible-slides="1"
+                         :init-slide="1"
+                         :gap="6">
+              <vueper-slide>
+                <template #content>
+                  <DashboardAssetsValue class="bg-gradient-to-b from-blue-600 to-blue-800 text-white"/>
+                </template>
+              </vueper-slide>
+
+            <vueper-slide>
+              <template #content>
+                <DashboardTotalAssetCard v-if="earningsSummary" :chart-data="earningsSummary"
+                    class="bg-gradient-to-b from-blue-600 to-blue-800 text-white"
+                />
+              </template>
+            </vueper-slide>
+          </vueper-slides>
+        </div>
+
+        <h5 class="font-bold inline-block text-blue-800">Assets</h5>
+        <span class="block md:hidden float-right text-sm text-blue-800">See All</span>
+        <DashboardAssetsTickers class="mt-2 mb-1 md:mb-10" v-if="earningsSummary"
                                 :default-icon="earningsSummary.default_icon"
                                 :assets="earningsSummary" />
 
 
   <!--      <div v-if="topPerformingAssets">-->
-          <AssetList title="Top Performing Assets"
+          <AssetList class="mt-0" title="Top Performing Assets"
                      type="top-performing"
                      :thStyle="'border-blue-200 bg-blue-100'"
                      :tdStyle="'border-green-200 bg-green-100'" />
         </div>
       </div>
-      <hr class="m-8">
     </div>
 </template>
 
@@ -87,6 +115,8 @@ import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import DashboardTotalAssetCard from "@/components/Dashboard/DashboardTotalAssetCard";
 import DashboardAssetsValue from "@/components/Dashboard/DashboardAssetsValue";
 import DashboardAssetsTickers from "@/components/Dashboard/DashboardAssetsTickers";
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 
 export default {
   name: "UserDashboard",
@@ -98,8 +128,7 @@ export default {
     SuccessAfterApiKeys,
     AddApiKeysModal,
     SelectSetupAssetLogger, AddFiatModal,
-    AssetList,
-      Tip
+    AssetList,Tip, VueperSlides, VueperSlide
   },
   data() {
     return {

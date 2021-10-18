@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-white rounded-xl shadow-lg justify-center py-10 flow-root h-32">
+  <div class="w-full md:text-black bg-white rounded-xl shadow-lg justify-center py-10 flow-root h-32">
     <div class="float-left w-60">
       <svg title="Click to Show Fiat/Local Values" @click="showFiat = !showFiat" class="float-left mx-3 cursor-pointer bg-white rounded-lg" width="40" height="41" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect y="0.5" width="50" height="50" rx="10" fill="#1565D8" fill-opacity="0.1"/>
