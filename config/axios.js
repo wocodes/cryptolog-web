@@ -3,6 +3,11 @@ import {deleteFromStorage, getFromStorage} from "../helpers/storage";
 import 'nprogress/nprogress.css';
 
 let vuexStore = getFromStorage('vuex');
+console.log(vuexStore);
+if(vuexStore) {
+    console.log('i dey')
+} else console.log('i no dey')
+
 const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
 
 let headers = {};
