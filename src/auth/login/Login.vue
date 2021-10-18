@@ -78,7 +78,10 @@ export default {
         this.gotoSetupStep('done'); // remove when setup and transition to dashboard is good
         this.$router.replace({name: "dashboard"})
       })
-      .catch(err => console.error(err))
+      .catch(err => {
+          console.log(err.response)
+          this.showErrorToast(err);
+      })
       .finally(() => {
           this.hideLoader();
       });

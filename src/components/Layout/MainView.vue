@@ -1,11 +1,9 @@
 <template>
     <div class="bg-gray-100">
-        <TopBar/>
-
-        <div class="grid grid-cols-5 gap-4">
-            <SideBar class="hidden md:block" />
-
-            <div class="col-span-5 md:col-span-4 w-full" ref="pageContainer" >
+        <sidebar-component></sidebar-component>
+        <div class="relative md:ml-64 bg-blueGray-100 h-screen">
+            <navbar-component class="sticky"></navbar-component>
+            <div class="relative py-4 md:px-12 px-4 md:pt-6">
                 <router-view/>
             </div>
         </div>
@@ -13,11 +11,15 @@
 </template>
 
 <script>
-import TopBar from "@/components/Layout/TopBar";
-import SideBar from "@/components/Layout/SideBar";
+import SidebarComponent from "@/components/Layout/sidebarComponent";
+import NavbarComponent from "@/components/Layout/NavbarComponent";
+
 export default {
-name: "MainView",
-    components: {SideBar, TopBar}
+    name: "MainView",
+    components: {
+        NavbarComponent,
+        SidebarComponent,
+    }
 }
 </script>
 

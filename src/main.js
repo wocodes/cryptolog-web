@@ -62,6 +62,10 @@ createApp(App)
                 }
                 errors += '</ul>';
 
+                if (text.response.data.message) {
+                    errors = text.response.data.message
+                }
+
                 this.$swal({
                     title,
                     html: `<span style="color:#fff">${errors}</span>`,
