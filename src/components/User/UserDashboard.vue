@@ -1,19 +1,19 @@
 <template>
   <div>
     <div>
-      <div class="flex h-screen" v-if="!user.finished_setup && (!user.fiat_id || $store.state.setupSteps.fiat)">
+      <div class="flex" v-if="!user.finished_setup && (!user.fiat_id || $store.state.setupSteps.fiat)">
         <AddFiatModal class="m-auto" />
       </div>
 
-      <div class="flex h-screen" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">
+      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">
         <SelectSetupAssetLogger class="m-auto" />
       </div>
 
-      <div class="flex h-screen" v-if="!user.finished_setup && $store.state.setupSteps.apiKeys">
+      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.apiKeys">
         <AddApiKeysModal class="m-auto"/>
       </div>
 
-      <div class="flex h-screen" v-if="!user.finished_setup && $store.state.setupSteps.done">
+      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.done">
         <SuccessAfterApiKeys class="m-auto"/>
       </div>
     </div>
@@ -27,17 +27,19 @@
       <!--         :icon="'https://img.icons8.com/fluency/64/000000/thumb-up.png'">-->
       <!--    </Tip>-->
 
-      <Tip v-if="allowedToViewDevUpdate">
-        <em>Based On Analysis (BOA): We suggest you <strong>SELL/BUY 60%</strong> of DOGE...</em>
-      </Tip>
+      <div v-show="false">
+          <Tip v-if="allowedToViewDevUpdate">
+              <em>Based On Analysis (BOA): We suggest you <strong>SELL/BUY 60%</strong> of DOGE...</em>
+          </Tip>
 
-      <Tip v-if="allowedToViewDevUpdate">
-        <em>We suggest you <strong>HODL 20%</strong> of BTC for the next 2 months...</em>
-      </Tip>
+          <Tip v-if="allowedToViewDevUpdate">
+              <em>We suggest you <strong>HODL 20%</strong> of BTC for the next 2 months...</em>
+          </Tip>
 
-      <Tip v-if="allowedToViewDevUpdate">
-        <em>Your ETH has grown over 20% in the last x days. This may be a good time to sell.</em>
-      </Tip>
+          <Tip v-if="allowedToViewDevUpdate">
+              <em>Your ETH has grown over 20% in the last x days. This may be a good time to sell.</em>
+          </Tip>
+      </div>
 
 
       <DashboardHeader />
@@ -106,9 +108,9 @@ export default {
     }
   },
 
-  mounted() {
+  async mounted() {
     // this.showLoader();
-    this.getEarningsSummary();
+    await this.getEarningsSummary();
   },
 
   methods: {
@@ -119,13 +121,13 @@ export default {
           !this.$store.state.setupSteps.done);
     },
 
-    getEarningsSummary() {
-      Axios.get("/assets/report/earnings-summary")
+    async getEarningsSummary() {
+      await Axios.get("/assets/report/earnings-summary")
           .then(resp => {
             this.earningsSummary = resp.data.data;
           })
           .catch(err => console.log(err))
-          .finally(() => this.hideLoader())
+          // .finally(() => this.hideLoader())x
     }
   }
 }

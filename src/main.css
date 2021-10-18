@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @layer base {
+    @variants responsive {
+        .bg-primary {
+            background: linear-gradient(180deg, rgba(21, 101, 216, 0.9) 0%, rgba(2, 41, 138, 0.9) 84.79%, rgba(2, 27, 121, 0.9) 100%);
+        }
+    }
     h1 {
         @apply text-2xl;
     }
@@ -13,14 +18,6 @@
     h6 {
         @apply text-sm;
     }
-}
-
-.bg-primary {
-    background-color: #1565D8;
-}
-
-.text-primary {
-    color: #1565D8;
 }
 
 .vld-icon {
