@@ -1,19 +1,19 @@
 <template>
   <div>
-    <h6 class="text-xs">{{ title }}</h6>
+    <span>{{ title }}</span>
     <div>
-      <p class="font-bold inline-block">${{ parseFloat(value).toLocaleString() }}</p>
+      <p class="font-bold inline-block mr-1 leading-none">${{ parseFloat(value).toLocaleString() }}</p>
 
-      <p class="text-xs inline-block mx-1" :class="{'text-red-600': value < 0, 'text-green-600': value > 0}">
-        <svg v-if="value > 0" class="inline-block align-middle" width="10" height="8" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <p class="text-xs inline-block leading-none" :class="{'text-red-600': value < 0, 'text-green-600': value > 0}">
+        <svg v-if="value > 0" class="inline-block align-middle" width="8" height="6" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.00004 0.5L12 8.5H0L6.00004 0.5Z" fill="#48BB78"/>
         </svg>
-        <svg v-else class="inline-block align-middle" width="10" height="8" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg v-else class="inline-block align-middle" width="8" height="6" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M5.99996 8.5L-6.99382e-07 0.500001L12 0.5L5.99996 8.5Z" fill="#FF2D2E"/>
-        </svg> {{ percChange }}%
+        </svg><span style="font-size: 10px">{{ percChange }}%</span>
       </p>
 
-      <p class="font-bold block text-xs visible animate-pulse" v-if="showFiat">{{ user.fiat.symbol }} {{ parseInt(fiatValue).toLocaleString() }}</p>
+      <p class="font-bold block text-xs visible animate-pulse ml-16 md:ml-0" v-if="showFiat">{{ user.fiat.symbol }} {{ parseInt(fiatValue).toLocaleString() }}</p>
     </div>
   </div>
 </template>
