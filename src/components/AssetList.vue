@@ -8,7 +8,6 @@
             <tr class="rounded-2xl">
                 <th class="bg-gray-200 p-3 rounded-tl-xl rounded-bl-xl" scope="col">Name</th>
                 <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Bought</th>
-                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Quantity</th>
                 <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Initial Value</th>
                 <th :class="thClassStyle" scope="col">Current Value</th>
                 <th :class="thClassStyle" scope="col">Profit/Loss</th>
@@ -30,12 +29,15 @@
             </tr>
 
             <tr v-else v-for="(log, index) in assets"
-                :key="index">
+                :key="index"
+                :class="{'bg-red-50': log.profit_loss < 0, 'bg-green-50': log.profit_loss > 0}"
+            >
                 <td :class="tdClassStyle">
                   <strong>{{ log.asset.name }}</strong>
                   <small class="ml-1">({{ log.asset.symbol }})</small>
 
                   <p>{{ log.platform?.name }}</p>
+                  <p>{{ parseFloat(log.quantity_bought).toFixed(4) }}</p>
                 </td>
 
                 <td class="hidden md:table-cell" :class="tdClassStyle">
@@ -43,23 +45,21 @@
                   <small>{{ timeBought(log.date_bought ?? log.created_at) }}</small>
                 </td>
 
-                <td class="hidden md:table-cell" :class="tdClassStyle">{{ parseFloat(log.quantity_bought).toFixed(4) }}</td>
-
                 <td class="hidden md:table-cell" :class="tdClassStyle">
                   <p>${{ log.initial_value.toLocaleString() }}</p>
-                  <small>{{ user.fiat.symbol }} {{ log.initial_value_fiat.toLocaleString() }}</small>
+                  <small>{{ user.fiat.symbol }} {{ parseFloat(log.initial_value_fiat).toLocaleString() }}</small>
                 </td>
 
                 <td :class="tdClassStyle">
                   <p>${{ log.current_value.toLocaleString() }}</p>
-                  <small>{{ user.fiat.symbol }} {{ log.current_value_fiat.toLocaleString() }}</small>
+                  <small>{{ user.fiat.symbol }} {{ parseFloat(log.current_value_fiat).toLocaleString() }}</small>
                 </td>
 
                 <td :class="tdClassStyle">
                   <p>${{ log.profit_loss.toLocaleString() }}</p>
                   <small>
                     {{ user.fiat.symbol }}
-                    {{ parseFloat(log.profit_loss_fiat ? log.profit_loss_fiat : log.quantity_bought * user.fiat.usdt_sell_rate).toFixed(2) }}
+                    {{ parseFloat(log.profit_loss_fiat ? log.profit_loss_fiat : log.quantity_bought * user.fiat.usdt_sell_rate).toLocaleString() }}
                   </small>
                 </td>
 
@@ -164,7 +164,7 @@
           this.showLoader();
           Axios.get("/logs", {params: this.type ? {'mode': this.type} : {}})
               .then(resp => {
-                this.assets = resp.data.data
+                this.assets = this.type ? resp.data.data.data : resp.data.data
               })
               .catch(err => console.log(err))
               .finally(() => this.hideLoader());

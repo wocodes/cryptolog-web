@@ -75,7 +75,6 @@ export default {
 
         this.showSuccessToast(resp.data.message);
 
-        this.gotoSetupStep('done'); // remove when setup and transition to dashboard is good
         this.$router.replace({name: "dashboard"})
       })
       .catch(err => {
