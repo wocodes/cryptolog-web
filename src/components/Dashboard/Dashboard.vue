@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <div>
     <AdminDashboard v-if="user.is_admin"/>
     <UserDashboard v-else />
   </div>

@@ -1,29 +1,24 @@
 <template>
-    <div class="m-5 text-left">
-      <h5 class="font-bold mb-2 mr-2 inline-block text-left">{{ title }}</h5>
-      <button class="font-bold py-1 px-2 rounded-md inline-block float-right text-sm text-blue-700"
-              >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
-        </svg> Refresh
-      </button>
+    <div class="text-left">
+      <h5 class="font-bold mb-2 mr-2 inline-block text-left text-blue-800">{{ title }}</h5>
+      <UpdateAssetsButtonComponent class="hidden md:inline-block" @assetsUpdated="catchAssetsUpdatedEvent "/>
 
         <table class="border-collapse bg-white font-sm w-full rounded-xl rounded-xl" style="font-size:12px;">
             <thead>
             <tr class="rounded-2xl">
                 <th class="bg-gray-200 p-3 rounded-tl-xl rounded-bl-xl" scope="col">Name</th>
-                <th :class="thClassStyle" scope="col">Bought</th>
-                <th :class="thClassStyle" scope="col">Quantity</th>
-                <th :class="thClassStyle" scope="col">Initial Value</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Bought</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Quantity</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Initial Value</th>
                 <th :class="thClassStyle" scope="col">Current Value</th>
                 <th :class="thClassStyle" scope="col">Profit/Loss</th>
-                <th :class="thClassStyle" scope="col">24hrs Change</th>
-                <th :class="thClassStyle" scope="col">ROI</th>
-                <th :class="thClassStyle" scope="col">Daily ROI</th>
-                <th :class="thClassStyle" scope="col">Current Price</th>
-                <th :class="thClassStyle" scope="col">Updated</th>
-                <th :class="thClassStyle" scope="col">Status</th>
-                <th class="bg-gray-200 p-3 rounded-tr-xl rounded-br-xl" scope="col"></th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">24hrs Change</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">ROI</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Daily ROI</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Current Price</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Updated</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Status</th>
+                <th class="bg-gray-200 p-3 rounded-tr-xl rounded-br-xl" scope="col" v-if="assets && assets.length"></th>
             </tr>
             </thead>
             <tbody>
@@ -43,14 +38,14 @@
                   <p>{{ log.platform?.name }}</p>
                 </td>
 
-                <td :class="tdClassStyle">
+                <td class="hidden md:table-cell" :class="tdClassStyle">
                   <p>{{ dateBought(log.date_bought ?? log.created_at) }}</p>
                   <small>{{ timeBought(log.date_bought ?? log.created_at) }}</small>
                 </td>
 
-                <td :class="tdClassStyle">{{ parseFloat(log.quantity_bought).toFixed(4) }}</td>
+                <td class="hidden md:table-cell" :class="tdClassStyle">{{ parseFloat(log.quantity_bought).toFixed(4) }}</td>
 
-                <td :class="tdClassStyle">
+                <td class="hidden md:table-cell" :class="tdClassStyle">
                   <p>${{ log.initial_value.toLocaleString() }}</p>
                   <small>{{ user.fiat.symbol }} {{ log.initial_value_fiat.toLocaleString() }}</small>
                 </td>
@@ -68,24 +63,24 @@
                   </small>
                 </td>
 
-                <td :class="tdClassStyle">
+                <td class="hidden md:table-cell" :class="tdClassStyle">
                   <span :class="{'text-red-600': log['24_hr_change'] < 0, 'text-green-600': log['24_hr_change'] > 0}">{{ log['24_hr_change'] }}</span>
                 </td>
 
-                <td :class="tdClassStyle">{{ parseFloat(log.roi).toFixed(2) }}%</td>
+                <td class="hidden md:table-cell" :class="tdClassStyle">{{ parseFloat(log.roi).toFixed(2) }}%</td>
 
-                <td :class="tdClassStyle">{{ parseFloat(log.daily_roi).toFixed(2) }}%</td>
+                <td class="hidden md:table-cell" :class="tdClassStyle">{{ parseFloat(log.daily_roi).toFixed(2) }}%</td>
 
-                <td :class="tdClassStyle">
+                <td class="hidden md:table-cell" :class="tdClassStyle">
                   <p>${{ parseFloat(parseFloat(log.current_price).toFixed(2)).toLocaleString() }}</p>
                   <small>{{ user.fiat.symbol }} {{ parseFloat(parseFloat(user.fiat.usdt_sell_rate * log.current_price).toFixed(2)).toLocaleString() }}</small>
                 </td>
 
-                <td :class="tdClassStyle">
+                <td class="hidden md:table-cell" :class="tdClassStyle">
                     {{ timeAgo.format(new Date(log.last_updated_at)) }}
                 </td>
 
-                <td :class="tdClassStyle">
+                <td class="hidden md:table-cell" :class="tdClassStyle">
                   <span v-if="log.withdrawals.length"
                         @click="showWithdrawals(log.withdrawals)"
                         class="block w-max h-max text-white font-bold rounded px-2 py-1 text-red-900 bg-red-200">
@@ -104,7 +99,7 @@
                     Active
                   </span>
                 </td>
-                <td :class="tdClassStyle">
+                <td :class="tdClassStyle" v-if="assets && assets.length">
                   <button>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
@@ -122,11 +117,13 @@
     import TimeAgo from "javascript-time-ago";
     import en from 'javascript-time-ago/locale/en'
     import Axios from "../../config/axios";
+    import UpdateAssetsButtonComponent from "@/components/User/Logs/UpdateAssetsButtonComponent";
 
     TimeAgo.addDefaultLocale(en)
 
     export default {
       name: "AssetList",
+      components: {UpdateAssetsButtonComponent},
       props: {
         title: {
           type: String,
@@ -271,14 +268,10 @@
           return new Date(date_time).toLocaleTimeString();
         },
 
-        fetchUpdatedAssetsData() {
-          this.showLoader();
-          Axios.get("/logs/update")
-              .then(() => {
-                this.fetchAssets();
-              })
-              .catch(err => console.log(err))
-              .finally(() => this.hideLoader())
+        catchAssetsUpdatedEvent(value) {
+          if(value) {
+            this.fetchAssets();
+          }
         }
       },
     }
