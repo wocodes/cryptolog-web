@@ -19,6 +19,7 @@
     "dotenv-webpack": "^7.0.3",
     "javascript-time-ago": "^2.3.8",
     "nprogress": "^0.2.0",
+    "swiper": "^7.0.8",
     "vue": "^3.0.0",
     "vue-content-loading": "^1.6.0",
     "vue-loading-overlay": "^4.0.3",
