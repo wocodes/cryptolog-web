@@ -1,6 +1,7 @@
 <template>
     <div class="text-left">
       <h5 class="font-bold mb-2 mr-2 inline-block text-left text-blue-800">{{ title }}</h5>
+      <em v-if="assets && assets.length" class="text-xs text-gray-700">(Last updated {{ timeAgo.format(new Date(assets[0].last_updated_at)) }})</em>
       <UpdateAssetsButtonComponent class="hidden md:inline-block" @assetsUpdated="catchAssetsUpdatedEvent "/>
 
         <table class="border-collapse bg-white font-sm w-full rounded-xl rounded-xl" style="font-size:12px;">
@@ -15,7 +16,6 @@
                 <th class="hidden md:table-cell" :class="thClassStyle" scope="col">ROI</th>
                 <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Daily ROI</th>
                 <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Current Price</th>
-                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Updated</th>
                 <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Status</th>
                 <th class="bg-gray-200 p-3 rounded-tr-xl rounded-br-xl" scope="col" v-if="assets && assets.length"></th>
             </tr>
@@ -74,10 +74,6 @@
                 <td class="hidden md:table-cell" :class="tdClassStyle">
                   <p>${{ parseFloat(parseFloat(log.current_price).toFixed(2)).toLocaleString() }}</p>
                   <small>{{ user.fiat.symbol }} {{ parseFloat(parseFloat(user.fiat.usdt_sell_rate * log.current_price).toFixed(2)).toLocaleString() }}</small>
-                </td>
-
-                <td class="hidden md:table-cell" :class="tdClassStyle">
-                    {{ timeAgo.format(new Date(log.last_updated_at)) }}
                 </td>
 
                 <td class="hidden md:table-cell" :class="tdClassStyle">
