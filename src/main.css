@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @variants responsive {
+        .bg-primary {
+            background: linear-gradient(180deg, rgba(21, 101, 216, 0.9) 0%, rgba(2, 41, 138, 0.9) 84.79%, rgba(2, 27, 121, 0.9) 100%);
+        }
+    }
+    h1 {
+        @apply text-2xl;
+    }
+    h2 {
+        @apply text-xl;
+    }
+
+    h6 {
+        @apply text-sm;
+    }
+}
+
+.vld-icon {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

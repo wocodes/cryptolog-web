@@ -3,6 +3,7 @@ import store from './store';
 import App from './App.vue';
 import 'tailwindcss/tailwind.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './main.css';
 
 import router from './router';
 import VueLoading from 'vue-loading-overlay';
@@ -10,21 +11,18 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
-import {DEV_WHITELIST, USER_EMAIL_KEY, USER_IS_ADMIN_KEY, USER_NAME_KEY} from '../helpers/constants';
-import {getFromStorage} from "../helpers/storage";
-// import { useStore } from 'vuex';
-
+import {DEV_WHITELIST} from '../helpers/constants';
+import VueSplash from 'vue-splash';
+// import SplitCarousel from "vue-split-carousel"; // working better than others
+// import VueSplide from '@splidejs/vue-splide';
+// import '@splidejs/splide/dist/css/splide.min.css';
 
 createApp(App)
     .mixin({
         data() {
             return {
                 // store: useStore(),
-                user: {
-                  name: getFromStorage(USER_NAME_KEY),
-                  email: getFromStorage(USER_EMAIL_KEY),
-                  is_admin: getFromStorage(USER_IS_ADMIN_KEY),
-                },
+                user: this.$store.state.user,
                 loader: null,
                 allowedToViewDevUpdate: false,
                 tipsStyle: 'font-sm md:font-md bg-blue-100 border-t-4 border-blue-500 rounded-b text-teal-900 my-3 p-1 shadow-md flex text-left'
@@ -57,9 +55,22 @@ createApp(App)
             },
 
             showErrorToast(text, title='') {
+                let errors = '<ul>';
+
+                if (text.response.data.errors) {
+                    let errorsArr = Object.values(text.response.data.errors);
+                    errorsArr = errorsArr.flat();
+                    errorsArr.forEach(error => errors += `<li>${error}</li>`);
+                }
+                errors += '</ul>';
+
+                if (text.response.data.message) {
+                    errors = text.response.data.message
+                }
+
                 this.$swal({
                     title,
-                    html: `<span style="color:#fff">${text}</span>`,
+                    html: `<span style="color:#fff">${errors}</span>`,
                     toast: true,
                     icon: 'error',
                     position: 'top-end',
@@ -76,16 +87,25 @@ createApp(App)
                 })
             },
 
-            showLoader(state='') {
+            showLoader() {
                 this.loader = this.$loading.show({
-                    lockScroll: true
-                }, {
-                    default: `${state} Please wait...`
+                    container: this.$refs.pageContainer,
+                    lockScroll: true,
+                    loader: "bars",
+                    color: '#1565D8',
+                    blur: '20px',
+                    isFullPage: false,
+                // }, {
+                //     after: `${state} Please wait...`,
                 });
             },
 
             hideLoader() {
                 this.loader.hide();
+            },
+
+            gotoSetupStep(step) {
+                this.$store.commit('updateSetupStep', step)
             }
         }
     })
@@ -93,4 +113,8 @@ createApp(App)
     .use(VueLoading)
     .use(router)
     .use(store)
+    // .use(NProgress)
+    .use(VueSplash)
+    // .use(VueSplide)
+    // .use(SplitCarousel)
     .mount('#app');

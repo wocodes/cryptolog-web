@@ -1,11 +1,20 @@
 import axios from "axios";
 import {deleteFromStorage, getFromStorage} from "../helpers/storage";
 import 'nprogress/nprogress.css';
-import {USER_TOKEN_KEY} from "../helpers/constants";
 
-let headers = {
-    'Authorization': "Bearer " + getFromStorage(USER_TOKEN_KEY)
-};
+let vuexStore = getFromStorage('vuex');
+console.log(vuexStore);
+if(vuexStore) {
+    console.log('i dey')
+} else console.log('i no dey')
+
+const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
+
+let headers = {};
+
+if (USER_TOKEN) {
+    headers['Authorization'] = "Bearer " + USER_TOKEN;
+}
 
 const Axios = axios.create({
     baseURL: process.env.API_URL,
@@ -16,7 +25,7 @@ const Axios = axios.create({
         //     window.location.reload();
         // } else
         if (window.location.pathname !== '/' && status === 401) {
-            deleteFromStorage(USER_TOKEN_KEY);
+            deleteFromStorage(USER_TOKEN);
             window.location.reload();
         }
 
