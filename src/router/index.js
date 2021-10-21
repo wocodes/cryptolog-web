@@ -4,7 +4,7 @@ import {getFromStorage} from "../../helpers/storage";
 
 const routes = [
   {
-    path: '/',
+    path: '',
     name: 'Home',
     component: Home
   },
@@ -67,7 +67,7 @@ const routes = [
   //   ]
   // },
 
-  { path: "/:pathMatch(.*)*", redirect: "/" }
+  { path: "/:pathMatch(.*)*", redirect: "" }
 ]
 
 const router = createRouter({
@@ -78,15 +78,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
-  let openRoutes = ["/"];
+  let openRoutes = [""];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
     next();
   } else if (!openRoutes.includes(to.name) && !USER_TOKEN) {
-    next({ name: '/' })
+    next({ name: '' })
   } else if(openRoutes.includes(to.name) && USER_TOKEN) {
-    next({ name: '/' })
+    next({ name: '' })
   } else {
     next()
   }

@@ -31,10 +31,10 @@
 <!--      <h2 class="text-sm md:text-lg mt-20 text-gray-300">-->
 <!--        Thank you. One last thing, please kindly help us fill-->
 <!--        <a class="underline text-gray-400 hover:text-gray-300" href="https://forms.gle/AdU2M6ZJFwYTh7V99" target="_blank">this short survey</a>-->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
-          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
-        </svg>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">-->
+<!--          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />-->
+<!--          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />-->
+<!--        </svg>-->
 <!--      </h2>-->
 
       <div class="fixed bottom-0">
