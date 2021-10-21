@@ -8,7 +8,7 @@
       <h1 class="m-auto md:w-1/2 md:text-5xl text-white font-bold">The Smartest Asset & Investment Tracker.</h1>
 
       <p class="m-auto mt-8 md:w-1/2 md:text-xl text-white">
-        AssetLog is a smart asset/investments tracker. We help you analysis your investment portfolio and share insights on how you can maximise your wealth.
+        AssetLog is a smart asset/investments tracker. We help you analysis your investment portfolio and share insights on how you can maximise your wealth...
       </p>
 
       <form class="grid grid-cols-3 rounded-lg bg-white h-16 md:w-2/4 m-auto mt-20 p-2" @submit.prevent="addToWaitlist">
