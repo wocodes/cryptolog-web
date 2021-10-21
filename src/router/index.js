@@ -1,10 +1,10 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import {createRouter, createWebHashHistory} from 'vue-router'
 import Home from '../views/Home.vue'
 import {getFromStorage} from "../../helpers/storage";
 
 const routes = [
   {
-    path: '',
+    path: '/',
     name: 'Home',
     component: Home
   },
@@ -67,26 +67,26 @@ const routes = [
   //   ]
   // },
 
-  { path: "/:pathMatch(.*)*", redirect: "" }
+  { path: "/:pathMatch(.*)*", redirect: "/" }
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 })
 
 router.beforeEach((to, from, next) => {
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
-  let openRoutes = [""];
+  let openRoutes = ["/"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
     next();
   } else if (!openRoutes.includes(to.name) && !USER_TOKEN) {
-    next({ name: '' })
+    next({ name: '/' })
   } else if(openRoutes.includes(to.name) && USER_TOKEN) {
-    next({ name: '' })
+    next({ name: '/' })
   } else {
     next()
   }
