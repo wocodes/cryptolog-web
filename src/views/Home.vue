@@ -5,10 +5,10 @@
     <h1 class="text-2xl font-bold text-white bg-blue-700 pt-24 font-sans" style="background-color: #1052b7">AssetLog</h1>
 
     <div class="p-6 w-full md:w-full mt-12 md:mt-10 md:mx-auto text-center">
-      <h1 class="m-auto md:w-1/2 md:text-5xl text-white font-bold">The Smartest Asset & Investment Tracker.</h1>
+      <h1 class="m-auto md:w-1/2 md:text-5xl text-white font-bold italic">The Smart Asset & Investment Service.</h1>
 
       <p class="m-auto mt-8 md:w-1/2 md:text-xl text-white">
-        AssetLog is a smart asset/investments tracker. We help you analysis your investment portfolio and share insights on how you can maximise your wealth...
+        AssetLog is a smart asset/investments service that helps you analysis your investment portfolio and share insights on how you can maximise your wealth. <router-link to="about" class="text-blue-400">Read more...</router-link>
       </p>
 
       <form class="grid grid-cols-3 rounded-lg bg-white h-16 md:w-2/4 m-auto mt-20 p-2" @submit.prevent="addToWaitlist">
