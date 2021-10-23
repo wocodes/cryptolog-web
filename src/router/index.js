@@ -5,12 +5,12 @@ import {getFromStorage} from "../../helpers/storage";
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     component: Home
   },
 
   {
-    path: '/login',
+    path: '/test/login',
     name: 'login',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -19,13 +19,13 @@ const routes = [
   },
 
   {
-    path: '/register',
+    path: '/test/register',
     name: 'register',
     component: () => import(/* webpackChunkName: "register" */ '../auth/register/Register.vue')
   },
 
   {
-    path: '/forgot-password',
+    path: '/test/forgot-password',
     name: 'forgot-password',
     component: () => import(/* webpackChunkName: "forgot-password" */ '../auth/forgot-password/VerifyEmail.vue')
   },
@@ -67,7 +67,7 @@ const routes = [
     ]
   },
 
-  { path: "/:pathMatch(.*)*", redirect: "/" }
+  { path: "/:pathMatch(.*)*", redirect: "xcv" }
 ]
 
 const router = createRouter({
@@ -76,15 +76,17 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+
+
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
-  let openRoutes = ["/", "login", "register","forgot-password"];
+  let openRoutes = ["", "login", "register","forgot-password"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
     next();
   } else if (!openRoutes.includes(to.name) && !USER_TOKEN) {
-    next({ name: 'login' })
+    next({ name: 'zxc' })
   } else if(openRoutes.includes(to.name) && USER_TOKEN) {
     next({ name: 'dashboard' })
   } else {
