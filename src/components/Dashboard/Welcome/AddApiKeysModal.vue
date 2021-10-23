@@ -33,8 +33,8 @@ export default {
   data() {
     return {
       api: {
-        key: 'LbcvrB9bNo0yY2Am7FlqKGW7qY2P9BMApf4dWe2CgZoTTZ0m5r46aSPkboP4nNPt',
-        secret: 'TUoM5G9ArPctiQPOS6YutMXVskPXOGPpYMDfLaKggQodgIPAQGXb4rf4Xm6Za5Dt'
+        key: '',
+        secret: ''
       },
     }
   },
