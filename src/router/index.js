@@ -1,12 +1,19 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Home from '../views/Home.vue'
 import {getFromStorage} from "../../helpers/storage";
+import About from "@/views/About";
 
 const routes = [
   {
     path: '',
     name: 'home',
     component: Home
+  },
+
+  {
+    path: '/about',
+    name: 'about',
+    component: About
   },
 
   // {
@@ -78,7 +85,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
-  let openRoutes = ["home"];
+  let openRoutes = ["home", "about"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
