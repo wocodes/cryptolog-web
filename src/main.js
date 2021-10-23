@@ -12,10 +12,10 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 import {DEV_WHITELIST} from '../helpers/constants';
-// import {getFromStorage} from "../helpers/storage";
-// import NProgress from "vue-nprogress";
-// import { useStore } from 'vuex';
 import VueSplash from 'vue-splash';
+// import SplitCarousel from "vue-split-carousel"; // working better than others
+// import VueSplide from '@splidejs/vue-splide';
+// import '@splidejs/splide/dist/css/splide.min.css';
 
 createApp(App)
     .mixin({
@@ -64,6 +64,10 @@ createApp(App)
                 }
                 errors += '</ul>';
 
+                if (text.response.data.message) {
+                    errors = text.response.data.message
+                }
+
                 this.$swal({
                     title,
                     html: `<span style="color:#fff">${errors}</span>`,
@@ -111,4 +115,6 @@ createApp(App)
     .use(store)
     // .use(NProgress)
     .use(VueSplash)
+    // .use(VueSplide)
+    // .use(SplitCarousel)
     .mount('#app');

@@ -1,123 +1,175 @@
 <template>
-    <div>
-        <table class="border-collapse border-1 border-blue-800 font-sm w-full" v-bind:style="style">
+    <div class="text-left">
+      <h5 class="font-bold mb-2 mr-2 inline-block text-left text-blue-800">{{ title }}</h5>
+      <UpdateAssetsButtonComponent class="hidden md:inline-block" @assetsUpdated="catchAssetsUpdatedEvent "/>
+
+        <table class="border-collapse bg-white font-sm w-full rounded-xl rounded-xl" style="font-size:12px;">
             <thead>
-            <tr>
-                <th :class="thClassStyle" scope="col">SN</th>
-                <th :class="thClassStyle" scope="col">Name</th>
-                <th :class="thClassStyle" scope="col">Exchange</th>
-                <th :class="thClassStyle" scope="col">Symbol</th>
-                <th :class="thClassStyle" scope="col">Qty</th>
-                <th :class="thClassStyle" scope="col">Init Value</th>
+            <tr class="rounded-2xl">
+                <th class="bg-gray-200 p-3 rounded-tl-xl rounded-bl-xl" scope="col">Name</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Bought</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Initial Value</th>
                 <th :class="thClassStyle" scope="col">Current Value</th>
-                <th :class="thClassStyle" scope="col">P/L</th>
-                <th :class="thClassStyle" scope="col">24Hr Change</th>
-                <th :class="thClassStyle" scope="col">Status</th>
-                <th :class="thClassStyle" scope="col">Bought</th>
-                <th :class="thClassStyle" scope="col">ROI</th>
-                <th :class="thClassStyle" scope="col">Daily ROI</th>
-                <th :class="thClassStyle" scope="col">Current Price</th>
-                <th :class="thClassStyle" scope="col">Updated</th>
-                <th :class="thClassStyle" scope="col">P/L (N)</th>
-                <th :class="thClassStyle" scope="col">Action</th>
+                <th :class="thClassStyle" scope="col">Profit/Loss</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">24hrs Change</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">ROI</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Daily ROI</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Current Price</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Updated</th>
+                <th class="hidden md:table-cell" :class="thClassStyle" scope="col">Status</th>
+                <th class="bg-gray-200 p-3 rounded-tr-xl rounded-br-xl" scope="col" v-if="assets && assets.length"></th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(log, index) in data"
-                :key="index">
-                <td :class="tdClassStyle">{{ index+1 }}</td>
+            <tr v-if="assets && !assets.length" class="text-center">
+              <td colspan="12" class="m-auto w-full text-lg p-10">
+                No {{ title }} yet.
+<!--                <router-link to="{to: 'log-asset'}">Log your first asset!</router-link>-->
+              </td>
+            </tr>
+
+            <tr v-else v-for="(log, index) in assets"
+                :key="index"
+                :class="{'bg-red-50': log.profit_loss < 0, 'bg-green-50': log.profit_loss > 0}"
+            >
                 <td :class="tdClassStyle">
-                  {{ log.asset.name }}
-                  <span v-if="log.withdrawals.length"
-                        @click="showWithdrawals(log.withdrawals)"
-                        class="block w-max h-max text-white font-bold rounded px-2 py-1 text-xs bg-gray-600">
-                    {{ log.withdrawals.length }} withdrawals
-                  </span>
+                  <strong>{{ log.asset.name }}</strong>
+                  <small class="ml-1">({{ log.asset.symbol }})</small>
+
+                  <p>{{ log.platform?.name }}</p>
+                  <p>{{ parseFloat(log.quantity_bought).toFixed(4) }}</p>
                 </td>
-                <td :class="tdClassStyle">{{ log.platform?.name }}</td>
-                <td :class="tdClassStyle">{{ log.asset.symbol }}</td>
-                <td :class="tdClassStyle">{{ log.quantity_bought }}</td>
-                <td :class="tdClassStyle">${{ log.initial_value.toLocaleString() }}</td>
-                <td :class="tdClassStyle">${{ log.current_value.toLocaleString() }}</td>
-                <td :class="tdClassStyle">${{ log.profit_loss.toLocaleString() }}</td>
-                <td :class="tdClassStyle">{{ log['24_hr_change'] }}</td>
-                <td :class="tdClassStyle">{{ log.status }}</td>
-                <td :class="tdClassStyle">{{ log.date_bought }}</td>
-                <td :class="tdClassStyle">{{ log.roi }}%</td>
-                <td :class="tdClassStyle">{{ log.daily_roi }}%</td>
-                <td :class="tdClassStyle">${{ log.current_price }}</td>
+
+                <td class="hidden md:table-cell" :class="tdClassStyle">
+                  <p>{{ dateBought(log.date_bought ?? log.created_at) }}</p>
+                  <small>{{ timeBought(log.date_bought ?? log.created_at) }}</small>
+                </td>
+
+                <td class="hidden md:table-cell" :class="tdClassStyle">
+                  <p>${{ log.initial_value.toLocaleString() }}</p>
+                  <small>{{ user.fiat.symbol }} {{ parseFloat(log.initial_value_fiat).toLocaleString() }}</small>
+                </td>
+
                 <td :class="tdClassStyle">
+                  <p>${{ log.current_value.toLocaleString() }}</p>
+                  <small>{{ user.fiat.symbol }} {{ parseFloat(log.current_value_fiat).toLocaleString() }}</small>
+                </td>
+
+                <td :class="tdClassStyle">
+                  <p>${{ log.profit_loss.toLocaleString() }}</p>
+                  <small>
+                    {{ user.fiat.symbol }}
+                    {{ parseFloat(log.profit_loss_fiat ? log.profit_loss_fiat : log.quantity_bought * user.fiat.usdt_sell_rate).toLocaleString() }}
+                  </small>
+                </td>
+
+                <td class="hidden md:table-cell" :class="tdClassStyle">
+                  <span :class="{'text-red-600': log['24_hr_change'] < 0, 'text-green-600': log['24_hr_change'] > 0}">{{ log['24_hr_change'] }}</span>
+                </td>
+
+                <td class="hidden md:table-cell" :class="tdClassStyle">{{ parseFloat(log.roi).toFixed(2) }}%</td>
+
+                <td class="hidden md:table-cell" :class="tdClassStyle">{{ parseFloat(log.daily_roi).toFixed(2) }}%</td>
+
+                <td class="hidden md:table-cell" :class="tdClassStyle">
+                  <p>${{ parseFloat(parseFloat(log.current_price).toFixed(2)).toLocaleString() }}</p>
+                  <small>{{ user.fiat.symbol }} {{ parseFloat(parseFloat(user.fiat.usdt_sell_rate * log.current_price).toFixed(2)).toLocaleString() }}</small>
+                </td>
+
+                <td class="hidden md:table-cell" :class="tdClassStyle">
                     {{ timeAgo.format(new Date(log.last_updated_at)) }}
                 </td>
-                <td :class="tdClassStyle">
-                  &#8358;{{ parseFloat(log.profit_loss_fiat).toLocaleString() }}
-                </td>
-                <td :class="tdClassStyle">
-                  <button v-if="!log.is_sold" :class="defaultActionBtnStyle" @click="markAsSold(log.id)">Mark as Sold</button>
 
-                  <button :class="defaultActionBtnStyle" @click="activateWithdrawalModal(log)">Log Withdrawal</button>
+                <td class="hidden md:table-cell" :class="tdClassStyle">
+                  <span v-if="log.withdrawals.length"
+                        @click="showWithdrawals(log.withdrawals)"
+                        class="block w-max h-max text-white font-bold rounded px-2 py-1 text-red-900 bg-red-200">
+                    {{ log.withdrawals.length }} withdrawals
+                  </span>
 
-                  <button v-if="log.is_sold" :class="successActionBtnStyle">Sold</button>
+                  <span v-if="log.quantity_bought == 0"
+                        @click="showWithdrawals(log.withdrawals)"
+                        class="block w-max h-max text-white font-bold rounded px-2 py-1 text-green-900 bg-green-200">
+                    Sold
+                  </span>
+
+                  <span v-if="log.quantity_bought > 0.00000 && !log.withdrawals.length"
+                        @click="showWithdrawals(log.withdrawals)"
+                        class="block w-max h-max text-white font-bold rounded px-2 py-1 text-green-900 bg-green-200">
+                    Active
+                  </span>
                 </td>
-            </tr>
+                <td :class="tdClassStyle" v-if="assets && assets.length">
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
             </tbody>
         </table>
     </div>
+
 </template>
 
 <script>
     import TimeAgo from "javascript-time-ago";
+    import en from 'javascript-time-ago/locale/en'
     import Axios from "../../config/axios";
+    import UpdateAssetsButtonComponent from "@/components/User/Logs/UpdateAssetsButtonComponent";
+
+    TimeAgo.addDefaultLocale(en)
 
     export default {
-        name: "AssetList",
-        props: {
-            data: {
-                type: Object,
-                required: false
-            },
-            thStyle: {
-                type: String,
-                required: false
-            },
-            tdStyle: {
-                type: String,
-                required: false
-            },
-            cssStyle: {
-                type: String,
-                required: false,
-                default: null
-            }
+      name: "AssetList",
+      components: {UpdateAssetsButtonComponent},
+      props: {
+        title: {
+          type: String,
+          default: "Assets"
         },
+        type: {
+          type: String
+        },
+        thStyle: {
+            type: String,
+            required: false
+        },
+        tdStyle: {
+            type: String,
+            required: false
+        }
+      },
 
-        data() {
-            return {
-              style: this.cssStyle ?? "font-size:14px;",
-              timeAgo: new TimeAgo('en-US'),
-              thClassStyle: 'p-2 border '+this.thStyle,
-              tdClassStyle: 'p-2 border '+this.tdStyle,
-              actionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs ',
-              // defaultActionBtnStyle: this.actionBtnStyle + 'bg-blue-600',
-              // successActionBtnStyle: this.actionBtnStyle + 'bg-green-600',
-              // dangerActionBtnStyle: this.actionBtnStyle + 'bg-red-600',
-              defaultActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 my-1 text-xs bg-blue-600 block',
-              successActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs bg-green-600',
-              dangerActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs bg-red-600',
-            }
-        },
+      data() {
+          return {
+            assets: null,
+            timeAgo: new TimeAgo('en-US'),
+            thClassStyle: 'bg-gray-200 p-3',
+            tdClassStyle: 'p-3 ',
+            actionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs ',
+            defaultActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 my-1 bg-blue-600 block',
+            successActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 bg-green-600',
+            dangerActionBtnStyle: 'w-max h-max text-white font-bold rounded px-2 py-1 bg-red-600',
+          }
+      } ,
 
-        mounted() {
-          this.actionBtnStyle = 'w-max h-max text-white font-bold rounded px-2 py-1 text-xs ';
-        },
+      created() {
+        this.fetchAssets();
+      },
 
       methods: {
-        // roundInitialValue(value) {
-        //   let val = (value);
-        //   console.log('qwe', val);
-        //
-        //   return val;
-        // },
+        fetchAssets() {
+          this.showLoader();
+          Axios.get("/logs", {params: this.type ? {'mode': this.type} : {}})
+              .then(resp => {
+                this.assets = this.type ? resp.data.data.data : resp.data.data
+              })
+              .catch(err => console.log(err))
+              .finally(() => this.hideLoader());
+        },
+
 
         markAsSold(assetId) {
           Axios.put(`/assets/log/${assetId}/sold`)
@@ -190,7 +242,7 @@
                 resolve([
                   withdrawalAmount,
                   withdrawalQuantity,
-                  withdrawalDate
+                  withdrawalDate,
                 ])
               })
             }
@@ -206,6 +258,20 @@
               vm.logWithdrawal(withdrawalData);
             }
           });
+        },
+
+        dateBought(date_time) {
+          return new Date(date_time).toLocaleDateString();
+        },
+
+        timeBought(date_time) {
+          return new Date(date_time).toLocaleTimeString();
+        },
+
+        catchAssetsUpdatedEvent(value) {
+          if(value) {
+            this.fetchAssets();
+          }
         }
       },
     }

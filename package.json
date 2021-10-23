@@ -28,6 +28,7 @@
     "vue-splash": "^1.2.1",
     "vue-sweetalert2": "^5.0.2",
     "vue3-apexcharts": "^1.4.1",
+    "vueperslides": "^3.3.2",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },
