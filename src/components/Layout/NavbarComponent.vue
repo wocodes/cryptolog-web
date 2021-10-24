@@ -10,7 +10,7 @@
             <a
                 class="text-primary text-sm uppercase hidden lg:inline-block font-semibold"
                 href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/dashboard"
-            >Dashboard</a
+            >{{ $route.name }}</a
             >
             <!-- Form -->
             <div
