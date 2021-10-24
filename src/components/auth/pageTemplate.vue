@@ -12,7 +12,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="lg:hidden flex flex-col w-full bg-primary">
+                <div class="lg:hidden flex flex-col w-full sidebar-bg-primary">
                     <div class="flex flex-col w-full tet-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
                         <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
                             <a href="#" class="text-lg text-white font-semibold tracking-widest uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">AssetLog</a>
