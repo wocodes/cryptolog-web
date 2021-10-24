@@ -2,7 +2,7 @@
   <div class="md:grid md:grid-cols-2 justify-between items-center">
     <div class="text-left col-start-1 grid grid-cols-2">
       <div>
-        <h2 class="font-bold m-0 leading-3">Hello, {{ user.name }}</h2>
+        <h2 class="font-bold m-0">Hello, {{ user.name.split(" ")[0] }}</h2>
         <small>Welcome to Assetlog!</small>
       </div>
 
