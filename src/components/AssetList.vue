@@ -37,7 +37,11 @@
 
                 <tr v-for="(log, index) in assets" v-else
                     :key="index"
-                    :class="{'bg-red-50': log.profit_loss < 0, 'bg-green-50': log.profit_loss > 0}"
+                    :class="{
+                      'bg-red-50': log.profit_loss < 0 && !log.is_sold,
+                      'bg-green-50': log.profit_loss > 0 && !log.is_sold,
+                      'text-gray-300 hover:text-gray-500 cursor-pointer': log.is_sold
+                    }"
                 >
                     <td :class="tdClassStyle">
                         <strong>{{ log.asset.name }}</strong>
@@ -73,7 +77,11 @@
                     </td>
 
                     <td :class="tdClassStyle" class="hidden md:table-cell">
-                    <span :class="{'text-red-600': log['24_hr_change'] < 0, 'text-green-600': log['24_hr_change'] > 0}">{{
+                    <span :class="{
+                      'text-red-600': log['24_hr_change'] < 0 && !log.is_sold,
+                      'text-green-600': log['24_hr_change'] > 0 && !log.is_sold,
+                      'text-gray-300 hover:text-gray-500': log.is_sold
+                    }">{{
                             log['24_hr_change']
                         }}</span>
                     </td>
@@ -91,21 +99,27 @@
 
 
                     <td :class="tdClassStyle" class="hidden md:table-cell">
-                  <span v-if="log.withdrawals.length"
+                  <span v-if="log.withdrawals.length && !log.is_sold"
                         class="block w-max h-max text-white font-bold rounded px-2 py-1 text-red-900 bg-red-200"
                         @click="showWithdrawals(log.withdrawals)">
                     {{ log.withdrawals.length }} withdrawals
                   </span>
 
-                        <span v-if="log.quantity_bought == 0"
-                              class="block w-max h-max text-white font-bold rounded px-2 py-1 text-green-900 bg-green-200"
-                              @click="showWithdrawals(log.withdrawals)">
+                  <span v-if="log.withdrawals.length && log.is_sold"
+                        class="block w-max h-max text-white font-bold rounded px-2 py-1 text-green-200 bg-green-50"
+                        @click="showWithdrawals(log.withdrawals)">
                     Sold
                   </span>
 
-                        <span v-if="log.quantity_bought > 0.00000 && !log.withdrawals.length"
-                              class="block w-max h-max text-white font-bold rounded px-2 py-1 text-green-900 bg-green-200"
-                              @click="showWithdrawals(log.withdrawals)">
+                  <span v-if="log.quantity_bought == 0"
+                        class="block w-max h-max text-white font-bold rounded px-2 py-1 text-green-900 bg-green-200"
+                        @click="showWithdrawals(log.withdrawals)">
+                    Sold
+                  </span>
+
+                  <span v-if="log.quantity_bought > 0.00000 && !log.withdrawals.length"
+                        class="block w-max h-max text-white font-bold rounded px-2 py-1 text-green-900 bg-green-200"
+                        @click="showWithdrawals(log.withdrawals)">
                     Active
                   </span>
                     </td>
