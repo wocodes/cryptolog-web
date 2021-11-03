@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen flow-root">
-    <img src="/images/waitlist.png" class="absolute w-max md:w-screen h-screen fixed top-0" style="z-index: -1;"/>
+    <img src="images/waitlist.png" class="absolute w-max md:w-screen h-screen fixed top-0" style="z-index: -1;"/>
 
     <h1 class="text-2xl font-bold text-white bg-blue-700 pt-24 font-sans" style="background-color: #1052b7">AssetLog</h1>
 
@@ -8,7 +8,7 @@
       <h1 class="m-auto md:w-1/2 md:text-5xl text-white font-bold italic">The Smart Asset & Investment Service.</h1>
 
       <p class="m-auto mt-8 md:w-1/2 md:text-xl text-white">
-        AssetLog is a smart asset/investments service that helps you analysis your investment portfolio and share insights on how you can maximise your wealth. <router-link to="about" class="text-blue-400">Read more...</router-link>
+        AssetLog is a smart asset/investments platform that helps you analysis your investment portfolio and share insights on how you can maximise your wealth. <router-link to="about" class="text-blue-400">Read more...</router-link>
       </p>
 
       <form class="grid grid-cols-3 rounded-lg bg-white h-16 md:w-2/4 m-auto mt-20 p-2" @submit.prevent="addToWaitlist">
@@ -24,7 +24,7 @@
         </div>
 
         <button type="submit" class="text-sm md:text-md bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">
-          Join the waitlist
+          Get an Invite
         </button>
       </form>
 

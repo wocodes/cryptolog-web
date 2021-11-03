@@ -10,8 +10,7 @@
                                 :show-fiat="showFiat"
                                 title="Total Value"
                                 :value="totalValue.usd"
-                                :fiat-value="totalValue.fiat"
-                                percChange="10"/>
+                                :fiat-value="totalValue.fiat"/>
     </div>
 
     <div class="ml-16 md:m-0 mt-3 md:mt-0 flex grid grid-cols-2 gap-4">
@@ -19,15 +18,13 @@
                                 :show-fiat="showFiat"
                                 title="Total Profit"
                                 :value="totalProfit.usd"
-                                :fiat-value="totalProfit.fiat"
-                                percChange="18"/>
+                                :fiat-value="totalProfit.fiat"/>
 
       <DashboardAssetsValueType class="text-xs md:text-md"
                                 :show-fiat="showFiat"
                                 title="Total Loss"
                                 :value="totalLoss.usd"
-                                :fiat-value="totalLoss.fiat"
-                                percChange="4"/>
+                                :fiat-value="totalLoss.fiat"/>
     </div>
   </div>
 </template>
