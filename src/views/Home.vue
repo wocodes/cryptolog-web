@@ -2,6 +2,8 @@
   <div class="h-screen flow-root">
     <img src="/images/waitlist.png" class="absolute w-max md:w-screen h-screen fixed top-0" style="z-index: -1;"/>
 
+    <router-link :to="{name: 'login'}" class="bg-white text-blue-600 rounded py-1 px-4 m-4 absolute font-bold right-2">Login</router-link>
+
     <h1 class="text-2xl font-bold text-white bg-blue-700 pt-24 font-sans" style="background-color: #1052b7">AssetLog</h1>
 
     <div class="p-6 w-full md:w-full mt-12 md:mt-10 md:mx-auto text-center">
