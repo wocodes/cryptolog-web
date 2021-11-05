@@ -84,6 +84,17 @@
                                 </router-link>
                             </li>
                         </ul>
+
+                        <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="user.is_admin">
+                            <li class="p-4 items-center" v-for="(menu, index) in adminMenu" :key="index">
+                                <router-link :to="{name: menu.to}" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
+                                    <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
+                                    <div class="align-self-start">
+                                        <span>{{ menu.name }}</span>
+                                    </div>
+                                </router-link>
+                            </li>
+                        </ul>
                     </div>
 
                     <div class="border-b border-white border-opacity-25 my-6"></div>

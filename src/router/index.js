@@ -1,16 +1,23 @@
-import {createRouter, createWebHashHistory} from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 import Home from '../views/Home.vue'
 import {getFromStorage} from "../../helpers/storage";
+import About from "@/views/About";
 
 const routes = [
   {
-    path: '/',
+    path: '',
     name: 'home',
     component: Home
   },
 
   {
-    path: '/test/login',
+    path: '/about',
+    name: 'about',
+    component: About
+  },
+
+  {
+    path: '/login',
     name: 'login',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -18,17 +25,17 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../auth/login/Login.vue')
   },
 
-  {
-    path: '/test/register',
-    name: 'register',
-    component: () => import(/* webpackChunkName: "register" */ '../auth/register/Register.vue')
-  },
-
-  {
-    path: '/test/forgot-password',
-    name: 'forgot-password',
-    component: () => import(/* webpackChunkName: "forgot-password" */ '../auth/forgot-password/VerifyEmail.vue')
-  },
+  // {
+  //   path: '/register',
+  //   name: 'register',
+  //   component: () => import(/* webpackChunkName: "register" */ '../auth/register/Register.vue')
+  // },
+  //
+  // {
+  //   path: '/forgot-password',
+  //   name: 'forgot-password',
+  //   component: () => import(/* webpackChunkName: "forgot-password" */ '../auth/forgot-password/VerifyEmail.vue')
+  // },
 
   {
     path: '/app',
@@ -64,31 +71,35 @@ const routes = [
         name: 'add-asset',
         component: () => import(/* webpackChunkName: "add-asset" */ '../components/Admin/Asset/AddAsset.vue')
       },
+
+      {
+        path: '/admin/users/waitlists',
+        name: 'waitlists-users',
+        component: () => import(/* webpackChunkName: "add-asset" */ '../components/Admin/Users/Waitlist.vue')
+      },
     ]
   },
 
-  { path: "/:pathMatch(.*)*", redirect: "xcv" }
+  { path: "/:pathMatch(.*)*", redirect: "" }
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 
 router.beforeEach((to, from, next) => {
-
-
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
-  let openRoutes = ["", "login", "register","forgot-password"];
+  let openRoutes = ["home", "about", "login", "register"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
     next();
   } else if (!openRoutes.includes(to.name) && !USER_TOKEN) {
-    next({ name: 'zxc' })
+    next({ name: 'home' })
   } else if(openRoutes.includes(to.name) && USER_TOKEN) {
-    next({ name: 'dashboard' })
+    next({ name: 'home' })
   } else {
     next()
   }
