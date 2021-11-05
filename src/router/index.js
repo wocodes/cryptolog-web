@@ -69,13 +69,13 @@ const routes = [
       {
         path: '/admin/assets/add',
         name: 'add-asset',
-        component: () => import(/* webpackChunkName: "add-asset" */ '../components/Admin/Asset/AddAsset.vue')
+        component: () => import(/* webpackChunkName: "admin-add-asset" */ '../components/Admin/Asset/AddAsset.vue')
       },
 
       {
         path: '/admin/users/waitlists',
         name: 'waitlists-users',
-        component: () => import(/* webpackChunkName: "add-asset" */ '../components/Admin/Users/Waitlist.vue')
+        component: () => import(/* webpackChunkName: "users-waitlist" */ '../components/Admin/Users/Waitlist.vue')
       },
     ]
   },
