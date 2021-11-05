@@ -1,81 +1,89 @@
 <template>
-  <div class="h-screen flow-root">
-    <img src="/images/waitlist.png" class="absolute w-max md:w-screen h-screen fixed top-0" style="z-index: -1;"/>
-
-    <h1 class="text-2xl font-bold text-white bg-blue-700 pt-24 font-sans" style="background-color: #1052b7">AssetLog</h1>
-
-    <div class="p-6 w-full md:w-full mt-12 md:mt-10 md:mx-auto text-center">
-      <h1 class="m-auto md:w-1/2 md:text-5xl text-white font-bold">The Smartest Asset & Investment Tracker.</h1>
-
-      <p class="m-auto mt-8 md:w-1/2 md:text-xl text-white">
-        AssetLog is a smart asset/investments tracker. We help you analysis your investment portfolio and share insights on how you can maximise your wealth...
-      </p>
-
-      <form class="grid grid-cols-3 rounded-lg bg-white h-16 md:w-2/4 m-auto mt-20 p-2" @submit.prevent="addToWaitlist">
-        <div class="relative text-gray-400 focus-within:text-gray-600 col-span-2">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 5L11.5 13L21 5" stroke="#CDCCD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              <rect x="1" y="1" width="20" height="16" rx="2" stroke="#CDCCD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-
-          <input id="email" required class="md:text-lg h-full placeholder-gray-400 text-gray-900 rounded-lg w-full block pl-12 focus:outline-none" placeholder="Email address" v-model="email">
-        </div>
-
-        <button type="submit" class="text-sm md:text-md bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">
-          Join the waitlist
-        </button>
-      </form>
-
-      <!--      <h2 class="text-sm md:text-lg mt-20 text-gray-300">-->
-      <!--        Thank you. One last thing, please kindly help us fill-->
-      <!--        <a class="underline text-gray-400 hover:text-gray-300" href="https://forms.gle/AdU2M6ZJFwYTh7V99" target="_blank">this short survey</a>-->
-      <!--        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">-->
-      <!--          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />-->
-      <!--          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />-->
-      <!--        </svg>-->
-      <!--      </h2>-->
-
-      <div class="fixed bottom-0">
-        <img src="/images/gadgets.png" class="w-full md:w-2/3 m-auto">
+  <page-template>
+    <form class="text-center md:text-left lg:text-left md:p-20 lg:p-28 xl:p-40 lg:w-full w-full p-10" @submit.prevent="doLogin">
+      <div class="flex flex-col space-y-3 pb-10">
+        <h1 class="text-2xl font-bold">Welcome Back</h1>
+        <span class="text-sm text-gray-900">Please, enter your details to proceed</span>
       </div>
-    </div>
+      <!--Sign in with google-->
+      <div
+          class="flex space-x-2 justify-center items-end bg-white py-2 rounded-md transition duration-100 border-2 border-gray-200">
+        <img alt="" class=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png">
+        <button>Sign in with Google</button>
+      </div>
 
-    <!--    &lt;!&ndash;      <p>&ndash;&gt;-->
-    <!--&lt;!&ndash;        Asset log helps you log/keep track of all your financial/xxx assets e.g Cryptocurrency, real estate, foreign exchange, stocks, etc.&ndash;&gt;-->
-    <!--        Out robust analytical AI tool stays ahead of time to assists you to plan and prepare your future investments and avoidance of potential risks.-->
-    <!--&lt;!&ndash;      </p>&ndash;&gt;-->
-  </div>
+      <div class="text-center my-6">
+        <span class="text-mute">Or use your email</span>
+      </div>
+
+      <div class="flex flex-col space-y-6">
+        <div class="">
+          <label class="block text-md mb-2" for="email">Email</label>
+          <input id="email" v-model="user.username"
+                 class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" name="email"
+                 placeholder="email" required type="email">
+        </div>
+        <div class="">
+          <label class="block text-md mb-2" for="password">Password</label>
+          <input id="password" v-model="user.password"
+                 class="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" name="password"
+                 placeholder="password" required type="password">
+        </div>
+      </div>
+
+      <div class="w-full flex justify-between pt-3">
+        <div class="flex items-center">
+          <input id="rememberme" class="w-3 h-3 mr-2" name="rememberme" type="checkbox"/>
+          <label class="text-xs" for="rememberme">Remember Me</label>
+        </div>
+<!--        <router-link :to="{name: 'forgot-password'}" class="text-xs text-primary">Forgot Password?</router-link>-->
+      </div>
+
+      <div class="pt-6">
+        <button class="auth-cta">Sign in</button>
+        <p class="mt-6 text-xs text-center">Don’t Have An Account?
+<!--          <router-link :to="{name: 'register'}" class="text-primary">Create new account</router-link>-->
+        </p>
+      </div>
+    </form>
+  </page-template>
 </template>
 
 <script>
 
-
 import Axios from "../../../config/axios";
+import PageTemplate from "@/components/auth/pageTemplate";
 
 export default {
   name: "Login",
+  components: {PageTemplate},
   data() {
     return {
-      email: null,
+      user: {
+        username: null,
+        password: null
+      }
     }
   },
+
   methods: {
-    addToWaitlist() {
+    doLogin() {
       this.showLoader();
-      Axios.post('waitlist', {email: this.email})
-          .then(response => {
-            this.$swal({
-              title: response.data.message,
-              html: '<small>One last thing? Kindly help us fill out <a target="_blank" style="color:#5380cf" href="https://forms.gle/AdU2M6ZJFwYTh7V99">this short survey</a></small>',
-              icon: 'success',
-              showConfirmButton: true,
-              confirmButtonColor: '#2869cb'
-            })
+      Axios.post('/user/login', this.user)
+          .then(resp => {
+            this.$store.commit('storeUser', resp.data.data);
+
+            this.showSuccessToast(resp.data.message);
+
+            this.$router.replace({name: "dashboard"})
           })
-          .catch(err => console.error(err))
-          .finally(() => this.hideLoader())
+          .catch(err => {
+            console.log(err.response)
+            this.showErrorToast(err);
+          })
+          .finally(() => {
+            this.hideLoader();
+          });
     }
   }
 }

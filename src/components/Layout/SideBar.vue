@@ -10,7 +10,7 @@
                 </router-link>
             </li>
         </ul>
-
+{{user.is_admin}}asd
       <ul class="list-none" v-if="user.is_admin">
         <li class="p-4" v-for="(menu, index) in adminMenu" :key="index">
           <router-link :to="{name: menu.to}" class="no-underline">

@@ -24,7 +24,7 @@
         </div>
 
         <button type="submit" class="text-sm md:text-md bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">
-          Join the waitlist
+          Get an Invite!
         </button>
       </form>
 
