@@ -91,8 +91,8 @@
                     <td :class="tdClassStyle" class="hidden md:table-cell">{{ parseFloat(log.daily_roi).toFixed(2) }}%</td>
 
                     <td :class="tdClassStyle" class="hidden md:table-cell">
-                        <p v-bind:title="log.current_price">${{ parseFloat(parseFloat(log.current_price).toFixed(2)).toLocaleString() }}</p>
-                        <small v-bind:title="user.fiat.usdt_sell_rate * log.current_price">{{ user.fiat.symbol }} {{
+                        <p>${{ parseFloat(parseFloat(log.current_price).toFixed(2)).toLocaleString() }}</p>
+                        <small>{{ user.fiat.symbol }} {{
                                 parseFloat(parseFloat(user.fiat.usdt_sell_rate * log.current_price).toFixed(2)).toLocaleString()
                             }}</small>
                     </td>

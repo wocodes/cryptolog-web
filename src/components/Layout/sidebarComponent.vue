@@ -84,6 +84,17 @@
                                 </router-link>
                             </li>
                         </ul>
+
+                        <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="user.is_admin">
+                            <li class="p-4 items-center" v-for="(menu, index) in adminMenu" :key="index">
+                                <router-link :to="{name: menu.to}" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
+                                    <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
+                                    <div class="align-self-start">
+                                        <span>{{ menu.name }}</span>
+                                    </div>
+                                </router-link>
+                            </li>
+                        </ul>
                     </div>
 
                     <div class="border-b border-white border-opacity-25 my-6"></div>
@@ -100,14 +111,14 @@
                             </li>
                         </ul>
 
-                        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                            <li class="p-4 items-center">
-                                <router-link class="flex space-x-8 align-items-center py-3 capitalise font-bold block" @click="logout" to="">
+                        <ul class="md:flex-col md:min-w-full flex flex-col list-none cursor-pointer">
+                            <li class="p-4 items-center" @click="logout">
+                                <span class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/log-out.svg'" alt="..."/>
                                     <div>
                                         <span>Logout</span>
                                     </div>
-                                </router-link>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -137,11 +148,12 @@ export default {
         toggleCollapseShow: function() {
             this.collapseShow =  !this.collapseShow;
         },
+
         logout() {
             deleteFromStorage('vuex');
 
             // redirect to login page
-            this.$router.replace({name: "Home"});
+            this.$router.replace({name: "home"});
         },
     },
     // components: {

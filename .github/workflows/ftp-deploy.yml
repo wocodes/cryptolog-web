@@ -5,11 +5,11 @@ name: FTP-Deploy
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-#  push:
- #   branches: [ build ]
+  push:
+    branches: [ master ]
 
   pull_request:
-    branches: [ master ]
+    branches: [ staging ]
     types: [ closed ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -29,7 +29,7 @@ jobs:
     - name: 🔨 Build Project
       run: |
         touch .env
-        echo "API_URL=https://api.assetlog.co/api" >> .env
+        echo "API_URL=https://api-staging.assetlog.xyz/api" >> .env
         npm install
         npm run build
 
@@ -40,4 +40,4 @@ jobs:
         username: u300464533
         password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
         local-dir: ./dist/
-        server-dir: /domains/assetlog.co/public_html/
+        server-dir: /domains/assetlog.xyz/public_html/staging/web/
