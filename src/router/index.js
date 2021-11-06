@@ -94,6 +94,7 @@ router.beforeEach((to, from, next) => {
   let openRoutes = ["home", "about", "login", "register"];
   let adminRoutes = ["/admin/assets/add"];
 
+
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
     next();
   } else if (!openRoutes.includes(to.name) && !USER_TOKEN) {
