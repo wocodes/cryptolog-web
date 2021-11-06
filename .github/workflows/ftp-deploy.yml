@@ -5,8 +5,8 @@ name: FTP-Deploy
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-#  push:
- #   branches: [ build ]
+  push:
+    branches: [ staging ]
 
   pull_request:
     branches: [ staging ]
@@ -20,24 +20,24 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v2
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
 
-    - name: Setup NodeJs Environment
-      uses: actions/setup-node@v2.4.0
+      - name: Setup NodeJs Environment
+        uses: actions/setup-node@v2.4.0
 
-    - name: 🔨 Build Project
-      run: |
-        touch .env
-        echo "API_URL=https://api-staging.assetlog.xyz/api" >> .env
-        npm install
-        npm run build
+      - name: 🔨 Build Project
+        run: |
+          touch .env
+          echo "API_URL=https://api-staging.assetlog.co/api" >> .env
+          npm install
+          npm run build
 
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
-      with:
-        server: 156.67.74.201
-        username: u300464533
-        password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
-        local-dir: ./dist/
-        server-dir: /domains/assetlog.xyz/public_html/staging/web/
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: 156.67.74.201
+          username: u300464533
+          password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /domains/assetlog.co/public_html/staging/web/
