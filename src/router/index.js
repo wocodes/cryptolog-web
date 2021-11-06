@@ -10,7 +10,7 @@ const routes = [
   },
 
   {
-    path: '/test/login',
+    path: '/login',
     name: 'login',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -19,13 +19,13 @@ const routes = [
   },
 
   {
-    path: '/test/register',
+    path: '/register',
     name: 'register',
     component: () => import(/* webpackChunkName: "register" */ '../auth/register/Register.vue')
   },
 
   {
-    path: '/test/forgot-password',
+    path: '/forgot-password',
     name: 'forgot-password',
     component: () => import(/* webpackChunkName: "forgot-password" */ '../auth/forgot-password/VerifyEmail.vue')
   },
@@ -67,7 +67,7 @@ const routes = [
     ]
   },
 
-  { path: "/:pathMatch(.*)*", redirect: "xcv" }
+  { path: "/:pathMatch(.*)*", redirect: "/home" }
 ]
 
 const router = createRouter({
@@ -80,13 +80,13 @@ router.beforeEach((to, from, next) => {
 
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
-  let openRoutes = ["", "login", "register","forgot-password"];
+  let openRoutes = ["home", "login", "register","forgot-password"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
     next();
   } else if (!openRoutes.includes(to.name) && !USER_TOKEN) {
-    next({ name: 'zxc' })
+    next({ name: 'home' })
   } else if(openRoutes.includes(to.name) && USER_TOKEN) {
     next({ name: 'dashboard' })
   } else {

@@ -100,14 +100,14 @@
                             </li>
                         </ul>
 
-                        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                            <li class="p-4 items-center">
-                                <router-link class="flex space-x-8 align-items-center py-3 capitalise font-bold block" @click="logout" to="">
+                        <ul class="md:flex-col md:min-w-full flex flex-col list-none cursor-pointer">
+                            <li class="p-4 items-center" @click="logout">
+                                <span class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/log-out.svg'" alt="..."/>
                                     <div>
                                         <span>Logout</span>
                                     </div>
-                                </router-link>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -137,11 +137,12 @@ export default {
         toggleCollapseShow: function() {
             this.collapseShow =  !this.collapseShow;
         },
+
         logout() {
             deleteFromStorage('vuex');
 
             // redirect to login page
-            this.$router.replace({name: "Home"});
+            this.$router.replace({name: "home"});
         },
     },
     // components: {
