@@ -41,9 +41,9 @@
 
             <div class="pt-6">
                 <button class="auth-cta">Sign in</button>
-                <p class="mt-6 text-xs text-center">Don’t Have An Account?
-                    <router-link :to="{name: 'register'}" class="text-primary">Create new account</router-link>
-                </p>
+<!--                <p class="mt-6 text-xs text-center">Don’t Have An Account?-->
+<!--                    <router-link :to="{name: 'register'}" class="text-primary">Create new account</router-link>-->
+<!--                </p>-->
             </div>
         </form>
     </page-template>
