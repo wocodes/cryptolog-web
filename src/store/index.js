@@ -22,6 +22,12 @@ export default createStore({
                 to: 'add-asset',
                 name: 'Add Asset',
                 iconName: 'Logs'
+            },
+
+            {
+                to: 'waitlists-users',
+                name: 'Waitlists',
+                iconName: 'Logs'
             }
         ],
         setupSteps: {
