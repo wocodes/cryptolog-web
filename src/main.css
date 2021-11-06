@@ -4,8 +4,18 @@
 
 @layer base {
     @variants responsive {
-        .bg-primary {
+        .sidebar-bg-primary {
             background: linear-gradient(180deg, rgba(21, 101, 216, 0.9) 0%, rgba(2, 41, 138, 0.9) 84.79%, rgba(2, 27, 121, 0.9) 100%);
+        }
+        .bg-primary {
+            background-color: #1565D8;
+        }
+        .text-primary {
+            color: #1565D8;
+        }
+
+        .change-button {
+            @apply inline-flex justify-center py-2 px-4 border border-transparent text-sm rounded-md self-end text-white font-medium bg-primary;
         }
     }
     h1 {
