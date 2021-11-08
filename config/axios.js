@@ -1,39 +1,49 @@
 import axios from "axios";
-import {deleteFromStorage, getFromStorage} from "../helpers/storage";
+import {getFromStorage} from "../helpers/storage";
 import 'nprogress/nprogress.css';
 
-let vuexStore = getFromStorage('vuex');
-console.log(vuexStore);
-if(vuexStore) {
-    console.log('i dey')
-} else console.log('i no dey')
 
-const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
+const populateHeaders = function() {
+    let vuexStore = getFromStorage('vuex');
 
-let headers = {};
+    const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
 
-if (USER_TOKEN) {
-    headers['Authorization'] = "Bearer " + USER_TOKEN;
+    let headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+    };
+
+    if (USER_TOKEN) {
+        headers['Authorization'] = "Bearer " + USER_TOKEN;
+    }
+
+    return headers;
 }
 
 const Axios = axios.create({
     baseURL: process.env.API_URL,
-    headers: headers,
+    headers: populateHeaders(),
     validateStatus: function(status) {
-        console.log('status', status);
+        // console.log('status', status);
         // if (window.location.pathname === '/' && status === 401) {
-        //     window.location.reload();
+        //     console.log('here');
+        //     // window.location.reload(true);
         // } else
-        if (window.location.pathname !== '/' && status === 401) {
-            deleteFromStorage(USER_TOKEN);
-            window.location.reload();
-        }
+        // if (window.location.pathname !== '/' && status === 401) {
+        //     console.log('there')
+        //     // deleteFromStorage(USER_TOKEN);
+        //     // window.location.reload();
+        // }
 
         return status >= 200 && status < 300; // default
     }
 });
 
 Axios.interceptors.request.use(config => {
+    if(!config.headers['Authorization']) {
+        config.headers = populateHeaders()
+    }
+
     return config;
 });
 

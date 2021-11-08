@@ -41,9 +41,9 @@
 
       <div class="pt-6">
         <button class="auth-cta">Sign in</button>
-        <p class="mt-6 text-xs text-center">Don’t Have An Account?
+<!--        <p class="mt-6 text-xs text-center">Don’t Have An Account?-->
 <!--          <router-link :to="{name: 'register'}" class="text-primary">Create new account</router-link>-->
-        </p>
+<!--        </p>-->
       </div>
     </form>
   </page-template>
@@ -88,3 +88,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.text-mute {
+    @apply text-gray-400;
+}
+
+.auth-cta {
+    @apply py-2 w-full rounded text-white;
+    background-color: #1565D8;
+}
+</style>

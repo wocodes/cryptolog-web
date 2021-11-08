@@ -7,7 +7,7 @@
     <p class="w-3/4 text-gray-500">Yay! Your assets have been successfully logged!</p>
 
     <button class="w-full md:w-1/2 rounded py-2 bg-blue-600 border-2 border-blue-600 mt-6 text-white">
-      <span class="my-auto" @click="$parent.gotoSetupStep()">Go to my dashboard</span>
+      <span class="my-auto" @click="gotoDashboard">Go to my dashboard</span>
     </button>
   </div>
 </template>
@@ -17,6 +17,16 @@ export default {
   name: "SuccessAfterApiKeys",
   created() {
     // this.gotoSetupStep('apiKeys');
+  },
+
+  methods: {
+    gotoDashboard() {
+      let user = this.$store.state.user;
+      user.finished_setup = 1;
+      this.$store.commit('storeUser', user);
+
+      this.gotoSetupStep();
+    }
   }
 }
 </script>

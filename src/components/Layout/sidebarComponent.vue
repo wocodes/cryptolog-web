@@ -1,6 +1,6 @@
 <template>
     <nav
-        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6 md:bg-primary bg-white text-white"
+        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6 md:sidebar-bg-primary bg-white text-white"
     >
         <div
             class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
@@ -34,7 +34,7 @@
             <!-- Collapse -->
             <div
                 class="md:flex md:flex-col md:items-stretch md:opacity-100 md:h-auto md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 pt-5 overflow-y-auto overflow-x-hidden h-screen items-center flex-1"
-                v-bind:class="{'bg-primary py-3 px-6' :collapseShow, 'hidden': !collapseShow}"
+                v-bind:class="{'sidebar-bg-primary py-3 px-6' :collapseShow, 'hidden': !collapseShow}"
             >
                 <!-- Collapse header -->
                 <div
@@ -43,7 +43,7 @@
                     <div class="flex flex-wrap">
                         <div class="w-11/12">
                             <a
-                                class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                                class="md:block text-left md:pb-2 text-primary mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                                 href="javascript:void(0)"
                             >
                                 AssetLog
@@ -111,14 +111,14 @@
                             </li>
                         </ul>
 
-                        <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                            <li class="p-4 items-center">
-                                <router-link class="flex space-x-8 align-items-center py-3 capitalise font-bold block" @click="logout" to="">
+                        <ul class="md:flex-col md:min-w-full flex flex-col list-none cursor-pointer">
+                            <li class="p-4 items-center" @click="logout">
+                                <span class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/log-out.svg'" alt="..."/>
                                     <div>
                                         <span>Logout</span>
                                     </div>
-                                </router-link>
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -148,11 +148,12 @@ export default {
         toggleCollapseShow: function() {
             this.collapseShow =  !this.collapseShow;
         },
+
         logout() {
             deleteFromStorage('vuex');
 
             // redirect to login page
-            this.$router.replace({name: "Home"});
+            this.$router.replace({name: "home"});
         },
     },
     // components: {

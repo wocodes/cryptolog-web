@@ -32,10 +32,12 @@ export default {
           .then(resp => {
             this.showSuccessToast(resp.data.message)
             this.getWaitlist();
+            this.hideLoader();
           })
           .catch(error => console.log(error))
           .finally(() => this.hideLoader());
     },
+
 
     getWaitlist() {
       this.showLoader();
