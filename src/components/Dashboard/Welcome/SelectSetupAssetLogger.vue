@@ -18,7 +18,7 @@
       <span class="my-auto">Binance</span>
     </button>
 
-    <button @click="$parent.gotoSetupStep('complete')"
+    <button @click="$parent.gotoSetupStep('skipped')"
             class="hover:shadow flex items-center justify-center w-full md:w-2/3 float-left rounded py-1 bg-gray-200 text-gray-600 mt-2 text-white">
       <span class="my-auto">Skip</span>
     </button>

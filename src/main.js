@@ -13,6 +13,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
 import {DEV_WHITELIST} from '../helpers/constants';
 import VueSplash from 'vue-splash';
+import Axios from "../config/axios";
 // import SplitCarousel from "vue-split-carousel"; // working better than others
 // import VueSplide from '@splidejs/vue-splide';
 // import '@splidejs/splide/dist/css/splide.min.css';
@@ -87,7 +88,12 @@ createApp(App)
                 })
             },
 
-            showLoader(state) {
+            showLoader(state = null) {
+                let slots = {};
+                if(state) {
+                    slots.after = `${state} Please wait...`;
+                }
+
                 this.loader = this.$loading.show({
                     container: this.$refs.pageContainer,
                     lockScroll: true,
@@ -95,19 +101,20 @@ createApp(App)
                     color: '#1565D8',
                     blur: '20px',
                     isFullPage: false,
-                }, {
-                    after: `${state} Please wait...`,
-                });
+                }, slots);
             },
 
             hideLoader() {
                 this.loader.hide();
             },
 
-            gotoSetupStep(step) {
-                if(step === 'complete') {
+            async gotoSetupStep(step) {
+                if(step === 'skipped') {
                     const user = this.$store.state.user;
                     user.finished_setup = 1;
+
+                    // if setups were skipped...
+                    await Axios.post('user/api-keys', {key: "", secret: ""})
 
                     this.$store.commit('storeUser', user);
 

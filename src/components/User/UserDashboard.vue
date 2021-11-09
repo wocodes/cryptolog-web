@@ -6,7 +6,7 @@
       </div>
 
 <!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">-->
-      <div class="flex" v-if="!user.finished_setup">
+      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">
         <SelectSetupAssetLogger class="m-auto" />
       </div>
 

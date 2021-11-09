@@ -14,7 +14,7 @@
           AssetLog is a smart asset/investments service that helps you analysis your investment portfolio and share insights on how you can maximise your wealth. <router-link to="about" class="text-blue-400">Read more...</router-link>
         </p>
 
-        <p class="text-sm mt-10 text-white">Request an invite and get a chance to try out Assetlog!</p>
+        <p class="text-sm mt-20 text-white">Request an invite and get a chance to try out Assetlog!</p>
         <form class="grid grid-cols-3 rounded-lg bg-white h-16 md:w-2/4 m-auto p-2" @submit.prevent="addToWaitlist">
           <div class="relative text-gray-400 focus-within:text-gray-600 col-span-2">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -61,12 +61,23 @@ export default {
   data() {
     return {
       email: null,
+      referralCode: null
     }
   },
+
+  mounted() {
+    this.referralCode = window.location.hash.split('ref=')[1];
+  },
+
   methods: {
     addToWaitlist() {
       this.showLoader();
-      Axios.post('waitlist', {email: this.email})
+      let requestData = {
+        email: this.email,
+        ref: this.referralCode
+      };
+
+      Axios.post('waitlist', requestData)
         .then(response => {
           this.$swal({
             title: response.data.message,
