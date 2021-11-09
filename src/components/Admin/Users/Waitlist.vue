@@ -27,7 +27,7 @@ export default {
 
   methods: {
     sendInvite(userId) {
-      this.showLoader();
+      this.showLoader("Sending Invite...");
       Axios.get('admin/users/send-invite/'+userId)
           .then(resp => {
             this.showSuccessToast(resp.data.message)

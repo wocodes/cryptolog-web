@@ -92,6 +92,7 @@ router.beforeEach((to, from, next) => {
 
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
+  // let openRoutes = ["home", "about", "login", "forgot-password"];
   let openRoutes = ["home", "about", "login", "forgot-password"];
   let adminRoutes = ["/admin/assets/add"];
 

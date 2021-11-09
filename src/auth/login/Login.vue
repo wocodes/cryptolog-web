@@ -71,7 +71,12 @@ export default {
       this.showLoader();
       Axios.post('/user/login', this.user)
           .then(resp => {
-            this.$store.commit('storeUser', resp.data.data);
+            const user = resp.data.data;
+            this.$store.commit('storeUser', user);
+
+            if(!user.finished_setup) {
+              this.gotoSetupStep('fiat');
+            }
 
             this.showSuccessToast(resp.data.message);
 

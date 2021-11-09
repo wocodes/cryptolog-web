@@ -21,11 +21,7 @@ export default {
 
   methods: {
     gotoDashboard() {
-      let user = this.$store.state.user;
-      user.finished_setup = 1;
-      this.$store.commit('storeUser', user);
-
-      this.gotoSetupStep();
+      this.gotoSetupStep('complete');
     }
   }
 }
