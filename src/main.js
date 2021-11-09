@@ -87,7 +87,7 @@ createApp(App)
                 })
             },
 
-            showLoader() {
+            showLoader(state) {
                 this.loader = this.$loading.show({
                     container: this.$refs.pageContainer,
                     lockScroll: true,
@@ -95,8 +95,8 @@ createApp(App)
                     color: '#1565D8',
                     blur: '20px',
                     isFullPage: false,
-                // }, {
-                //     after: `${state} Please wait...`,
+                }, {
+                    after: `${state} Please wait...`,
                 });
             },
 
@@ -105,7 +105,20 @@ createApp(App)
             },
 
             gotoSetupStep(step) {
-                this.$store.commit('updateSetupStep', step)
+                if(step === 'complete') {
+                    const user = this.$store.state.user;
+                    user.finished_setup = 1;
+
+                    this.$store.commit('storeUser', user);
+
+                    // this.showLoader();
+                    // let vm = this;
+                    // setTimeout(() => {
+                    //     vm.hideLoader()
+                    // }, 3000)
+                } else {
+                    this.$store.commit('updateSetupStep', step)
+                }
             }
         }
     })

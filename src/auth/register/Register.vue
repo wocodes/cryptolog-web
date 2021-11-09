@@ -82,3 +82,15 @@ export default {
     }
 }
 </script>
+
+<style>
+.text-mute {
+  @apply text-gray-400;
+}
+
+.auth-cta {
+  @apply py-2 w-full rounded text-white;
+  background-color: #1565D8;
+}
+</style>
+

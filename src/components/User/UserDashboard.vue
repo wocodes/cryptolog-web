@@ -1,11 +1,12 @@
 <template>
   <div>
     <div>
-      <div class="flex" v-if="!user.finished_setup && (!user.fiat_id || $store.state.setupSteps.fiat)">
+      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.fiat">
         <AddFiatModal class="m-auto" />
       </div>
 
-      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">
+<!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">-->
+      <div class="flex" v-if="!user.finished_setup">
         <SelectSetupAssetLogger class="m-auto" />
       </div>
 

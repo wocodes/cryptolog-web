@@ -14,7 +14,8 @@
           AssetLog is a smart asset/investments service that helps you analysis your investment portfolio and share insights on how you can maximise your wealth. <router-link to="about" class="text-blue-400">Read more...</router-link>
         </p>
 
-        <form class="grid grid-cols-3 rounded-lg bg-white h-16 md:w-2/4 m-auto mt-20 p-2" @submit.prevent="addToWaitlist">
+        <p class="text-sm mt-10 text-white">Request an invite and get a chance to try out Assetlog!</p>
+        <form class="grid grid-cols-3 rounded-lg bg-white h-16 md:w-2/4 m-auto p-2" @submit.prevent="addToWaitlist">
           <div class="relative text-gray-400 focus-within:text-gray-600 col-span-2">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +28,7 @@
           </div>
 
           <button type="submit" class="text-sm md:text-md bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700">
-            Get an Invite!
+            Request an Invite!
           </button>
         </form>
 
