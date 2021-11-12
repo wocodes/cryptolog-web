@@ -36,7 +36,7 @@
           <input id="rememberme" class="w-3 h-3 mr-2" name="rememberme" type="checkbox"/>
           <label class="text-xs" for="rememberme">Remember Me</label>
         </div>
-<!--        <router-link :to="{name: 'forgot-password'}" class="text-xs text-primary">Forgot Password?</router-link>-->
+        <router-link :to="{name: 'forgot-password'}" class="text-xs text-primary">Forgot Password?</router-link>
       </div>
 
       <div class="pt-6">
