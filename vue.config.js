@@ -4,7 +4,7 @@ module.exports = {
     pages: {
         index: {
             entry: 'src/main.js',
-            title: 'AssetLog - Your Money Tracker'
+            title: 'Assetlog - Track &amp; increase your wealth the easy way'
         }
     },
     configureWebpack: {
