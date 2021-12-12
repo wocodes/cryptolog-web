@@ -1,15 +1,12 @@
 <template>
-    <nav
-        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6 md:sidebar-bg-primary bg-white text-white"
-    >
-        <div
-            class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
-        >
+    <nav class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden
+                flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6 md:sidebar-bg-primary bg-white text-white">
+        <div class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap
+                    px-0 flex flex-wrap items-center justify-between w-full mx-auto">
             <!-- Brand -->
-            <a
-                class="md:block text-left md:pb-2 text-primary md:text-white mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                href="javascript:void(0)"
-            >
+            <a class="md:block text-left md:pb-2 text-primary md:text-white
+                      mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
+                href="javascript:void(0)">
                 AssetLog
             </a>
 
@@ -32,10 +29,12 @@
 <!--                </li>-->
 <!--            </ul>-->
             <!-- Collapse -->
-            <div
-                class="md:flex md:flex-col md:items-stretch md:opacity-100 md:h-auto md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 pt-5 overflow-y-auto overflow-x-hidden h-screen items-center flex-1"
-                v-bind:class="{'sidebar-bg-primary py-3 px-6' :collapseShow, 'hidden': !collapseShow}"
-            >
+
+<!--          transition duration-500 ease-in-out bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110-->
+              <div
+                  class="md:flex md:flex-col md:items-stretch md:opacity-100 md:h-auto md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 pt-5 overflow-y-auto overflow-x-hidden h-screen items-center flex-1"
+                  v-bind:class="{'sidebar-bg-primary py-3 px-6' :collapseShow, 'hidden': !collapseShow}"
+              >
                 <!-- Collapse header -->
                 <div
                     class="md:min-w-full md:hidden block pb-4 mb-4"
@@ -65,7 +64,7 @@
                     <div class="items-center">
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                             <li class="p-4 items-center">
-                                <router-link :to="{name: 'dashboard'}" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
+                                <router-link :to="{name: 'dashboard'}" @click="toggleCollapseShow" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/home.svg'" alt="..."/>
                                     <div>
                                         <span>Dashboard</span>
@@ -76,7 +75,7 @@
 
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin">
                             <li class="p-4 items-center" v-for="(menu, index) in userMenu" :key="index">
-                                <router-link :to="{name: menu.to}" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
+                                <router-link :to="{name: menu.to}" @click="toggleCollapseShow" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                     <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
                                     <div class="align-self-start">
                                         <span>{{ menu.name }}</span>
@@ -87,7 +86,7 @@
 
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="user.is_admin">
                             <li class="p-4 items-center" v-for="(menu, index) in adminMenu" :key="index">
-                                <router-link :to="{name: menu.to}" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
+                                <router-link :to="{name: menu.to}" @click="toggleCollapseShow" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                     <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
                                     <div class="align-self-start">
                                         <span>{{ menu.name }}</span>
@@ -102,7 +101,7 @@
                     <div class="items-center ">
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                             <li class="p-4 items-center">
-                                <router-link :to="{name: 'settings'}" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
+                                <router-link :to="{name: 'settings'}" @click="toggleCollapseShow" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/settings.svg'" alt="..."/>
                                     <div>
                                         <span>Settings</span>

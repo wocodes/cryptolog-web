@@ -33,6 +33,7 @@ export default createStore({
         setupSteps: {
             fiat: false,
             selectAssetLogger: false,
+            cryptoSetupLogger: false,
             apiKeys: false,
             done: false,
         }

@@ -5,9 +5,13 @@
         <AddFiatModal class="m-auto" />
       </div>
 
-<!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">-->
       <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">
         <SelectSetupAssetLogger class="m-auto" />
+      </div>
+
+<!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">-->
+      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.cryptoSetupLogger">
+        <CryptoSetupLogger class="m-auto" />
       </div>
 
       <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.apiKeys">
@@ -118,10 +122,12 @@ import DashboardAssetsValue from "@/components/Dashboard/DashboardAssetsValue";
 import DashboardAssetsTickers from "@/components/Dashboard/DashboardAssetsTickers";
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+import CryptoSetupLogger from "@/components/Dashboard/Welcome/CryptoSetupLogger";
 
 export default {
   name: "UserDashboard",
   components: {
+    CryptoSetupLogger,
     DashboardAssetsTickers,
     DashboardAssetsValue,
     DashboardTotalAssetCard,
