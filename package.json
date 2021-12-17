@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
+    "@headlessui/vue": "^1.4.2",
     "@popperjs/core": "^2.9.2",
     "@saeris/vue-spinners": "^1.0.8",
     "@vueform/multiselect": "^2.2.0",

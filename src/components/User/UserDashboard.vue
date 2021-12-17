@@ -1,6 +1,10 @@
 <template>
   <div>
     <div>
+      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.welcome">
+        <WelcomeModal class="m-auto" />
+      </div>
+
       <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.fiat">
         <AddFiatModal class="m-auto" />
       </div>
@@ -123,10 +127,12 @@ import DashboardAssetsTickers from "@/components/Dashboard/DashboardAssetsTicker
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
 import CryptoSetupLogger from "@/components/Dashboard/Welcome/CryptoSetupLogger";
+import WelcomeModal from "@/components/Dashboard/Welcome/WelcomeModal";
 
 export default {
   name: "UserDashboard",
   components: {
+    WelcomeModal,
     CryptoSetupLogger,
     DashboardAssetsTickers,
     DashboardAssetsValue,

@@ -75,7 +75,7 @@ export default {
             this.$store.commit('storeUser', user);
 
             if(!user.finished_setup) {
-              this.gotoSetupStep('fiat');
+              this.gotoSetupStep('welcome');
             }
 
             this.showSuccessToast(resp.data.message);

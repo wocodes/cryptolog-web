@@ -73,7 +73,7 @@
                             </li>
                         </ul>
 
-                        <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin">
+                        <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin && user.finished_setup">
                             <li class="p-4 items-center" v-for="(menu, index) in userMenu" :key="index">
                                 <router-link :to="{name: menu.to}" @click="toggleCollapseShow" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                     <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
@@ -98,7 +98,7 @@
 
                     <div class="border-b border-white border-opacity-25 my-6"></div>
 
-                    <div class="items-center ">
+                    <div class="items-center">
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                             <li class="p-4 items-center">
                                 <router-link :to="{name: 'settings'}" @click="toggleCollapseShow" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
