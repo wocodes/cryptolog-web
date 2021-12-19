@@ -7,7 +7,7 @@
     <div class="flex items-center justify-center min-h-screen">
       <DialogOverlay class="fixed inset-0 bg-black opacity-75" />
 
-      <div class="relative w-4/12 mx-auto bg-white rounded-xl">
+      <div class="relative md:w-4/12 mx-auto bg-white rounded-xl">
         <h3 class="font-medium text-md my-3 mx-8">Log Crypto Asset</h3>
 
         <hr class="my-2">
@@ -19,7 +19,7 @@
           <div class="my-8 pb-12">
             <div @click="selectedExchange"
                  style="cursor:pointer"
-                 class="hover:border-blue-500 hover:bg-blue-100 grid grid-cols-8 border rounded-xl px-4 py-2 my-6 text-gray-500 shadow" >
+                 class="hover:border-blue-500 hover:bg-blue-100 grid md:grid-cols-8 grid-cols-4 border rounded-xl md:px-4 p-2 my-6 text-gray-500 shadow" >
               <svg width="45" height="45" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M38 19V25H32" stroke="#005EF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M16 35V29H22" stroke="#005EF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -28,15 +28,15 @@
               </svg>
 
 
-              <div class="col-span-7">
-                <h4 class="font-bold text-sm">Connect Exchange Account</h4>
-                <small>Automatically sync crypto assets from your exchange accounts</small>
+              <div class="md:col-span-7 col-span-3">
+                <h4 class="font-bold md:text-sm text-xs">Connect Exchange Account</h4>
+                <p class="md:text-sm text-xs leading-none text-gray-400 mt-1">Automatically sync crypto assets from your exchange accounts</p>
               </div>
             </div>
 
             <router-link :to="{name: 'add-log'}"
                          style="cursor:pointer"
-                         class="hover:border-blue-500 hover:bg-blue-100 grid grid-cols-8 border rounded-xl px-4 py-2 my-6 text-gray-500 shadow" >
+                         class="hover:border-blue-500 hover:bg-blue-100 grid md:grid-cols-8 grid-cols-4 border rounded-xl md:px-4 p-2 my-6 text-gray-500 shadow" >
               <svg width="45" height="45" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M27 20V34" stroke="#005EF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M20 27H34" stroke="#005EF6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -44,9 +44,9 @@
               </svg>
 
 
-              <div class="col-span-7">
-                <h4 class="font-bold text-sm">Log Manually</h4>
-                <small>Add your assets by filling in data manually</small>
+              <div class="md:col-span-7 col-span-3">
+                <h4 class="font-bold md:text-sm text-xs">Log Manually</h4>
+                <p class="md:text-sm text-xs leading-none text-gray-400 mt-1">Add your assets by filling in data manually</p>
               </div>
             </router-link>
           </div>

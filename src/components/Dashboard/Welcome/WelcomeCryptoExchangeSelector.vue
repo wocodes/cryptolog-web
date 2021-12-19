@@ -7,7 +7,7 @@
     <div class="flex items-center justify-center min-h-screen">
       <DialogOverlay class="fixed inset-0 bg-black opacity-75" />
 
-      <div class="relative w-1/4 mx-auto bg-white rounded-xl">
+      <div class="relative md:w-1/4 mx-auto bg-white rounded-xl">
         <h3 class="font-medium text-md my-3 mx-8">New Connection</h3>
 
         <hr class="my-2">
@@ -18,9 +18,9 @@
 
           <div class="my-8 pb-12">
             <div @click="selectedExchange('Binance')" style="cursor:pointer" class="flow-root text-gray-500 hover:text-black hover:underline" >
-              <img src="/images/bsc-logo.png" class="align-middle w-8 h-8 float-left mr-4" />
+              <img src="/images/bsc-logo.png" class="align-middle md:w-8 md:h-8 w-6 h-6 float-left mr-4" />
 
-              <h4 class="font-bold text-xl col-span-6">Binance</h4>
+              <h4 class="font-bold md:text-xl col-span-6">Binance</h4>
             </div>
           </div>
         </div>
