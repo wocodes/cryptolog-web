@@ -1,10 +1,10 @@
 <template>
-  <div :class="customClass + ' grid grid-cols-6 border-2 rounded-xl p-4 text-gray-500'" >
+  <div :class="customClass + ' grid md:grid-cols-6 grid-cols-3 border-2 rounded-xl md:p-4 p-2 text-gray-500'" >
     <slot></slot>
 
-    <div class="col-span-5">
+    <div class="md:col-span-5 col-span-2">
       <h4 class="font-bold text-sm">{{ name }}</h4>
-      <small>{{ description }}</small>
+      <p class="md:text-sm text-xs leading-none text-gray-400 mt-1">{{ description }}</p>
     </div>
   </div>
 </template>
