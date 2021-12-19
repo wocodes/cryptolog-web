@@ -17,10 +17,10 @@
           <small class="text-gray-400 block">Currently you can only connect to Binance. More exchange connections are coming soon.</small>
 
           <div class="my-8 pb-12">
-            <div @click="console.log(2342)" style="cursor:pointer" class="flow-root" >
+            <div @click="selectedExchange('Binance')" style="cursor:pointer" class="flow-root text-gray-500 hover:text-black hover:underline" >
               <img src="/images/bsc-logo.png" class="align-middle w-8 h-8 float-left mr-4" />
 
-              <h4 class="font-bold text-lg col-span-6">Binance</h4>
+              <h4 class="font-bold text-xl col-span-6">Binance</h4>
             </div>
           </div>
         </div>
@@ -53,6 +53,10 @@ export default {
     setIsOpen(value) {
       this.modalIsOpen = value;
     },
+
+    selectedExchange(value) {
+      this.$emit('selectedApiExchange', value);
+    }
   }
 }
 </script>

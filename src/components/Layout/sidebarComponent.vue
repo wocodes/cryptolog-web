@@ -73,7 +73,7 @@
                             </li>
                         </ul>
 
-                        <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin && user.finished_setup">
+                        <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin && (user.finished_setup || $store.state.setupSteps.done)">
                             <li class="p-4 items-center" v-for="(menu, index) in userMenu" :key="index">
                                 <router-link :to="{name: menu.to}" @click="toggleCollapseShow" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                     <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>

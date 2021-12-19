@@ -5,29 +5,29 @@
         <WelcomeModal class="m-auto" />
       </div>
 
-      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.fiat">
-        <AddFiatModal class="m-auto" />
-      </div>
-
-      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">
-        <SelectSetupAssetLogger class="m-auto" />
-      </div>
+<!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.fiat">-->
+<!--        <AddFiatModal class="m-auto" />-->
+<!--      </div>-->
 
 <!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">-->
-      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.cryptoSetupLogger">
-        <CryptoSetupLogger class="m-auto" />
-      </div>
+<!--        <SelectSetupAssetLogger class="m-auto" />-->
+<!--      </div>-->
 
-      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.apiKeys">
-        <AddApiKeysModal class="m-auto"/>
-      </div>
+<!--&lt;!&ndash;      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.selectAssetLogger">&ndash;&gt;-->
+<!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.cryptoSetupLogger">-->
+<!--        <CryptoSetupLogger class="m-auto" />-->
+<!--      </div>-->
 
-      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.done">
-        <SuccessAfterApiKeys class="m-auto"/>
-      </div>
+<!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.apiKeys">-->
+<!--        <AddApiKeysModal class="m-auto"/>-->
+<!--      </div>-->
+
+<!--      <div class="flex" v-if="!user.finished_setup && $store.state.setupSteps.done">-->
+<!--        <SuccessAfterApiKeys class="m-auto"/>-->
+<!--      </div>-->
     </div>
 
-    <div v-if="user.finished_setup">
+    <div v-if="user.finished_setup || $store.state.setupSteps.done">
       <!-- Tips -->
 
       <!-- if average of top 10 assets are positive, show this else show thumbs down -->
@@ -116,31 +116,31 @@
 import Axios from "../../../config/axios";
 import AssetList from "@/components/AssetList";
 import Tip from "@/components/Shared/Tip";
-import AddFiatModal from "@/components/Dashboard/Welcome/AddFiatModal";
-import SelectSetupAssetLogger from "@/components/Dashboard/Welcome/SelectSetupAssetLogger";
-import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
-import SuccessAfterApiKeys from "@/components/Dashboard/Welcome/SuccessAfterApiKeys";
+// import AddFiatModal from "@/components/Dashboard/Welcome/AddFiatModal";
+// import SelectSetupAssetLogger from "@/components/Dashboard/Welcome/SelectSetupAssetLogger";
+// import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
+// import SuccessAfterApiKeys from "@/components/Dashboard/Welcome/SuccessAfterApiKeys";
 import DashboardHeader from "@/components/Dashboard/DashboardHeader";
 import DashboardTotalAssetCard from "@/components/Dashboard/DashboardTotalAssetCard";
 import DashboardAssetsValue from "@/components/Dashboard/DashboardAssetsValue";
 import DashboardAssetsTickers from "@/components/Dashboard/DashboardAssetsTickers";
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
-import CryptoSetupLogger from "@/components/Dashboard/Welcome/CryptoSetupLogger";
+// import CryptoSetupLogger from "@/components/Dashboard/Welcome/CryptoSetupLogger";
 import WelcomeModal from "@/components/Dashboard/Welcome/WelcomeModal";
 
 export default {
   name: "UserDashboard",
   components: {
     WelcomeModal,
-    CryptoSetupLogger,
+    // CryptoSetupLogger,
     DashboardAssetsTickers,
     DashboardAssetsValue,
     DashboardTotalAssetCard,
     DashboardHeader,
-    SuccessAfterApiKeys,
-    AddApiKeysModal,
-    SelectSetupAssetLogger, AddFiatModal,
+    // SuccessAfterApiKeys,
+    // AddApiKeysModal,
+    // SelectSetupAssetLogger, AddFiatModal,
     AssetList,Tip, VueperSlides, VueperSlide
   },
   data() {

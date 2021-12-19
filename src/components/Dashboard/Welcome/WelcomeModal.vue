@@ -65,9 +65,20 @@
     </div>
 
 
-    <WelcomeCryptoLogOptions v-if=cryptoLoggerTypeModalIsOpen :is-open="cryptoLoggerTypeModalIsOpen" @cryptoSelectedLogType="handleSelectedLogType"/>
+    <WelcomeCryptoLogOptions v-if=cryptoLoggerTypeModalIsOpen
+                             :is-open="cryptoLoggerTypeModalIsOpen"
+                             @cryptoSelectedLogType="handleSelectedLogType" />
 
-    <WelcomeCryptoExchangeSelector v-if=openCryptoExchangeSelector :is-open="openCryptoExchangeSelector"/>
+    <WelcomeCryptoExchangeSelector v-if=openCryptoExchangeSelector
+                                   :is-open="openCryptoExchangeSelector"
+                                   @selectedApiExchange="handleSelectedExchange" />
+
+    <AddApiKeysModal v-if=openExchangeApiConnector
+                     :is-open="openExchangeApiConnector"
+                     :exchange="selectedExchangeApiConnector"
+                     @completedApiIntegration="handleCompletedApiIntegration"/>
+
+    <SuccessAfterApiKeys v-if=doneConnectingExchange :is-open="doneConnectingExchange" />
 
   </div>
 </template>
@@ -77,18 +88,25 @@ import AssetSelectorsOnWelcomeModal from "@/components/Dashboard/Welcome/AssetSe
 
 import WelcomeCryptoLogOptions from "@/components/Dashboard/Welcome/WelcomeCryptoLogOptions";
 import WelcomeCryptoExchangeSelector from "@/components/Dashboard/Welcome/WelcomeCryptoExchangeSelector";
+import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
+import SuccessAfterApiKeys from "@/components/Dashboard/Welcome/SuccessAfterApiKeys";
 
 
 
 export default {
   name: "WelcomeModal",
   components: {
+    SuccessAfterApiKeys,
+    AddApiKeysModal,
     WelcomeCryptoExchangeSelector,
     WelcomeCryptoLogOptions, AssetSelectorsOnWelcomeModal},
   data() {
     return {
       cryptoLoggerTypeModalIsOpen: false,
       openCryptoExchangeSelector: false,
+      openExchangeApiConnector: false,
+      doneConnectingExchange: false,
+      selectedExchangeApiConnector: null,
     }
   },
 
@@ -100,8 +118,21 @@ export default {
       }
     },
 
+    handleSelectedExchange(value) {
+      if(value === "Binance") {
+        this.openCryptoExchangeSelector = false;
+        this.openExchangeApiConnector = true;
+        this.selectedExchangeApiConnector = value;
+      }
+    },
+
+    handleCompletedApiIntegration() {
+        this.openExchangeApiConnector = false;
+        this.doneConnectingExchange = true;
+    },
+
     openLoggerType(value) {
-      this.cryptoLoggerTypeModalIsOpen = value
+      this.cryptoLoggerTypeModalIsOpen = value;
     }
   }
 

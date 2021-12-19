@@ -1,27 +1,63 @@
 <template>
-  <div class="p-6 w-full md:w-1/2 mt-6 mx-4 md:mx-auto bg-white rounded-xl flex flex-col items-center justify-center shadow-lg">
-    <img src="images/success.svg" alt="welcome" class="my-2"/>
+  <Dialog
+      :open="modalIsOpen"
+      @close="setIsOpen"
+      class="fixed inset-0 z-10 overflow-y-auto"
+  >
+    <div class="flex items-center justify-center min-h-screen">
+      <DialogOverlay class="fixed inset-0 bg-black opacity-75" />
 
-    <h3 class="font-bold text-lg my-4">Success</h3>
+      <div class="relative w-1/4 text-center mx-auto bg-white rounded-xl">
+        <img src="images/success.svg" alt="welcome" class="my-2 m-auto"/>
 
-    <p class="w-3/4 text-gray-500">Yay! Your assets have been successfully logged!</p>
+        <h3 class="font-bold text-lg my-4">Success</h3>
 
-    <button class="w-full md:w-1/2 rounded py-2 bg-blue-600 border-2 border-blue-600 mt-6 text-white">
-      <span class="my-auto" @click="gotoDashboard">Go to my dashboard</span>
-    </button>
-  </div>
+        <p class="w-4/5 mx-auto text-sm text-gray-400">Yay! Your assets have been successfully logged into your dashboard!</p>
+
+        <button class="w-full md:w-1/2 rounded py-2 bg-blue-600 border-2 border-blue-600 my-10 text-white">
+          <span class="my-auto" @click="gotoDashboard">Go to my dashboard</span>
+        </button>
+      </div>
+    </div>
+  </Dialog>
 </template>
 
 <script>
+import {
+  Dialog,
+  DialogOverlay,
+} from "@headlessui/vue";
+
+
 export default {
   name: "SuccessAfterApiKeys",
+  props: {
+    isOpen: {
+      type: Boolean
+    },
+    exchange: {
+      type: String
+    }
+  },
+  components: {Dialog, DialogOverlay},
   created() {
     // this.gotoSetupStep('apiKeys');
   },
 
+  data() {
+    return {
+      modalIsOpen: this.isOpen,
+    }
+  },
+
   methods: {
+    setIsOpen(value) {
+      this.modalIsOpen = value;
+    },
+
     gotoDashboard() {
-      this.gotoSetupStep('complete');
+      this.gotoSetupStep('done');
+      // this.gotoSetupStep('complete');
     }
   }
 }

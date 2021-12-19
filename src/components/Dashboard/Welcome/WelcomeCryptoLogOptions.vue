@@ -7,7 +7,7 @@
     <div class="flex items-center justify-center min-h-screen">
       <DialogOverlay class="fixed inset-0 bg-black opacity-75" />
 
-      <div class="relative w-5/12 mx-auto bg-white rounded-xl">
+      <div class="relative w-4/12 mx-auto bg-white rounded-xl">
         <h3 class="font-medium text-md my-3 mx-8">Log Crypto Asset</h3>
 
         <hr class="my-2">
