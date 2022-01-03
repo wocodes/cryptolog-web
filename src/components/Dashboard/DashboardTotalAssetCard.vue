@@ -1,7 +1,8 @@
 <template>
-  <div class="w-full bg-white rounded-xl shadow-lg justify-center h-32" v-if="chartData && chartData.length">
+  <div class="w-full bg-white rounded-xl shadow-lg justify-center"
+       :class="{'h-20' : selectedType !== undefined, 'h-32' : selectedType === undefined}" v-if="chartData">
     <apexchart
-        width="250"
+        :width="selectedType === undefined ? 250 : 230"
         type="pie"
         :options="chart.options"
         :series="chart.series"
@@ -11,12 +12,14 @@
 
 <script>
 import VueApexCharts from "vue3-apexcharts";
+import Axios from "../../../config/axios";
 
 export default {
   name: "DashboardTotalAssetCard",
   components: {apexchart: VueApexCharts},
   props: {
-    chartData: Array
+    type: String,
+    default: null
   },
   data() {
     return {
@@ -38,7 +41,7 @@ export default {
         //     // fontFamily: 'Helvetica, Arial',
         //     // fontWeight: 400,
             formatter: function(seriesName, opts) {
-              return [seriesName, " - ", opts.w.globals.series[opts.seriesIndex]]
+              return [seriesName, " - ", "$"+opts.w.globals.series[opts.seriesIndex]]
             },
         //     // inverseOrder: false,
         //     width: '200',
@@ -77,17 +80,43 @@ export default {
         },
         series: []
       },
+      chartData: null,
+      selectedType: this.type
+    }
+  },
+
+  watch: {
+    type: function(val) {
+      console.log('type', this.type);
+      this.selectedType = val;
+
+      this.renderData();
     }
   },
 
   mounted() {
-    this.populateChartData();
+    this.renderData();
   },
 
   methods: {
+    async renderData() {
+      await this.getEarningsSummary();
+      this.populateChartData();
+    },
+
     populateChartData() {
       this.chart.options.labels = Object.values(this.chartData.map(dat => dat['name']));
       this.chart.series = Object.values(this.chartData.map(dat => parseFloat(dat['current_value'])));
+    },
+
+    async getEarningsSummary() {
+      const assetType = this.selectedType !== undefined ? "/" + this.selectedType : "";
+      await Axios.get("/assets/report/earnings-summary" + assetType)
+          .then(resp => {
+            this.chartData = resp.data.data;
+          })
+          .catch(err => console.log(err))
+      // .finally(() => this.hideLoader())x
     }
   }
 }

@@ -3,7 +3,7 @@
     <div>
       <div class="md:pl-36" style="background-image:url('/images/bg-1.png');background-size: cover">
         <div class="p-4 grid grid-cols-2">
-          <h1 class="text-2xl font-bold text-white font-sans">AssetLog</h1>
+          <h1 class="text-2xl font-bold text-white font-sans">Assetlog</h1>
 
           <ul class="md:mr-36 mt-2 text-right inline-block">
             <li class="inline-block">
@@ -21,10 +21,10 @@
 
         </div>
           <div class="md:mt-28 mx-10 my-10 md:text-left text-center md:w-1/2 md:pb-28">
-            <h1 class="m-auto md:text-5xl text-white font-extrabold">The Smart Asset & Investment Service.</h1>
+            <h1 class="m-auto md:text-5xl text-white font-extrabold">The Smart Asset Management Service.</h1>
 
             <p class="m-auto mt-8 md:text-xl text-white">
-              AssetLog is a smart asset/investments service that helps you analysis your investment portfolio and share insights on how you can maximise your wealth.
+              Assetlog is a smart asset management service that helps you analyse your assets portfolio and share insights on how you can maximise your wealth.
 <!--              <router-link to="about" class="text-blue-400">Read more...</router-link>-->
             </p>
 
@@ -53,10 +53,10 @@
 
     <div class="md:px-36 md:pt-20 md:grid md:grid-cols-2 md:text-left mx-10 text-center mb-10">
       <div>
-        <h1 class="font-extrabold md:text-4xl text-black">You easy and most efficient investment companion.</h1>
+        <h1 class="font-extrabold md:text-4xl text-black">Your easy and most efficient asset management companion.</h1>
 
-        <p class="my-4">Our revolutionary investment service provides an effective and efficient way for you
-          to get a clearer overview of your investments and their performance, especially if you invest over several asset types.</p>
+        <p class="my-4">Our revolutionary asset management service provides an effective and efficient way for you
+          to get a clearer overview of your assets and their performance, especially if you invest over several asset types.</p>
 
           <ul class="list-none grid grid-cols-2 gap-y-3 md:mr-40 text-left">
             <li>
@@ -92,7 +92,7 @@
 
     <div class="py-3 bg-white">
       <div class="md:px-36 px-10">
-        <h1 class="my-10 font-extrabold md:text-4xl text-black text-center">Start tracking your investments in 3 steps</h1>
+        <h1 class="my-10 font-extrabold md:text-4xl text-black text-center">Start tracking your asset performance in 3 steps</h1>
 
         <div class="grid md:grid-cols-3 gap-x-20 gap-y-10">
           <div class="bg-gray-100 rounded-2xl shadow-lg px-5">

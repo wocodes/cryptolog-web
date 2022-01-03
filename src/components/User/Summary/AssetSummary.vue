@@ -32,7 +32,7 @@ export default {
         },
 
         fetchUpdatedAssetsData() {
-            Axios.get("/logs/update")
+            Axios.get("/logs/crypto/update")
                 .then(() => {
                     this.fetchTopPerformingAssets();
                 })

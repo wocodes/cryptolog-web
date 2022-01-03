@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full md:text-black bg-white rounded-xl shadow-lg justify-center py-3 md:py-10 flow-root h-32">
+  <div class="w-full md:text-black bg-white rounded-xl shadow-lg justify-center py-3 flow-root"
+       :class="{'md:py-5' : selectedType !== undefined, 'md:py-10' : selectedType === undefined}">
     <div class="block md:float-left w-52">
       <svg title="Click to Show Fiat/Local Values" @click="showFiat = !showFiat" class="float-left mx-3 cursor-pointer bg-white rounded-lg" width="40" height="41" viewBox="0 0 50 51" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect y="0.5" width="50" height="50" rx="10" fill="#1565D8" fill-opacity="0.1"/>
@@ -16,13 +17,13 @@
     <div class="ml-16 md:m-0 mt-3 md:mt-0 flex grid grid-cols-2 gap-4">
       <DashboardAssetsValueType class="text-xs md:text-md"
                                 :show-fiat="showFiat"
-                                title="Total Profit"
+                                :title="(selectedType === undefined ? 'Total ' : '') + 'Profit'"
                                 :value="totalProfit.usd"
                                 :fiat-value="totalProfit.fiat"/>
 
       <DashboardAssetsValueType class="text-xs md:text-md"
                                 :show-fiat="showFiat"
-                                title="Total Loss"
+                                :title="(selectedType === undefined ? 'Total ' : '') + 'Loss'"
                                 :value="totalLoss.usd"
                                 :fiat-value="totalLoss.fiat"/>
     </div>
@@ -36,19 +37,32 @@ import Axios from "../../../config/axios";
 export default {
   name: "DashboardAssetsValue",
   components: {DashboardAssetsValueType},
+  props: {
+    type: String
+  },
   data() {
     return {
       showFiat: false,
       totalAssets: 0,
       totalValue: {},
       totalProfit: {},
-      totalLoss: {}
+      totalLoss: {},
+      selectedType: this.type
     }
   },
 
+  // watch: {
+  //   type: function(val) {
+  //     this.type = val;
+  //     return this.getDashboardStats();
+  //   }
+  // },
+
   methods: {
     getDashboardStats() {
-      Axios.get("/user/dashboard/stats")
+      const assetType = this.selectedType !== undefined ? "/" + this.selectedType : "";
+
+      Axios.get("/user/dashboard/stats" + assetType)
           .then(resp => {
             this.totalAssets = resp.data.data.assets_count;
             this.totalValue = resp.data.data.assets_value;
@@ -57,6 +71,14 @@ export default {
           })
           .catch(err => console.log(err));
     },
+  },
+
+  watch: {
+    type: function(val) {
+      this.selectedType = val;
+
+      this.getDashboardStats();
+    }
   },
 
   mounted() {

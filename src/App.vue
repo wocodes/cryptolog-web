@@ -11,4 +11,8 @@
   color: #2c3e50;
     @apply bg-gray-100
 }
+
+.multiselect-caret {
+  z-index: unset;
+}
 </style>

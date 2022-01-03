@@ -7,7 +7,7 @@
             <a class="md:block text-left md:pb-2 text-primary md:text-white
                       mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                 href="javascript:void(0)">
-                AssetLog
+                Assetlog
             </a>
 
             <!-- Toggler -->
@@ -33,7 +33,7 @@
 <!--          transition duration-500 ease-in-out bg-blue-600 hover:bg-red-600 transform hover:-translate-y-1 hover:scale-110-->
               <div
                   class="md:flex md:flex-col md:items-stretch md:opacity-100 md:h-auto md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 pt-5 overflow-y-auto overflow-x-hidden h-screen items-center flex-1"
-                  v-bind:class="{'sidebar-bg-primary py-3 px-6' :collapseShow, 'hidden': !collapseShow}"
+                  v-bind:class="{'bg-primary opacity-97 py-3 px-6' :collapseShow, 'hidden': !collapseShow}"
               >
                 <!-- Collapse header -->
                 <div
@@ -45,14 +45,14 @@
                                 class="md:block text-left md:pb-2 text-primary mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
                                 href="javascript:void(0)"
                             >
-                                AssetLog
+                                Assetlog
                             </a>
                         </div>
                         <div class="w-1/12 flex justify-end">
                             <button
                                 type="button"
                                 class="cursor-pointer text-white opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
-                                v-on:click="toggleCollapseShow()"
+                                v-on:click="collapseShow = false"
                             >
                                 <i class="fas fa-times"></i>
                             </button>
@@ -64,7 +64,7 @@
                     <div class="items-center">
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                             <li class="p-4 items-center">
-                                <router-link :to="{name: 'dashboard'}" @click="toggleCollapseShow" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
+                                <router-link :to="{name: 'dashboard'}" @click="collapseShow = false" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/home.svg'" alt="..."/>
                                     <div>
                                         <span>Dashboard</span>
@@ -75,7 +75,7 @@
 
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin && (user.finished_setup || $store.state.setupSteps.done)">
                             <li class="p-4 items-center" v-for="(menu, index) in userMenu" :key="index">
-                                <router-link :to="{name: menu.to}" @click="toggleCollapseShow" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
+                                <router-link :to="{name: menu.to}" @click="collapseShow = false" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                     <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
                                     <div class="align-self-start">
                                         <span>{{ menu.name }}</span>
@@ -86,7 +86,7 @@
 
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="user.is_admin">
                             <li class="p-4 items-center" v-for="(menu, index) in adminMenu" :key="index">
-                                <router-link :to="{name: menu.to}" @click="toggleCollapseShow" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
+                                <router-link :to="{name: menu.to}" @click="collapseShow = false" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                     <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
                                     <div class="align-self-start">
                                         <span>{{ menu.name }}</span>
@@ -101,7 +101,7 @@
                     <div class="items-center">
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                             <li class="p-4 items-center">
-                                <router-link :to="{name: 'settings'}" @click="toggleCollapseShow" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
+                                <router-link :to="{name: 'settings'}" @click="collapseShow = false" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/settings.svg'" alt="..."/>
                                     <div>
                                         <span>Settings</span>

@@ -24,9 +24,12 @@
           </AssetSelectorsOnWelcomeModal>
 
           <AssetSelectorsOnWelcomeModal
-              class="border-gray-200 text-grey-100"
+              custom-class="hover:border-blue-500 hover:bg-blue-100"
+              @click="gotoLogger('Real Estate')"
+              style="cursor:pointer"
               name="Real Estate"
-              description="Coming soon...">
+              description="Coming soon..."
+          >
             <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g opacity="0.6">
                 <path d="M31.401 19.3334C31.2944 19.3338 31.189 19.3087 31.093 19.26L23.001 14.9334L14.909 19.2307C14.7364 19.3163 14.5384 19.3265 14.3585 19.2591C14.1787 19.1917 14.0317 19.0522 13.95 18.8714C13.8684 18.6905 13.8586 18.483 13.9229 18.2946C13.9873 18.1062 14.1204 17.9523 14.293 17.8667L23.001 13.3494L31.709 17.8667C31.8926 17.9116 32.0519 18.0305 32.1524 18.1975C32.2529 18.3646 32.2865 18.5664 32.246 18.7593C32.2055 18.9522 32.0941 19.1205 31.936 19.228C31.7778 19.3354 31.5857 19.3733 31.401 19.3334ZM19.501 26.6667H15.301V31.0667H19.501V26.6667ZM25.101 26.6667H20.901V31.0667H25.101V26.6667ZM30.701 26.6667H26.501V31.0667H30.701V26.6667ZM27.901 20.8H23.701V25.2H27.901V20.8ZM22.301 20.8H18.101V25.2H22.301V20.8Z" fill="#2A6FD6"/>
@@ -138,6 +141,10 @@ export default {
 
     openLoggerType(value) {
       this.cryptoLoggerTypeModalIsOpen = value;
+    },
+
+    gotoLogger(logType) {
+      this.$router.push({name: 'add-log', params: { type: logType }})
     }
   }
 
