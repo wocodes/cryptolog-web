@@ -16,6 +16,11 @@ export default createStore({
                 name: 'Asset Logs',
                 iconName: 'Logs'
             },
+            {
+                to: 'calculator',
+                name: 'Calculator',
+                iconName: 'calculator'
+            },
         ],
         adminMenu: [
             {

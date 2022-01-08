@@ -24,11 +24,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "login" */ '../auth/login/Login.vue')
   },
 
-  // {
-  //   path: '/register',
-  //   name: 'register',
-  //   component: () => import(/* webpackChunkName: "register" */ '../auth/register/Register.vue')
-  // },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import(/* webpackChunkName: "register" */ '../auth/register/Register.vue')
+  },
 
   {
     path: '/forgot-password',
@@ -51,6 +51,12 @@ const routes = [
         path: '/assets/log',
         name: 'logs',
         component: () => import(/* webpackChunkName: "asset-logs" */ '../components/User/Logs/Logs.vue')
+      },
+
+      {
+        path: '/calculator',
+        name: 'calculator',
+        component: () => import(/* webpackChunkName: "calculator" */ '../components/User/Calculator.vue')
       },
 
       {
@@ -93,7 +99,7 @@ router.beforeEach((to, from, next) => {
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
   // let openRoutes = ["home", "about", "login", "forgot-password"];
-  let openRoutes = ["home", "about", "login", "forgot-password"];
+  let openRoutes = ["home", "about", "login", "forgot-password", "register"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {

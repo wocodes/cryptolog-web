@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-gray-100">
+    <div id="root-div" class="bg-gray-100">
         <sidebar-component></sidebar-component>
-        <div class="relative md:ml-64 bg-blueGray-100 h-screen">
+        <div class="relative md:ml-64 md:bg-blueGray-100 h-screen">
             <navbar-component class="sticky"></navbar-component>
             <div class="relative py-4 md:px-12 px-4 md:pt-6">
                 <router-view/>
@@ -24,5 +24,10 @@ export default {
 </script>
 
 <style scoped>
-
+@media screen and (max-width: 600px) {
+  #root-div {
+    background-image: url("/images/wp5511690.jpg");
+    background-size: cover;
+  }
+}
 </style>
