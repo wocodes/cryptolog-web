@@ -12,16 +12,22 @@
               </router-link>
             </li>
 
-            <li class="inline-block">
+            <li class="inline-block mx-1">
               <router-link :to="{name: 'login'}"
-                           class="bg-white text-blue-600 rounded py-1 px-4 font-bold right-2">Login
+                           class="bg-white text-blue-600 rounded-full py-1 px-4 right-2 hover:bg-black hover:text-white">Login
+              </router-link>
+            </li>
+
+            <li class="inline-block mx-1">
+              <router-link :to="{name: 'register'}"
+                           class="bg-blue-600 text-white rounded-full py-1 px-4 right-2 hover:bg-blue-900">Register
               </router-link>
             </li>
           </ul>
 
         </div>
           <div class="md:mt-28 mx-10 my-10 md:text-left text-center md:w-1/2 md:pb-28">
-            <h1 class="m-auto md:text-5xl text-white font-extrabold">The Smart Asset Management Service.</h1>
+            <h1 class="m-auto md:text-5xl text-white font-extrabold">No. 1 Asset Management Service.</h1>
 
             <p class="m-auto mt-8 md:text-xl text-white">
               Assetlog is a smart asset management service that helps you analyse your assets portfolio and share insights on how you can maximise your wealth.
@@ -30,22 +36,30 @@
 
             <div class="md:mt-20 py-10 md:mr-16">
               <!--        <p class="text-sm mt-20 text-white">Request an invite and get a chance to try out Assetlog!</p>-->
-              <form class="grid grid-cols-3 rounded-lg bg-white md:h-14 h-12 p-1" @submit.prevent="addToWaitlist">
-                <div class="relative text-gray-400 focus-within:text-gray-600 col-span-2">
-                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M2 5L11.5 13L21 5" stroke="#CDCCD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      <rect x="1" y="1" width="20" height="16" rx="2" stroke="#CDCCD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </div>
+<!--              <form class="grid grid-cols-3 rounded-lg bg-white md:h-14 h-12 p-1" @submit.prevent="addToWaitlist">-->
+<!--                <div class="relative text-gray-400 focus-within:text-gray-600 col-span-2">-->
+<!--                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">-->
+<!--                    <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                      <path d="M2 5L11.5 13L21 5" stroke="#CDCCD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                      <rect x="1" y="1" width="20" height="16" rx="2" stroke="#CDCCD9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                    </svg>-->
+<!--                  </div>-->
 
-                  <input id="email" required class="md:text-lg h-full placeholder-gray-400 text-gray-900 rounded-lg w-full block pl-12 focus:outline-none" placeholder="Email address" v-model="email">
-                </div>
+<!--                  <input id="email" required class="md:text-lg h-full placeholder-gray-400 text-gray-900 rounded-lg w-full block pl-12 focus:outline-none" placeholder="Email address" v-model="email">-->
+<!--                </div>-->
 
-                <button type="submit" class="text-sm md:text-md bg-blue-600 text-white rounded-lg font-extrabold hover:bg-blue-700">
-                  Get Started!
-                </button>
-              </form>
+<!--                <button type="submit" class="text-sm md:text-md bg-blue-600 text-white rounded-lg font-extrabold hover:bg-blue-700">-->
+<!--                  Get Started!-->
+<!--                </button>-->
+<!--              </form>-->
+
+              <router-link :to="{name:'register'}" type="submit" class="border-b pl-14 pr-10 py-4 text-md md:text-md bg-blue-600 text-white rounded-full font-extrabold hover:bg-blue-700">
+                Get Started!
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="float-right ml-3 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                </svg>
+              </router-link>
             </div>
           </div>
       </div>
@@ -62,7 +76,7 @@
             <li>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block text-blue-400" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-              </svg> Cryptocurrency
+              </svg> Digital Currency
             </li>
 
             <li>
@@ -224,7 +238,7 @@
     </div>
   </div>
 <!--    &lt;!&ndash;      <p>&ndash;&gt;-->
-<!--&lt;!&ndash;        Asset log helps you log/keep track of all your financial/xxx assets e.g Cryptocurrency, real estate, foreign exchange, stocks, etc.&ndash;&gt;-->
+<!--&lt;!&ndash;        Asset log helps you log/keep track of all your financial/xxx assets e.g Digital Currency, real estate, foreign exchange, stocks, etc.&ndash;&gt;-->
 <!--        Out robust analytical AI tool stays ahead of time to assists you to plan and prepare your future investments and avoidance of potential risks.-->
 <!--&lt;!&ndash;      </p>&ndash;&gt;-->
 </template>

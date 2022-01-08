@@ -35,7 +35,7 @@
     </div>
 
     <!--    &lt;!&ndash;      <p>&ndash;&gt;-->
-    <!--&lt;!&ndash;        Asset log helps you log/keep track of all your financial/xxx assets e.g Cryptocurrency, real estate, foreign exchange, stocks, etc.&ndash;&gt;-->
+    <!--&lt;!&ndash;        Asset log helps you log/keep track of all your financial/xxx assets e.g Digital Currency, real estate, foreign exchange, stocks, etc.&ndash;&gt;-->
     <!--        Out robust analytical AI tool stays ahead of time to assists you to plan and prepare your future investments and avoidance of potential risks.-->
     <!--&lt;!&ndash;      </p>&ndash;&gt;-->
   </div>

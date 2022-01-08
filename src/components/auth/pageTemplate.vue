@@ -7,7 +7,7 @@
                      style="background-size: auto 100%;">
                     <div class="flex h-full items-center justify-center w-full">
                         <div class="text-white text-left">
-                            <h1 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-wider antialiased">Assetlog</h1>
+                            <h1 style="cursor: pointer" class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-wider antialiased" @click="goHome">Assetlog</h1>
                             <p class="md:text-lg lg:text-xl xl:text-2xl tracking-tight">The smartest asset management tracker</p>
                         </div>
                     </div>
@@ -29,7 +29,12 @@
 
 <script>
 export default {
-name: "pageTemplate"
+  name: "pageTemplate",
+  methods: {
+    goHome() {
+      this.$router.replace({name: 'home'})
+    }
+  }
 }
 </script>
 

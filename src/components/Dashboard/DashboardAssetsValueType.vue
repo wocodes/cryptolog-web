@@ -13,7 +13,10 @@
         </svg><span style="font-size: 10px">{{ percChange }}%</span>
       </p>
 
-      <p class="font-bold block text-xs visible animate-pulse ml-16 md:ml-0" v-if="showFiat">{{ user.fiat.symbol }} {{ parseInt(fiatValue).toLocaleString() }}</p>
+      <p class="font-bold text-left block text-gray-600 text-xs visible md:ml-0" v-if="showFiat">
+        <span v-if="user.fiat.short_symbol" v-html="user.fiat.short_symbol"></span>
+        <span v-else>{{ user.fiat.symbol }}</span>{{ parseInt(fiatValue).toLocaleString() }}
+      </p>
     </div>
   </div>
 </template>

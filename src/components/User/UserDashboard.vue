@@ -79,35 +79,35 @@
                          :gap="6">
               <vueper-slide>
                 <template #content>
-                  <DashboardAssetsValue class="bg-gradient-to-b from-blue-600 to-blue-800 text-white"/>
+                  <DashboardAssetsValue class="bg-gradient-to-b from-blue-300 to-blue-400 text-black"/>
                 </template>
               </vueper-slide>
 
             <vueper-slide>
               <template #content>
                 <DashboardTotalAssetCard
-                    class="bg-gradient-to-b from-blue-600 to-blue-800 text-white"
+                    class="bg-gradient-to-b from-blue-300 to-blue-400 text-black"
                 />
               </template>
             </vueper-slide>
           </vueper-slides>
         </div>
 
-        <div class="flow-root">
-          <h5 class="font-bold inline-block text-blue-800 float-left">Assets</h5>
-          <div class="float-right">
-            <small class="text-xs font-bold rounded bg-yellow-500 text-black p-1 mx-1" @click="showAssetType = 'Cryptocurrency'">Crypto</small>
-            <small class="text-xs font-bold rounded bg-green-500 text-black p-1 mx-1" @click="showAssetType = 'Real Estate'">Real Estate</small>
-            <small class="text-xs font-bold rounded text-black p-1 mx-1" @click="showAssetType = 'All'">See All</small>
+        <div class="flow-root my-10">
+          <h5 class="font-bold inline-block text-blue-800 md:float-left">Assets</h5>
+          <div class="md:float-right mt-1">
+            <button class="text-xs font-bold hover:bg-yellow-600 rounded bg-yellow-500 text-black px-2 py-1 mr-2" @click="showAssetType = 'Digital Currency'">Digital Currency</button>
+            <button class="text-xs font-bold hover:bg-green-600 rounded bg-green-500 text-black px-2 py-1 mr-2" @click="showAssetType = 'Real Estate'">Real Estate</button>
+            <button class="text-xs font-bold hover:text-black rounded text-gray-700 px-2 py-1 mx-1" @click="showAssetType = 'All'">See All</button>
           </div>
         </div>
 
         <!-- class attribute is intentionally spelled wrongly as clas in order to disable the effect -->
         <small class="font-bold block mt-2 mb-0" v-if="showAssetType !== 'All'">{{ showAssetType }}</small>
-        <div v-if="showAssetType !== 'All'" class="block mt-2 mb-3 md:grid grid-cols-2 gap-4">
+        <div v-if="showAssetType !== 'All' && showAssetType !== ''" class="block mt-2 mb-3 md:grid grid-cols-2 gap-4">
           <DashboardTotalAssetCard
               :type="showAssetType"
-              class="h-20"
+              class="h-20 mb-2"
               clas="bg-gradient-to-b from-blue-600 to-blue-800 text-white"
           />
           <DashboardAssetsValue
@@ -117,15 +117,15 @@
         </div>
 
         <div v-if="showAssetType === 'All'" class="block mt-2 mb-3">
-          <h6 class="text-xs font-bold">Cryptocurrency</h6>
+          <h6 class="text-xs font-bold">Digital Currencies</h6>
           <div class="md:grid grid-cols-2 gap-4">
             <DashboardTotalAssetCard
-                type="Cryptocurrency"
-                class="h-20"
+                type="Digital Currency"
+                class="h-20 mb-2"
                 clas="bg-gradient-to-b from-blue-600 to-blue-800 text-white"
             />
             <DashboardAssetsValue
-                type="Cryptocurrency"
+                type="Digital Currency"
                 clas="bg-gradient-to-b from-blue-600 to-blue-800 text-white"
             />
           </div>
@@ -136,7 +136,7 @@
           <div class="md:grid grid-cols-2 gap-4">
             <DashboardTotalAssetCard
                 type="Real Estate"
-                class="h-20"
+                class="h-20 mb-2"
                 clas="bg-gradient-to-b from-blue-600 to-blue-800 text-white"
             />
             <DashboardAssetsValue
@@ -196,7 +196,7 @@ export default {
   data() {
     return {
       topPerformingAssets: null,
-      showAssetType: 'Real Estate'
+      showAssetType: ''
     }
   },
 
