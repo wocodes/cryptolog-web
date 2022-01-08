@@ -7,8 +7,8 @@
         <div class="">
             <div class="bg-white rounded-tl-xl rounded-tr-xl p-3 space-x-2">
                 <h5 class="font-bold inline-block text-left text-blue-800">{{ title }}</h5>
-                <em v-if="assets && assets.length" class="text-xs text-gray-700">(Last updated
-                    {{ timeAgo.format(new Date(assets[0].last_updated_at)) }})</em>
+                <em v-if="assets && assets.length" class="text-xs text-gray-700">Updated
+                    {{ timeAgo.format(new Date(assets[0].last_updated_at)) }}</em>
             </div>
 
             <table class="border-collapse bg-white font-sm w-full rounded-xl" style="font-size:12px;">

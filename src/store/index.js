@@ -19,7 +19,7 @@ export default createStore({
             {
                 to: 'calculator',
                 name: 'Calculator',
-                iconName: 'calculator'
+                iconName: null
             },
         ],
         adminMenu: [

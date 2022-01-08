@@ -76,7 +76,10 @@
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin && (user.finished_setup || $store.state.setupSteps.done)">
                             <li class="p-4 items-center" v-for="(menu, index) in userMenu" :key="index">
                                 <router-link :to="{name: menu.to}" @click="collapseShow = false" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
-                                    <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
+                                  <img v-if="menu.iconName" :src="'images/'+menu.iconName+'.svg'" alt="..."/>
+                                    <svg v-if="menu.to == 'calculator'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
                                     <div class="align-self-start">
                                         <span>{{ menu.name }}</span>
                                     </div>
