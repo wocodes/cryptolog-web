@@ -33,7 +33,7 @@ export default createStore({
         setupSteps: {
             welcome: false,
             fiat: false,
-            selectAssetLogger: false,
+            selectAssetlogger: false,
             cryptoSetupLogger: false,
             apiKeys: false,
             done: false,
@@ -48,7 +48,7 @@ export default createStore({
         updateSetupStep (state, step=null) {
             state.setupSteps['welcome'] = false;
             state.setupSteps['fiat'] = false;
-            state.setupSteps['selectAssetLogger'] = false;
+            state.setupSteps['selectAssetlogger'] = false;
             state.setupSteps['apiKeys'] = false;
             state.setupSteps['done'] = false;
 

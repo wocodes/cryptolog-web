@@ -44,8 +44,9 @@
                     }"
                 >
                     <td :class="tdClassStyle">
-                        <strong>{{ log.asset.name }}</strong>
-                        <small class="ml-1">({{ log.asset.symbol }})</small>
+                        <strong v-if="log.asset.name.length < 6">{{ log.asset.name }}</strong>
+                        <strong v-else title="log.asset.name">{{ log.asset.name.substr(0, 6)+'...' }}</strong>
+                        <small class="ml-1" v-if="log.asset.symbol">({{ log.asset.symbol}})</small>
 
                         <p>{{ log.platform?.name }}</p>
                         <p>{{ parseFloat(log.quantity_bought).toFixed(4) }}</p>
@@ -57,22 +58,28 @@
                     </td>
 
                     <td :class="tdClassStyle" class="hidden md:table-cell">
-                        <p>${{ log.initial_value.toLocaleString() }}</p>
-                        <small>{{ user.fiat.symbol }} {{ parseFloat(log.initial_value_fiat).toLocaleString() }}</small>
+                        <p>${{ parseFloat(log.initial_value).toLocaleString() }}</p>
+                        <small>
+                          <span v-if="user.fiat.short_symbol" v-html="user.fiat.short_symbol"></span>
+                          <span v-else>{{ user.fiat.symbol }}</span>{{ parseFloat(log.initial_value_fiat).toLocaleString() }}
+                        </small>
                     </td>
 
                     <td :class="tdClassStyle">
-                        <p>${{ log.current_value.toLocaleString() }}</p>
-                        <small>{{ user.fiat.symbol }} {{ parseFloat(log.current_value_fiat).toLocaleString() }}</small>
+                        <p>${{ parseFloat(log.current_value).toLocaleString() }}</p>
+                        <small>
+                          <span v-if="user.fiat.short_symbol" v-html="user.fiat.short_symbol"></span>
+                          <span v-else>{{ user.fiat.symbol }}</span>{{ parseFloat(log.current_value_fiat).toLocaleString() }}
+                        </small>
                     </td>
 
                     <td :class="tdClassStyle">
                         <p>${{ log.profit_loss.toLocaleString() }}</p>
                         <small>
-                            {{ user.fiat.symbol }}
-                            {{
-                                parseFloat(log.profit_loss_fiat ? log.profit_loss_fiat : log.quantity_bought * user.fiat.usdt_sell_rate).toLocaleString()
-                            }}
+                          <span v-if="user.fiat.short_symbol" v-html="user.fiat.short_symbol"></span>
+                          <span v-else>{{ user.fiat.symbol }}</span>{{
+                            parseFloat(log.profit_loss_fiat ? log.profit_loss_fiat : log.quantity_bought * user.fiat.usdt_sell_rate).toLocaleString()
+                          }}
                         </small>
                     </td>
 
@@ -91,10 +98,11 @@
                     <td :class="tdClassStyle" class="hidden md:table-cell">{{ parseFloat(log.daily_roi).toFixed(2) }}%</td>
 
                     <td :class="tdClassStyle" class="hidden md:table-cell">
-                        <p>${{ parseFloat(parseFloat(log.current_price).toFixed(2)).toLocaleString() }}</p>
-                        <small>{{ user.fiat.symbol }} {{
-                                parseFloat(parseFloat(user.fiat.usdt_sell_rate * log.current_price).toFixed(2)).toLocaleString()
-                            }}</small>
+                      <p>${{ parseFloat(parseFloat(log.current_price).toFixed(2)).toLocaleString() }}</p>
+                      <small>
+                        <span v-if="user.fiat.short_symbol" v-html="user.fiat.short_symbol"></span>
+                        <span v-else>{{ user.fiat.symbol }}</span>{{ parseFloat(parseFloat(user.fiat.usdt_sell_rate * log.current_price).toFixed(2)).toLocaleString() }}
+                      </small>
                     </td>
 
 

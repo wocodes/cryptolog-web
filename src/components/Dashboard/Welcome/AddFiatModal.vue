@@ -22,7 +22,7 @@
           </Multiselect>
 
           <div class="mt-12 flow-root">
-            <button class="float-left rounded border border-blue-600 py-2 px-6 w-24 text-blue-600" @click="$parent.gotoSetupStep('selectAssetLogger')">Skip</button>
+            <button class="float-left rounded border border-blue-600 py-2 px-6 w-24 text-blue-600" @click="$parent.gotoSetupStep('selectAssetlogger')">Skip</button>
             <button class="float-right rounded bg-blue-600 py-2 px-6 w-24 text-white" @click="saveSelectedFiat">Save</button>
           </div>
         </div>
