@@ -83,9 +83,14 @@ export default {
           user: {
               name: null,
               username: null,
-              password: null
+              password: null,
+              ref: null,
           }
         }
+    },
+
+    mounted() {
+      this.user.ref = window.location.hash.split('ref=')[1];
     },
 
     methods: {

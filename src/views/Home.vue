@@ -2,23 +2,23 @@
   <div class="text-left">
     <div>
       <div class="md:pl-36" style="background-image:url('/images/bg-1.png');background-size: cover">
-        <div class="p-4 grid grid-cols-2">
-          <h1 class="text-2xl font-bold text-white font-sans">Assetlog</h1>
+        <div class="p-4 grid grid-cols-3">
+          <h1 class="col-span-1 text-2xl font-bold text-white font-sans">Assetlog</h1>
 
-          <ul class="md:mr-36 mt-2 text-right inline-block">
-            <li class="inline-block">
-              <router-link :to="{name: 'about'}"
-                           class="text-gray-200 py-1 px-4 right-2">About
-              </router-link>
-            </li>
+          <ul class="col-span-2 md:mr-36 mt-2 text-right inline-block">
+<!--            <li class="text-sm inline-block">-->
+<!--              <router-link :to="{name: 'about'}"-->
+<!--                           class="text-gray-200 py-1 px-4 right-2">About-->
+<!--              </router-link>-->
+<!--            </li>-->
 
-            <li class="inline-block mx-1">
+            <li class="text-sm inline-block mx-1">
               <router-link :to="{name: 'login'}"
                            class="bg-white text-blue-600 rounded-full py-1 px-4 right-2 hover:bg-black hover:text-white">Login
               </router-link>
             </li>
 
-            <li class="inline-block mx-1">
+            <li class="text-sm inline-block mx-1">
               <router-link :to="{name: 'register'}"
                            class="bg-blue-600 text-white rounded-full py-1 px-4 right-2 hover:bg-blue-900">Register
               </router-link>
