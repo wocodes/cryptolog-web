@@ -1,14 +1,14 @@
 <template>
   <h1 class="font-bold mb-3">Real Estate Value Calculator</h1>
 
-  <h3 class="italic text-gray-700 text-sm">Can help you calculate the value of an asset in the
+  <h3 class="italic text-gray-700 text-xs">Can help you calculate the value of an asset in the
     future which in turn can help to make informed decision/actions. Data returned via the calculator is
     only a predictive result and not to be 100% relied upon. You are encouraged to do further analysis/research.
   </h3>
 
   <br>
 
-  <div class="bg-blue-200 w-2/4 m-auto m-5 p-5 rounded-xl border border-gray-200">
+  <div class="bg-blue-200 md:w-2/4 w-full m-auto m-5 p-5 rounded-xl border border-gray-200">
     <label>Current Value</label>
     <input class="custom-input" type="text" v-model="currentValue" placeholder="Enter Asset Value">
 
