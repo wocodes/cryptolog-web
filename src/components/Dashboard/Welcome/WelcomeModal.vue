@@ -24,7 +24,7 @@
       </div>
 
       <div class="mt-12 flow-root">
-        <button class="float-right rounded border border-blue-600 py-2 px-6 w-24 text-blue-600" @click="gotoDashboard()">Skip</button>
+<!--        <button class="float-right rounded border border-blue-600 py-2 px-6 w-24 text-blue-600" @click="gotoDashboard()">Skip</button>-->
       </div>
     </div>
 
