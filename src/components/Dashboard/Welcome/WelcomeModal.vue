@@ -22,6 +22,10 @@
           <p class="text-xl text-gray-400 mx-10 my-5 md:block hidden">Waste no time getting started. Proceed to log your first asset!</p>
         </div>
       </div>
+
+      <div class="mt-12 flow-root">
+        <button class="float-right rounded border border-blue-600 py-2 px-6 w-24 text-blue-600" @click="gotoDashboard()">Skip</button>
+      </div>
     </div>
 
     <AddFiatModal :is-open="isFiatSelectorOpen"
@@ -36,6 +40,7 @@
 <script>
 import LogSelector from "@/components/Dashboard/Welcome/LogSelector";
 import AddFiatModal from "@/components/Dashboard/Welcome/AddFiatModal";
+import Axios from "../../../../config/axios";
 export default {
   name: "WelcomeModal",
   components: {AddFiatModal, LogSelector},
@@ -56,6 +61,12 @@ export default {
       this.isLogSelectorOpen = true;
 
       console.log('asd', this.isLogSelectorOpen);
+    },
+
+    async gotoDashboard() {
+      await Axios.get('/user/complete-setup');
+
+      this.gotoSetupStep('done');
     }
   }
 }
