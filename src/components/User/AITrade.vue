@@ -2,6 +2,8 @@
   <div>
     <h1 class="font-semibold mb-5">AI Trade</h1>
 
+    <div class="success-data text-white bg-green-600 rounded-xl p-2 font-bold shadow mb-10" v-if="successData" v-html="successData"></div>
+
     <label class="text-lg mb-4 block">
       <input v-model="subscribedToAutoTrade"
              class="appearance-none
@@ -56,6 +58,7 @@ export default {
   name: "AITrade",
   data() {
     return {
+      successData: null,
       subscribedToAutoTrade: false,
       tradingMode: 'auto',
       subscriptionStatus: null
@@ -63,7 +66,6 @@ export default {
   },
 
   created() {
-
     Axios.get('/assets/bot-trade/status')
         .then(response => {
           this.subscriptionStatus = response.data.data;
@@ -83,7 +85,18 @@ export default {
         }
 
         Axios.post('/assets/bot-trade/activate', data)
-        .then(response => Alerts.showSuccessToast(response.data.message))
+        .then(response => {
+          let details;
+          if (response.data.data.length) {
+            details = '<ul class="m-0 p-0 font-light">';
+            const detailsArr = Object.values(response.data.data).flat();
+            detailsArr.forEach(detail => details += `<li><span class="fas fa-check"></span> ${detail}</li>`);
+            details += '</ul>';
+          }
+
+          this.successData = details;
+          Alerts.showSuccessToast(response.data.message);
+        })
         .catch(e => Alerts.showErrorToast(e))
       }
     }

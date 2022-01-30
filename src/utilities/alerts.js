@@ -23,11 +23,10 @@ export default class Alerts {
 
     static showErrorToast(text, title='') {
         let errors;
-        if (text.response.data.errors || text.response.data.data) {
+        if (text.response.data.errors || text.response.data.data.length) {
             errors = '<ul class="m-0 p-0">';
             const errorsData = text.response.data.errors ? text.response.data.errors : text.response.data.data;
-            let errorsArr = Object.values(errorsData);
-            errorsArr = errorsArr.flat();
+            let errorsArr = Object.values(errorsData).flat();
             errorsArr.forEach(error => errors += `<li>${error}</li>`);
             errors += '</ul>';
         }
@@ -39,7 +38,7 @@ export default class Alerts {
         let errorsHtml;
 
         if (errors) {
-            title += `<br><small style="color:#fff">${errors}</small>`;
+            title += `<br><small style="color:#fff;font-weight: lighter !important;">${errors}</small>`;
         }
         title += '</span>';
 
