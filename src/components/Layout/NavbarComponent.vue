@@ -15,7 +15,7 @@
             <!-- Form -->
 
           <div class="m-1 py-2 pl-4 bg-blue-200 shadow rounded md:flex hidden flex-row flex-wrap items-center lg:ml-auto">
-            <i class="fas fa-wallet mr-1"></i>
+            <router-link :to="{name: 'wallet'}"><i class="fas fa-wallet mr-1"></i></router-link>
             {{ walletBalance.toLocaleString() }}
 
             <select class="border-0 bg-transparent py-0" @change="toggleCurrencies()" v-model="selectedCurrency">
