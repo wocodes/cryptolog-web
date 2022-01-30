@@ -30,6 +30,7 @@ jobs:
         run: |
           touch .env
           echo "API_URL=https://api.assetlog.co/api" >> .env
+          echo "PAYSTACK_PUBLIC_KEY=pk_live_e7c7f23aee9eb9958377c95de565efa8bb76a6c4" >> .env
           npm install
           npm run build
 
