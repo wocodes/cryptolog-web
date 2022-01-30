@@ -210,7 +210,7 @@
         <div class="col-span-4">
           <h5 class="font-bold">&copy; 2021</h5>
           All rights reserved. Assetlog
-          <small class="block">A product of Overflow Solutions&reg;</small>
+          <small class="block">A product of <a href="//overflowsolutions.com.ng" target="_blank">Overflow Solutions&reg;</a></small>
         </div>
 
         <div class="col-span-2 text-right">
