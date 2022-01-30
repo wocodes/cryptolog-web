@@ -64,6 +64,10 @@
             </svg>
           </AssetSelectorsOnWelcomeModal>
         </div>
+
+        <div class="mt-12 flow-root">
+          <button class="float-right rounded border border-blue-600 py-2 px-6 w-24 text-blue-600" @click="gotoDashboard()">Skip</button>
+        </div>
       </div>
     </div>
 
@@ -93,6 +97,7 @@ import WelcomeCryptoLogOptions from "@/components/Dashboard/Welcome/WelcomeCrypt
 import WelcomeCryptoExchangeSelector from "@/components/Dashboard/Welcome/WelcomeCryptoExchangeSelector";
 import AddApiKeysModal from "@/components/Dashboard/Welcome/AddApiKeysModal";
 import SuccessAfterApiKeys from "@/components/Dashboard/Welcome/SuccessAfterApiKeys";
+import Axios from "../../../../config/axios";
 
 
 
@@ -145,6 +150,12 @@ export default {
 
     gotoLogger(logType) {
       this.$router.push({name: 'add-log', params: { type: logType }})
+    },
+
+    async gotoDashboard() {
+      await Axios.get('/user/complete-setup');
+
+      this.gotoSetupStep('done');
     }
   }
 
