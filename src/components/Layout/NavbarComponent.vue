@@ -19,7 +19,7 @@
             {{ walletBalance.toLocaleString() }}
 
             <select class="border-0 bg-transparent py-0" @change="toggleCurrencies()" v-model="selectedCurrency">
-              <option v-for="(currency, index) in currencies" :key="index" :selected="currency.symbol === user.fiat.symbol" :value="currency.symbol">{{ currency.symbol }}</option>
+              <option v-for="(currency, index) in currencies" :key="index" :selected="!user.fiat ? true : currency.symbol === user.fiat.symbol" :value="currency.symbol">{{ currency.symbol }}</option>
             </select>
           </div>
 
@@ -52,18 +52,18 @@ export default {
         currencies: [
           {symbol: 'USD'}
         ],
-        selectedCurrency: this.$store.state.user.fiat.symbol,
+        selectedCurrency: this.$store.state.user.fiat ? this.$store.state.user.fiat.symbol : "USD",
         walletBalance: this.$store.state.user.wallet.current_balance
       }
   },
 
   created() {
-      this.currencies.push({symbol: this.user.fiat.symbol});
+      this.currencies.push({symbol: this.user.fiat ? this.user.fiat.symbol : ""});
   },
 
   methods: {
       toggleCurrencies() {
-        this.walletBalance = this.selectedCurrency === 'USD' ? this.walletBalance / this.user.fiat.usdt_buy_rate : this.$store.state.user.wallet.current_balance
+        this.walletBalance = this.selectedCurrency === 'USD' ? this.walletBalance / (this.user.fiat ? this.user.fiat.usdt_buy_rate : 1) : this.$store.state.user.wallet.current_balance
       }
   }
 };
