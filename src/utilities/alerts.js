@@ -23,7 +23,7 @@ export default class Alerts {
 
     static showErrorToast(text, title='') {
         let errors;
-        if (text.response.data.errors || text.response.data.data?.length) {
+        if (text.response.data.errors || text.response.data.data && text.response.data.data.length) {
             errors = '<ul class="m-0 p-0">';
             const errorsData = text.response.data.errors ? text.response.data.errors : text.response.data.data;
             let errorsArr = Object.values(errorsData).flat();
