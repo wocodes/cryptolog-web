@@ -35,6 +35,7 @@ createApp(App)
         },
 
         methods: {
+            // deprecate this as it has been moved to /utilities/alerts.js in order to keep file clean
             showSuccessToast(text,title='') {
                 this.$swal({
                     title,
@@ -55,6 +56,7 @@ createApp(App)
                 })
             },
 
+            // deprecate this as it has been moved to /utilities/alerts.js in order to keep file clean
             showErrorToast(text, title='') {
                 let errors = '<ul>';
 

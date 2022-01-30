@@ -76,6 +76,8 @@
 
 import Axios from "../../../config/axios";
 import PageTemplate from "@/components/auth/pageTemplate";
+import Alerts from "@/utilities/alerts";
+import WalletService from "@/services/wallet";
 
 export default {
   name: "Login",
@@ -93,6 +95,7 @@ export default {
   methods: {
     doLogin() {
       this.showLoader();
+
       Axios.post('/user/login', this.user)
           .then(resp => {
             const user = resp.data.data;
@@ -102,13 +105,17 @@ export default {
               this.gotoSetupStep('welcome');
             }
 
-            this.showSuccessToast(resp.data.message);
+            Alerts.showSuccessToast(resp.data.message);
+          })
+          .then(async () => {
+            await this.getWalletBalance();
+            const vuexUser = await JSON.parse(localStorage.getItem('vuex')).user;
+            await this.$store.commit('storeUser', vuexUser);
 
-            this.$router.replace({name: "dashboard"})
+            await this.$router.replace({name: "dashboard"});
           })
           .catch(err => {
-            console.log(err.response)
-            this.showErrorToast(err);
+            Alerts.showErrorToast(err);
           })
           .finally(() => {
             this.hideLoader();
@@ -118,6 +125,11 @@ export default {
     togglePassword()
     {
       this.showPassword = !this.showPassword;
+    },
+
+    async getWalletBalance()
+    {
+      return WalletService.getBalance();
     }
   }
 }

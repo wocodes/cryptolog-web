@@ -63,7 +63,7 @@
                 <div class="flex flex-col">
                     <div class="items-center">
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                            <li class="p-4 items-center">
+                            <li class="p-1 items-center">
                                 <router-link :to="{name: 'dashboard'}" @click="collapseShow = false" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/home.svg'" alt="..."/>
                                     <div>
@@ -74,12 +74,18 @@
                         </ul>
 
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="!user.is_admin && (user.finished_setup || $store.state.setupSteps.done)">
-                            <li class="p-4 items-center" v-for="(menu, index) in userMenu" :key="index">
+                            <li class="p-1 items-center" v-for="(menu, index) in userMenu" :key="index">
                                 <router-link :to="{name: menu.to}" @click="collapseShow = false" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                   <img v-if="menu.iconName" :src="'images/'+menu.iconName+'.svg'" alt="..."/>
+
                                     <svg v-if="menu.to == 'calculator'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                     </svg>
+
+                                    <svg v-if="menu.to == 'aitrade' || menu.to == 'wallet'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-75" stroke="currentColor">
+                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+
                                     <div class="align-self-start">
                                         <span>{{ menu.name }}</span>
                                     </div>
@@ -88,7 +94,7 @@
                         </ul>
 
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none" v-if="user.is_admin">
-                            <li class="p-4 items-center" v-for="(menu, index) in adminMenu" :key="index">
+                            <li class="p-1 items-center" v-for="(menu, index) in adminMenu" :key="index">
                                 <router-link :to="{name: menu.to}" @click="collapseShow = false" class="flex space-x-8 align-items-cente capitalise py-3 font-bold block">
                                     <img :src="'images/'+menu.iconName+'.svg'" alt="..."/>
                                     <div class="align-self-start">
@@ -103,7 +109,7 @@
 
                     <div class="items-center">
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                            <li class="p-4 items-center">
+                            <li class="p-1 items-center">
                                 <router-link :to="{name: 'settings'}" @click="collapseShow = false" class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/settings.svg'" alt="..."/>
                                     <div>
@@ -114,7 +120,7 @@
                         </ul>
 
                         <ul class="md:flex-col md:min-w-full flex flex-col list-none cursor-pointer">
-                            <li class="p-4 items-center" @click="logout">
+                            <li class="p-1 items-center" @click="logout">
                                 <span class="flex space-x-8 align-items-center py-3 capitalise font-bold block">
                                     <img :src="'images/log-out.svg'" alt="..."/>
                                     <div>
@@ -141,7 +147,6 @@ export default {
     data() {
         return {
             collapseShow: false,
-            user: this.user,
             userMenu: this.$store.state.userMenu,
             adminMenu: this.$store.state.adminMenu,
         };

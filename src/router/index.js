@@ -60,6 +60,18 @@ const routes = [
       },
 
       {
+        path: '/aitrade',
+        name: 'aitrade',
+        component: () => import(/* webpackChunkName: "aitrade" */ '../components/User/AITrade.vue')
+      },
+
+      {
+        path: '/wallet',
+        name: 'wallet',
+        component: () => import(/* webpackChunkName: "wallet" */ '../components/User/Wallet.vue')
+      },
+
+      {
         path: '/settings',
         name: 'settings',
         component: () => import(/* webpackChunkName: "user-settings" */ '../components/User/Settings/Settings.vue')

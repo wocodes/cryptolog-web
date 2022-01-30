@@ -76,7 +76,7 @@
             <li>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block text-blue-400" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-              </svg> Digital Currency
+              </svg> Digital Currencies
             </li>
 
             <li>
@@ -182,7 +182,7 @@
       <div class="md:px-36 px-10 py-20">
         <div id="signup-box" class="rounded-2xl text-white md:py-5 py-1">
           <h1 class="mt-10 mb-2 font-extrabold md:text-4xl text-center">Signup Today for Free.</h1>
-          <small class="text-md text-gray-200 block text-center italic">and get $100 worth of <a href="#">log units</a>...</small>
+          <small class="text-md text-gray-200 block text-center italic">and get $50 worth of <a href="#">log units</a>...</small>
 
           <div class="md:w-1/2 md:mx-auto mx-2 my-10">
             <!--        <p class="text-sm mt-20 text-white">Request an invite and get a chance to try out Assetlog!</p>-->
@@ -209,7 +209,8 @@
       <div class="flow-root md:px-36 px-10 grid grid-cols-6 mb-20">
         <div class="col-span-4">
           <h5 class="font-bold">&copy; 2021</h5>
-          All rights reserved.
+          All rights reserved. Assetlog
+          <small class="block">A product of Overflow Solutions&reg;</small>
         </div>
 
         <div class="col-span-2 text-right">

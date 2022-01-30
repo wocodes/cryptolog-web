@@ -21,6 +21,16 @@ export default createStore({
                 name: 'Calculator',
                 iconName: null
             },
+            {
+                to: 'aitrade',
+                name: 'AI Trade',
+                iconName: null
+            },
+            {
+                to: 'wallet',
+                name: 'Wallet',
+                iconName: null
+            },
         ],
         adminMenu: [
             {

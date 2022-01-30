@@ -1,28 +1,28 @@
 <template>
     <!-- Navbar -->
     <nav
-        class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center md:p-4"
+        class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center md:p-0"
     >
         <div
             class="w-full mx-auto items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
         >
             <!-- Brand -->
             <a
-                class="text-primary text-sm uppercase hidden lg:inline-block font-semibold"
+                class="p-2 text-primary text-sm uppercase hidden lg:inline-block font-semibold"
                 href="https://www.creative-tim.com/learning-lab/tailwind-starter-kit#/dashboard"
             >{{ $route.name }}</a
             >
             <!-- Form -->
-            <div
-                class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3"
-            >
-                <div>
-                    Currency: <select class="border-0">
-                    <option>USD</option>
-                    <option>NGN</option>
-                </select>
-                </div>
-            </div>
+
+          <div class="m-1 py-2 pl-4 bg-blue-200 shadow rounded md:flex hidden flex-row flex-wrap items-center lg:ml-auto">
+            <i class="fas fa-wallet mr-1"></i>
+            {{ walletBalance.toLocaleString() }}
+
+            <select class="border-0 bg-transparent py-0" @change="toggleCurrencies()" v-model="selectedCurrency">
+              <option v-for="(currency, index) in currencies" :key="index" :selected="currency.symbol === user.fiat.symbol" :value="currency.symbol">{{ currency.symbol }}</option>
+            </select>
+          </div>
+
             <!-- User -->
             <ul
                 class="flex-col md:flex-row list-none items-center hidden md:flex space-x-4"
@@ -46,6 +46,25 @@ export default {
     components: {
         NotificationDropdown,
         UserDropdownComponent
-    }
+    },
+  data() {
+      return {
+        currencies: [
+          {symbol: 'USD'}
+        ],
+        selectedCurrency: this.$store.state.user.fiat.symbol,
+        walletBalance: this.$store.state.user.wallet.current_balance
+      }
+  },
+
+  created() {
+      this.currencies.push({symbol: this.user.fiat.symbol});
+  },
+
+  methods: {
+      toggleCurrencies() {
+        this.walletBalance = this.selectedCurrency === 'USD' ? this.walletBalance / this.user.fiat.usdt_buy_rate : this.$store.state.user.wallet.current_balance
+      }
+  }
 };
 </script>
