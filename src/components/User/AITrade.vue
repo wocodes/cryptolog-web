@@ -42,6 +42,25 @@
           </label>
         </div>
       </div>
+
+
+      <small class="text-xs">Enter Trading Amt (min. ${{ minTradingAmountUsd }} ~{{ user.fiat.symbol }}{{ minTradingAmount }}) rate $1/{{ user.fiat.symbol }}{{user.fiat.usdt_buy_rate.toFixed()}}</small>
+      <div class="grid grid-cols-3 rounded-lg bg-white h-12 md:w-80 p-1">
+        <div class="relative text-gray-400 focus-within:text-gray-600 col-span-2">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+
+          <input id="amount" required
+                 class="md:text-lg h-full placeholder-gray-400 text-gray-900 rounded-lg w-full block pl-12 focus:outline-none"
+                 placeholder="Enter Amount"
+                 v-model="tradingAmount">
+        </div>
+      </div>
+<!--      <small class="text-red-900">Total charge = {{ user.fiat.symbol }}{{ subscriptionFee + tradingAmount }} <span style="font-size:10px;">(Fee - {{ subscriptionFee }} + Trading Amount - {{ tradingAmount }})</span></small>-->
+
     </div>
 
     <div class="block mt-8">
@@ -53,35 +72,52 @@
 <script>
 import Axios from "../../../config/axios";
 import Alerts from "@/utilities/alerts";
+import WalletService from "@/services/wallet";
 
 export default {
   name: "AITrade",
   data() {
     return {
+      minTradingAmountUsd: parseInt(process.env.MIN_TRADING_AMOUNT_USD),
+      // minTradingAmount: Math.round((12 * this.$store.state.user.fiat.usdt_buy_rate)/1000)*1000,
+      minTradingAmount: Math.round(parseInt(process.env.MIN_TRADING_AMOUNT_USD) * this.$store.state.user.fiat.usdt_buy_rate),
+      subscriptionFee: parseInt(process.env.TRADING_BOT_FEE),
+      tradingAmount: 0,
       successData: null,
       subscribedToAutoTrade: false,
       tradingMode: 'auto',
-      subscriptionStatus: null
+      subscriptionStatus: null,
+      walletBalance: 0,
     }
   },
 
-  created() {
-    Axios.get('/assets/bot-trade/status')
-        .then(response => {
-          this.subscriptionStatus = response.data.data;
-          this.subscribedToAutoTrade = !!this.subscriptionStatus;
-        })
-        .catch(e => console.error(e))
+  async created() {
+    try {
+      const statusResponse = await Axios.get('/assets/bot-trade/status');
+
+      this.subscriptionStatus = statusResponse.data.data;
+      this.subscribedToAutoTrade = !!this.subscriptionStatus;
+
+      this.walletBalance = await WalletService.getBalance();
+    } catch (e) {
+      Alerts.showErrorToast(e);
+    }
   },
 
   methods: {
     saveSetting() {
-      let confirmationResponse = confirm(`NOTE: ${this.user.fiat.symbol}1000 amount will be deducted from wallet`);
+      if(this.minTradingAmount + this.subscriptionFee > this.walletBalance) {
+        return Alerts.showErrorToast("Insufficient Wallet Balance");
+      }
+
+      const alertMsg = `${this.user.fiat.symbol}${parseInt(this.subscriptionFee) + parseInt(this.tradingAmount)} (Fee: ${this.subscriptionFee} + Trading Amount: ${this.tradingAmount}) will be deducted from your wallet`;
+      let confirmationResponse = confirm(alertMsg);
 
       if (confirmationResponse) {
         const data = {
           mode: this.tradingMode,
-          user_id: this.user.id
+          user_id: this.user.id,
+          trading_amount: this.tradingAmount
         }
 
         Axios.post('/assets/bot-trade/activate', data)
@@ -97,7 +133,7 @@ export default {
           this.successData = details;
           Alerts.showSuccessToast(response.data.message);
         })
-        .catch(e => Alerts.showErrorToast(e))
+        .catch(e => Alerts.showErrorToast(e.response.data.message, e))
       }
     }
   }

@@ -21,29 +21,34 @@ export default class Alerts {
         })
     }
 
-    static showErrorToast(text, title='') {
+    static showErrorToast(title, text='') {
         let errors;
-        if (text.response.data.errors || text.response.data.data && text.response.data.data.length) {
+        console.log('asd', text.response?.data.errors);
+        if (text.response?.data.errors || text.response?.data.data && text.response?.data.data.length) {
             errors = '<ul class="m-0 p-0">';
-            const errorsData = text.response.data.errors ? text.response.data.errors : text.response.data.data;
+            const errorsData = text.response?.data.errors ? text.response?.data.errors : text.response?.data.data;
             let errorsArr = Object.values(errorsData).flat();
             errorsArr.forEach(error => errors += `<li>${error}</li>`);
             errors += '</ul>';
         }
 
-        if (!title && text.response.data.message) {
-            title = `<span style="color:#fff;line-height:14px">${text.response.data.message}`;
+        let alertTitle = '<span style="color:#fff;line-height:14px">';
+
+        if (title) {
+            alertTitle += title;
+        } else if (!title && text.response?.data.message) {
+            alertTitle += `${text.response?.data.message}`;
         }
 
         let errorsHtml;
 
         if (errors) {
-            title += `<br><small style="color:#fff;font-weight: lighter !important;">${errors}</small>`;
+            alertTitle += `<br><small style="color:#fff;font-weight: lighter !important;">${errors}</small>`;
         }
-        title += '</span>';
+        alertTitle += '</span>';
 
         Swal.fire({
-            title,
+            title: alertTitle,
             html: errorsHtml,
             toast: true,
             icon: 'error',
