@@ -6,10 +6,10 @@ name: FTP-Deploy
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ staging ]
 
   pull_request:
-    branches: [ master ]
+    branches: [ staging ]
     types: [ closed ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -29,8 +29,8 @@ jobs:
       - name: 🔨 Build Project
         run: |
           touch .env
-          echo "API_URL=https://api.assetlog.co/api" >> .env
-          echo "PAYSTACK_PUBLIC_KEY=pk_live_e7c7f23aee9eb9958377c95de565efa8bb76a6c4" >> .env
+          echo "API_URL=https://api-staging.assetlog.co/api" >> .env
+          echo "PAYSTACK_PUBLIC_KEY=pk_test_28324a1b0d2b2ea1fc599dfe189798f5805fa861" >> .env
           echo "TRADING_BOT_FEE=1000" >> .env
           echo "MIN_TRADING_AMOUNT_USD=12" >> .env
           npm install
@@ -43,4 +43,4 @@ jobs:
           username: u300464533
           password: ${{ secrets.DEPLOY_FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /domains/assetlog.co/public_html/
+          server-dir: /domains/assetlog.co/public_html/staging/web/
