@@ -94,6 +94,12 @@ const routes = [
         name: 'waitlists-users',
         component: () => import(/* webpackChunkName: "users-waitlist" */ '../components/Admin/Users/Waitlist.vue')
       },
+
+      {
+        path: '/privacy',
+        name: 'privacy',
+        component: () => import(/* webpackChunkName: "privacy" */ '../views/Privacy.vue')
+      },
     ]
   },
 
@@ -111,7 +117,7 @@ router.beforeEach((to, from, next) => {
   let vuexStore = getFromStorage('vuex');
   const USER_TOKEN = vuexStore ? JSON.parse(vuexStore).user.token : null;
   // let openRoutes = ["home", "about", "login", "forgot-password"];
-  let openRoutes = ["home", "about", "login", "forgot-password", "register"];
+  let openRoutes = ["home", "about", "login", "forgot-password", "register", "privacy"];
   let adminRoutes = ["/admin/assets/add"];
 
   if (adminRoutes.includes(to.name) && this.$store.user.is_admin === 'true') {
