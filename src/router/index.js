@@ -16,6 +16,12 @@ const routes = [
   },
 
   {
+    path: '/privacy',
+    name: 'privacy',
+    component: () => import(/* webpackChunkName: "privacy" */ '../views/Privacy.vue')
+  },
+
+  {
     path: '/login',
     name: 'login',
     // route level code-splitting
@@ -93,12 +99,6 @@ const routes = [
         path: '/admin/users/waitlists',
         name: 'waitlists-users',
         component: () => import(/* webpackChunkName: "users-waitlist" */ '../components/Admin/Users/Waitlist.vue')
-      },
-
-      {
-        path: '/privacy',
-        name: 'privacy',
-        component: () => import(/* webpackChunkName: "privacy" */ '../views/Privacy.vue')
       },
     ]
   },
