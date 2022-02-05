@@ -2,7 +2,7 @@
   <div class="h-screen flow-root">
     <img src="/images/waitlist.png" class="absolute w-max md:w-screen h-screen fixed top-0" style="z-index: -1;"/>
 
-    <h1 class="text-xl md:text-2xl font-bold text-white bg-blue-700 pt-4 pb-20 pl-52 font-sans drop-shadow" style="background-color: #1052b7">Assetlog</h1>
+    <h1 class="text-xl md:text-2xl font-bold text-white bg-blue-700 pt-4 pb-20 pl-52 font-sans drop-shadow" style="background-color: #1052b7"><router-link to="/">Assetlog</router-link></h1>
 
     <div class="p-6 w-full md:w-full mt-2 md:mt-0 md:mx-auto">
       <h1 class="m-auto md:w-1/2 md:text-5xl text-white font-bold text-center">Privacy Policy</h1>
