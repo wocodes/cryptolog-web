@@ -53,7 +53,7 @@ export default {
           {symbol: 'USD'}
         ],
         selectedCurrency: this.$store.state.user.fiat ? this.$store.state.user.fiat.symbol : "USD",
-        walletBalance: this.$store.state.user.wallet.current_balance
+        walletBalance: this.$store.state.user?.wallet?.current_balance ?? 0
       }
   },
 

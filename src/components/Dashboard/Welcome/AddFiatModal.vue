@@ -73,10 +73,20 @@ export default {
       this.showLoader();
 
       try {
+
+        let vuexUser = await JSON.parse(localStorage.getItem('vuex')).user;
+        vuexUser.fiat = this.fiats[0];
+        vuexUser.fiat_id = this.selectedFiat;
+
+        await this.$store.commit('storeUser', vuexUser);
+
+        // console.log('asd', vuexUser);
+        // console.log('zxc', JSON.parse(localStorage.getItem('vuex')));
+        // return;
+
         await Axios.put('user', {fiat_id: this.selectedFiat});
         this.showSuccessToast("Fiat/local currency has been set.");
 
-        this.$store.state.user.fiat_id = this.selectedFiat;
         this.$emit('savedFiatCurrency');
       } catch (e) {
         console.error(e);

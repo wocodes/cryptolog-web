@@ -1,6 +1,10 @@
 <template>
   <page-template>
     <form class="text-center md:text-left lg:text-left md:p-20 lg:p-28 xl:p-40 lg:w-full w-full p-10">
+      <div v-if="noAccess" class="text-center text-sm bg-red-500 text-white rounded p-2 w-full mb-10 shadow-xl">
+        Sorry you can't login now. Request an invite by <a class="underline" href="mailto:hello@assetlog.co" target="_blank"> sending a mail to hello@assetlog.co</a> or <a class="underline" target="_blank" href="//wa.me/+2347015795533?text=I'm%20interested%20in%20trying%20out%20Assetlog">Whatsapp: +2347015795533</a>
+      </div>
+
       <div class="flex flex-col space-y-3 pb-10">
         <h1 class="text-2xl font-bold">Welcome Back</h1>
         <span class="text-sm text-gray-900">Please, enter your details to proceed</span>
@@ -78,6 +82,7 @@ import Axios from "../../../config/axios";
 import PageTemplate from "@/components/auth/pageTemplate";
 import Alerts from "@/utilities/alerts";
 import WalletService from "@/services/wallet";
+import {DEV_WHITELIST} from "../../../helpers/constants";
 
 export default {
   name: "Login",
@@ -88,12 +93,18 @@ export default {
       user: {
         username: null,
         password: null
-      }
+      },
+      noAccess: false
     }
   },
 
   methods: {
     doLogin() {
+      if(!DEV_WHITELIST.includes(this.user.username)) {
+        this.noAccess = true;
+        return;
+      }
+
       this.showLoader();
 
       Axios.post('/user/login', this.user)
@@ -108,7 +119,7 @@ export default {
             Alerts.showSuccessToast(resp.data.message);
           })
           .then(async () => {
-            await this.getWalletBalance();
+            await WalletService.getBalance();
             const vuexUser = await JSON.parse(localStorage.getItem('vuex')).user;
             await this.$store.commit('storeUser', vuexUser);
 
@@ -125,11 +136,6 @@ export default {
     togglePassword()
     {
       this.showPassword = !this.showPassword;
-    },
-
-    async getWalletBalance()
-    {
-      return WalletService.getBalance();
     }
   }
 }
