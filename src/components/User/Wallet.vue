@@ -84,6 +84,7 @@ export default {
     },
 
     async saveWalletCredit(data) {
+      this.showLoader();
       const response = await WalletService.creditUserWallet(data, this.amount);
 
       if(response) {
@@ -92,6 +93,8 @@ export default {
         this.amount = 0;
         this.reference = "";
       }
+
+      this.hideLoader();
     }
   },
 }

@@ -18,6 +18,7 @@
                                  :required="true"
                                  :allow-empty="false"
                                  @search-change="loadAssetsOfAssetType"
+                                 @change="loadAssetsOfAssetType"
                     >
                     </Multiselect>
                 </div>
@@ -75,7 +76,7 @@
                            class="input-design float-left"
                            style="width:70%"
                            type="text"/>
-                  <div class="p-2 font-bold float-left border-gray-300 rounded-md bg-gray-200 mt-1 w-1/6">
+                  <div class="px-1 py-2 font-bold float-left border-gray-300 rounded-md bg-gray-200 mt-1 w-1/6">
                     <span v-if="!fiatValue" class="float-left">USD</span>
                     <span v-else class="float-left">{{ $store.state.user.fiat ? $store.state.user.fiat.symbol : 'USD' }}</span>
                   </div>
@@ -86,7 +87,7 @@
                   </span>
                 </div>
 
-                <div v-if="selectedAssetType && selectedAsset && selectedAssetType !== 1" class="">
+                <div v-if="selectedAssetType && selectedAsset && selectedAssetType === 3" class="">
                     <label class="block text-sm font-medium text-gray-700" for="quantity">Location</label>
                   <Multiselect v-model="log.location.id"
                                :options="assetLocationOptions"
@@ -99,7 +100,7 @@
                   </Multiselect>
                 </div>
 
-                <div v-if="selectedAssetType && selectedAsset && selectedAssetType !== 1" class="">
+                <div v-if="selectedAssetType && selectedAsset && selectedAssetType === 3" class="">
                     <label class="block text-sm font-medium text-gray-700" for="initial-value">Interest Rate (%)</label>
                     <input id="interest-rate" v-model="log.interest_rate"
                            class="input-design"
@@ -107,7 +108,7 @@
                 </div>
             </div>
 
-          <div class="px-4 py-2 md:px-8 md:py-3" v-if="selectedAssetType && selectedAsset">
+          <div class="px-4 py-2 md:px-8 md:py-3" v-if="selectedAssetType && selectedAsset &&  selectedAssetType === 3">
             <label class="block text-sm font-medium text-gray-700" for="initial-value">Other Detail</label>
             <textarea id="other-detail" v-model="log.detail" class="input-design"></textarea>
             <small class="text-red-800 leading-tight inline-block italic">For real estate assets, if you think the average interest rate is incorrect, please kindly let us know in the chat below</small>
@@ -127,6 +128,7 @@ import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
 import Multiselect from '@vueform/multiselect';
 import '@vueform/multiselect/themes/default.css';
+import Alerts from "@/utilities/alerts";
 
 TimeAgo.addDefaultLocale(en);
 
@@ -179,8 +181,9 @@ export default {
 
     methods: {
         addAsset() {
-            // this.showLoader(`Saving Your ${this.selectedAssetType.name} Asset`);
-            this.log.asset_id = this.selectedAsset;
+          this.showLoader();
+          // this.showLoader(`Saving Your ${this.selectedAssetType.name} Asset`);
+          this.log.asset_id = this.selectedAsset;
 
           this.log.currency_type = this.fiatValue ? 'fiat' : 'usd';
 
@@ -192,24 +195,24 @@ export default {
 
                     this.showSuccessToast(resp.data.message);
                 })
-                .catch(err => console.error(err))
-            .finally(() => this.hideLoader());
+                .catch(err => Alerts.showErrorToast(err))
+                .finally(() => this.hideLoader());
         },
 
         loadAssetsOfAssetType() {
-            const data = {asset_type_id: this.selectedAssetType};
             this.assets = [];
             this.assetPlatformsOptions = [];
 
-            Axios.get('/assets', {params: data})
+          setTimeout(() => {
+            Axios.get('/assets', {params: {asset_type_id: this.selectedAssetType}})
                 .then(resp => {
                   resp.data.data.filter(asset => {
                     let item = {label: asset.name, value: asset.id};
                     this.assets.push(item);
                   });
                 })
-                .catch(err => console.error(err))
-            // .finally(() => this.hideLoader());
+                .catch(err => Alerts.showErrorToast(err))
+          }, 1000);
         },
 
         loadExchangesOfAsset() {

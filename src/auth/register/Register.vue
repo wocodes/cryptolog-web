@@ -1,7 +1,11 @@
 <template>
     <page-template>
         <form class="text-center md:text-left p-10 lg:text-left md:p-20 lg:p-28 xl:p-40 w-full lg:w-full">
-            <div class="flex flex-col space-y-3 pb-10">
+          <div v-if="noAccess" class="text-center text-sm bg-red-500 text-white rounded p-2 w-full mb-10 shadow-xl">
+            Sorry you can't login now. Request an invite by <a class="underline" href="mailto:hello@assetlog.co" target="_blank"> sending a mail to hello@assetlog.co</a> or <a class="underline" target="_blank" href="//wa.me/+2347015795533?text=I'm%20interested%20in%20trying%20out%20Assetlog">Whatsapp: +2347015795533</a>
+          </div>
+
+          <div class="flex flex-col space-y-3 pb-10">
                 <h1 class="text-2xl font-bold">Sign Up</h1>
                 <span class="text-sm text-gray-900">Create your assetlog account</span>
             </div>
@@ -72,6 +76,9 @@
 <script>
 import Axios from "../../../config/axios";
 import PageTemplate from "@/components/auth/pageTemplate";
+import {DEV_WHITELIST} from "../../../helpers/constants";
+import Alerts from "@/utilities/alerts";
+import WalletService from "@/services/wallet";
 // import SplashLoader from "@/components/Shared/SplashLoader"; NOT YET WORKING
 
 export default {
@@ -85,7 +92,8 @@ export default {
               username: null,
               password: null,
               ref: null,
-          }
+          },
+          noAccess: false
         }
     },
 
@@ -94,12 +102,46 @@ export default {
     },
 
     methods: {
+        doAutoLogin() {
+          Axios.post('/user/login', this.user)
+              .then(resp => {
+                const user = resp.data.data;
+                this.$store.commit('storeUser', user);
+
+                if(!user.finished_setup) {
+                  this.gotoSetupStep('welcome');
+                }
+
+                Alerts.showSuccessToast(resp.data.message);
+              })
+              .then(async () => {
+                const vuexUser = await JSON.parse(localStorage.getItem('vuex')).user;
+                await this.$store.commit('storeUser', vuexUser);
+
+                await WalletService.getBalance();
+                await this.$router.replace({name: "dashboard"});
+              })
+              .catch(err => {
+                Alerts.showErrorToast(err);
+              })
+              .finally(() => {
+                this.hideLoader();
+              });
+        },
+
         doRegister() {
+          if(!DEV_WHITELIST.includes(this.user.username)) {
+            this.noAccess = true;
+            return;
+          }
+
           this.showLoader();
           Axios.post('/user/register', this.user)
               .then(resp => {
-                this.showSuccessToast(resp.data.message + "<br>You may now login");
-                this.$router.push('/login');
+                this.showSuccessToast(resp.data.message + "<br>Logging you in");
+                // this.$router.push('/login');
+
+                this.doAutoLogin();
               })
               .catch(err => {
                 this.showErrorToast(err)
