@@ -21,21 +21,23 @@
             </div>
 
             <div class="flex flex-col space-y-6">
-                <div class="">
+                <div>
                     <label class="block text-md" for="fullname">Full Name</label>
                     <input id="fullname" v-model="user.name"
                            class="px-4 w-full border-1 border-gray-300 py-2 rounded-md text-sm outline-none"
                            name="password" placeholder="Eleanor Pena" required type="text">
                 </div>
-                <div class="">
+
+                <div>
                     <label class="block text-md" for="email">Email</label>
                     <input id="email" v-model="user.username"
                            class="px-4 w-full border-1 border-gray-300 py-2 rounded-md text-sm outline-none"
                            name="password" placeholder="someone@example.com" required type="email">
                 </div>
-                <div class="">
-                    <label class="block text-md" for="password">Password</label>
-                  <div class="">
+
+                <div>
+                  <label class="block text-md" for="password">Password</label>
+                  <div>
                     <input id="password" v-model="user.password"
                            style="width: 90%"
                            class="px-4 w-80 border-1 border-gray-300 py-2 rounded-md text-sm outline-none"
@@ -61,6 +63,13 @@
                     </svg>
                   </div>
                 </div>
+              <div>
+                <label class="block text-md" for="fullname">Referral Code <small class="text-xs">(optional)</small></label>
+                <input id="referral_code" v-model="user.ref"
+                       :disabled="refFromUrl"
+                       class="px-4 w-full border-1 border-gray-300 py-2 rounded-md text-sm outline-none"
+                       name="referral_code" placeholder="optional" required type="text">
+              </div>
             </div>
 
             <div class="pt-6">
@@ -93,12 +102,14 @@ export default {
               password: null,
               ref: null,
           },
+          refFromUrl: null,
           noAccess: false
         }
     },
 
     mounted() {
-      this.user.ref = window.location.hash.split('ref=')[1];
+      this.refFromUrl = window.location.hash.split('ref=')[1];
+      this.user.ref = this.refFromUrl;
     },
 
     methods: {
