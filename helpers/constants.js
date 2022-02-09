@@ -3,7 +3,7 @@ export const DEV_WHITELIST = [
     "kamal.misc@gmail.com",
     "temmyjay001@gmail.com",
     "morenikeade@gmail.com",
-    "user@assetlog.co",
+    "hello@assetlog.co",
 
     "jaketuriacada@gmail.com",
     "georgemerit38@gmail.com",
