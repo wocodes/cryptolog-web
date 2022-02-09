@@ -10,11 +10,11 @@
                 <span class="text-sm text-gray-900">Create your assetlog account</span>
             </div>
             <!--Sign p with google-->
-            <div
-                class="cursor-pointer flex space-x-2 justify-center items-end bg-white py-2 rounded-md transition duration-100 border-2 border-gray-200">
-              <img alt="" class=" h-5" src="https://i.imgur.com/arC60SB.png">
-              <div>Sign in with Google</div>
-            </div>
+<!--            <div-->
+<!--                class="cursor-pointer flex space-x-2 justify-center items-end bg-white py-2 rounded-md transition duration-100 border-2 border-gray-200">-->
+<!--              <img alt="" class=" h-5" src="https://i.imgur.com/arC60SB.png">-->
+<!--              <div>Sign in with Google</div>-->
+<!--            </div>-->
 
             <div class="text-center my-6">
                 <span class="text-mute">Or use your email</span>
