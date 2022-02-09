@@ -16,9 +16,9 @@
 <!--        <div>Sign in with Google</div>-->
 <!--      </div>-->
 
-      <div class="text-center my-6">
-        <span class="text-mute">Or use your email</span>
-      </div>
+<!--      <div class="text-center my-6">-->
+<!--        <span class="text-mute">Or use your email</span>-->
+<!--      </div>-->
 
       <div class="flex flex-col space-y-6">
         <div class="">
