@@ -200,7 +200,7 @@ export default {
     methods: {
         fetchAssets() {
             this.showLoader();
-            Axios.get("/logs", {params: this.type ? {'mode': this.type} : {}})
+            Axios.get("/asset-logs", {params: this.type ? {'mode': this.type} : {}})
                 .then(resp => {
                     this.assets = this.type ? resp.data.data.data : resp.data.data
                 })
@@ -240,7 +240,7 @@ export default {
         async logWithdrawal(data) {
             let loader = this.$loading.show();
             try {
-                const response = await Axios.post('/logs/' + data.log_id + '/withdrawal', data);
+                const response = await Axios.post('/asset-logs/' + data.log_id + '/withdrawal', data);
 
                 console.log('response', response);
             } catch (e) {

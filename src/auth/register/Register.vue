@@ -21,23 +21,30 @@
 <!--                <span class="text-mute">Or use your email</span>-->
 <!--            </div>-->
 
-            <div class="flex flex-col space-y-6">
+            <div class="flex flex-col space-y-4">
                 <div>
-                    <label class="block text-md" for="fullname">Full Name</label>
+                    <label class="block text-md" for="fullname">Full Name *</label>
                     <input id="fullname" v-model="user.name"
                            class="px-4 w-full border-1 border-gray-300 py-2 rounded-md text-sm outline-none"
                            name="password" placeholder="Eleanor Pena" required type="text">
                 </div>
 
                 <div>
-                    <label class="block text-md" for="email">Email</label>
+                    <label class="block text-md" for="email">Email *</label>
                     <input id="email" v-model="user.username"
                            class="px-4 w-full border-1 border-gray-300 py-2 rounded-md text-sm outline-none"
                            name="password" placeholder="someone@example.com" required type="email">
                 </div>
 
                 <div>
-                  <label class="block text-md" for="password">Password</label>
+                    <label class="block text-md" for="email">Phone</label>
+                    <input id="phone" v-model="user.phone"
+                           class="px-4 w-full border-1 border-gray-300 py-2 rounded-md text-sm outline-none"
+                           name="password" placeholder="optional" type="text">
+                </div>
+
+                <div>
+                  <label class="block text-md" for="password">Password *</label>
                   <div>
                     <input id="password" v-model="user.password"
                            style="width: 90%"
@@ -100,6 +107,7 @@ export default {
           user: {
               name: null,
               username: null,
+              phone: null,
               password: null,
               ref: null,
           },

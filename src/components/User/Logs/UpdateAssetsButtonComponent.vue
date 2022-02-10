@@ -34,7 +34,7 @@ export default {
     methods: {
         fetchUpdatedAssetsData() {
             this.showLoader();
-            Axios.get("/logs/update")
+            Axios.get("/asset-logs/update")
                 .then(() => this.$emit('assets-updated', true))
                 .catch(err => console.log(err))
                 .finally(() => this.hideLoader())

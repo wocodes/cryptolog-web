@@ -187,7 +187,7 @@ export default {
 
           this.log.currency_type = this.fiatValue ? 'fiat' : 'usd';
 
-            Axios.post('/logs', this.log)
+            Axios.post('/asset-logs', this.log)
                 .then(resp => {
                     let user = this.$store.state.user;
                     user.finished_setup = true;
