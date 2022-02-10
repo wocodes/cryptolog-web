@@ -5,9 +5,8 @@
     <div class="success-data text-white bg-green-600 rounded-xl p-2 font-bold shadow mb-10" v-if="successData" v-html="successData"></div>
 
 
-    <div class="grid grid-cols-2">
-      <div>
-
+    <div class="md:grid md:grid-cols-2">
+      <div class="block w-full mb-10">
         <label class="text-lg mb-4 block">
           <input v-model="subscribedToAutoTrade"
                  class="appearance-none
@@ -72,7 +71,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="text-xs md:text-md">
         <ul v-if="logs.length">
           <li class="grid grid-cols-4">
             <span class="font-bold bg-gray-400 p-1 rounded-tl-xl">Date</span>
