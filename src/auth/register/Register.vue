@@ -150,10 +150,10 @@ export default {
         },
 
         doRegister() {
-          if(!DEV_WHITELIST.includes(this.user.username)) {
-            this.noAccess = true;
-            return;
-          }
+          // if(!DEV_WHITELIST.includes(this.user.username)) {
+          //   this.noAccess = true;
+          //   return;
+          // }
 
           this.showLoader();
           Axios.post('/user/register', this.user)
@@ -161,7 +161,7 @@ export default {
                 this.showSuccessToast(resp.data.message + "<br>Logging you in");
                 // this.$router.push('/login');
 
-                this.doAutoLogin();
+                // this.doAutoLogin();
               })
               .catch(err => {
                 this.showErrorToast(err)
