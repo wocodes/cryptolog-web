@@ -10,5 +10,6 @@ export const DEV_WHITELIST = [
     "adamrick1992@gmail.com",
     "frankarab01@gmail.com",
     "zammat4ever@gmail.com",
-    "oshovic2@gmail.com"
+    "oshovic2@gmail.com",
+    "perfectdamsel007@gmail.com",
 ];

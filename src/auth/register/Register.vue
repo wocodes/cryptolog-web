@@ -93,7 +93,7 @@
 <script>
 import Axios from "../../../config/axios";
 import PageTemplate from "@/components/auth/pageTemplate";
-import {DEV_WHITELIST} from "../../../helpers/constants";
+// import {DEV_WHITELIST} from "../../../helpers/constants";
 import Alerts from "@/utilities/alerts";
 import WalletService from "@/services/wallet";
 // import SplashLoader from "@/components/Shared/SplashLoader"; NOT YET WORKING
