@@ -26,7 +26,8 @@ export default {
 <style scoped>
 @media screen and (max-width: 600px) {
   #root-div {
-    background-image: url("/images/wp5511690.jpg");
+    /*background-image: url("/images/wp5511690.jpg");*/
+    background-color: #dceaff;
     background-size: cover;
   }
 }

@@ -30,20 +30,22 @@
           <!--      <div class="grid grid-cols-4 text-center">-->
           <div class="flow-root">
             <div class="text-center p-1 float-left md:h-28 md:w-28 h-18 w-1/2">
-              <label class="block rounded-xl bg-gray-200 p-1 shadow">
-                <p><input type="radio" name="trading_mode" value="auto" v-model="tradingMode" checked/></p>
+              <label class="block rounded-xl bg-gray-200 p-1 shadow font-bold">
+                <p class="my-2"><input type="radio" name="trading_mode" value="auto" v-model="tradingMode" checked/></p>
                 MA Trader
-                <small style="font-size:8px" class="block font-bold italic text-xs text-gray-600 leading-tight">Assetlog trades on your behalf.<br />Doesn't require API Keys</small>
+<!--                <small style="font-size:8px" class="block font-bold italic text-xs text-gray-600 leading-tight">-->
+<!--                  Assetlog trades on your behalf.<br />Doesn't require API Keys-->
+<!--                </small>-->
               </label>
             </div>
 
-            <div class="text-center p-1 float-left md:ml-4 md:h-28 md:w-28 h-18 w-1/2">
-              <label class="block rounded-xl bg-gray-200 p-1 shadow">
-                <p><input type="radio" name="trading_mode" value="auto" v-model="tradingMode" /></p>
-                DCA Trader
-                <small style="font-size:8px" class="block font-bold italic text-xs text-gray-600 leading-tight">You're in charge of your trades!<br /> Requires API Keys</small>
-              </label>
-            </div>
+<!--            <div class="text-center p-1 float-left md:ml-4 md:h-28 md:w-28 h-18 w-1/2">-->
+<!--              <label class="block rounded-xl bg-gray-200 p-1 shadow">-->
+<!--                <p><input type="radio" name="trading_mode" value="auto" v-model="tradingMode" /></p>-->
+<!--                DCA Trader-->
+<!--                <small style="font-size:8px" class="block font-bold italic text-xs text-gray-600 leading-tight">You're in charge of your trades!<br /> Requires API Keys</small>-->
+<!--              </label>-->
+<!--            </div>-->
           </div>
 
 
@@ -112,7 +114,7 @@ export default {
       minTradingAmountUsd: parseInt(process.env.MIN_TRADING_AMOUNT_USD),
       // minTradingAmount: Math.round((12 * this.$store.state.user.fiat.usdt_buy_rate)/1000)*1000,
       minTradingAmount: Math.round(parseInt(process.env.MIN_TRADING_AMOUNT_USD) * this.$store.state.user.fiat.usdt_buy_rate),
-      subscriptionFee: parseInt(process.env.TRADING_BOT_FEE),
+      // subscriptionFee: parseInt(process.env.TRADING_BOT_FEE),
       tradingAmount: 0,
       successData: null,
       subscribedToAutoTrade: false,
@@ -133,6 +135,9 @@ export default {
       this.subscribedToAutoTrade = !!this.subscriptionStatus;
 
       this.walletBalance = await WalletService.getBalance();
+
+      let vuex = JSON.parse(localStorage.getItem('vuex'));
+      this.$store.commit('storeUser', vuex.user);
     } catch (e) {
       Alerts.showErrorToast(e);
     }
@@ -140,11 +145,13 @@ export default {
 
   methods: {
     saveSetting() {
-      if(this.minTradingAmount + this.subscriptionFee > this.walletBalance) {
+      // if(this.minTradingAmount + this.subscriptionFee > this.walletBalance) {
+      if(this.minTradingAmount > this.walletBalance) {
         return Alerts.showErrorToast("Insufficient Wallet Balance");
       }
 
-      const alertMsg = `${this.user.fiat.symbol}${parseInt(this.subscriptionFee) + parseInt(this.tradingAmount)} (Fee: ${this.subscriptionFee} + Trading Amount: ${this.tradingAmount}) will be deducted from your wallet`;
+      // const alertMsg = `${this.user.fiat.symbol}${parseInt(this.subscriptionFee) + parseInt(this.tradingAmount)} (Fee: ${this.subscriptionFee} + Trading Amount: ${this.tradingAmount}) will be deducted from your wallet`;
+      const alertMsg = `${this.user.fiat.symbol}${parseInt(this.tradingAmount)} will be deducted from your wallet`;
       let confirmationResponse = confirm(alertMsg);
 
       if (confirmationResponse) {

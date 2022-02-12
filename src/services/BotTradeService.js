@@ -6,7 +6,7 @@ export default class BotTradeService {
         try {
             const response = await Axios.get("/bot-logs");
 
-            return response.data.data.data;
+            return response.data.data ? response.data.data.data : [];
         } catch (e) {
             console.log('e', e);
             Alerts.showErrorToast(e);

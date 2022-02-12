@@ -7,9 +7,11 @@ export default class WalletService {
             const response = await Axios.get("/user/wallet");
             // Alerts.showSuccessToast(response.data.message);
             const balance = response.data.data.current_balance;
+            const fiat = response.data.data.fiat;
             let appStore = JSON.parse(localStorage.getItem('vuex'));
 
             appStore.user.wallet = {current_balance: balance};
+            appStore.user.fiat = fiat;
             localStorage.setItem('vuex', JSON.stringify(appStore));
 
             return balance;
