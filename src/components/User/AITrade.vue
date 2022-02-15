@@ -90,11 +90,8 @@
           <li v-for="(log, index) in logs" :key="index" class="grid grid-cols-4 p-1 border-gray-400 border-b">
             <span>{{ new Date(log.created_at).toLocaleString() }}</span>
             <span>${{ parseFloat(log.value_bought).toFixed(2) }}</span>
-            <span>${{ parseFloat(log.value_sold).toFixed(2) }}</span>
-            <span v-if="log.value_sold && log.value_sold - log.value_bought < 0" :class="{'text-red-700': log.value_sold - log.value_bought < 0}">
-              ${{ parseFloat(log.value_bought - log.value_sold).toFixed(2) }}
-            </span>
-            <span v-if="log.value_sold && log.value_sold - log.value_bought > 0" :class="{'text-green-600': log.value_sold - log.value_bought > 0}">
+            <span>${{ parseFloat(log.value_sold ? log.value_sold : 0).toFixed(2) }}</span>
+            <span :class="{'text-red-700': log.value_sold - log.value_bought < 0, 'text-green-600': log.value_sold - log.value_bought > 0}">
               ${{ parseFloat(log.value_sold - log.value_bought).toFixed(2) }}
             </span>
             <span v-if="!log.value_sold">-</span>
