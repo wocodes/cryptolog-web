@@ -131,8 +131,6 @@ export default {
     try {
       const statusResponse = await Axios.get('/assets/bot-trade/status');
 
-      this.logs = await BotTradeService.getLogs();
-
       this.subscriptionStatus = statusResponse.data.data;
       this.subscribedToAITrade = !!this.subscriptionStatus;
 
@@ -144,6 +142,9 @@ export default {
 
       let vuex = JSON.parse(localStorage.getItem('vuex'));
       this.$store.commit('storeUser', vuex.user);
+
+      this.logs = await BotTradeService.getLogs();
+
     } catch (e) {
       Alerts.showErrorToast(e);
     }
