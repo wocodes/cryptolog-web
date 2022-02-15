@@ -193,8 +193,8 @@ export default {
     },
 
     calculateLogTotals() {
-      this.totalBought = this.logs.reduce((a, b) => a + (b.value_bought || 0), 0);
-      this.totalSold = this.logs.reduce((a, b) => a + (b.value_sold || 0), 0);
+      this.totalBought = parseFloat(this.logs.reduce((a, b) => a + (b.value_bought || 0), 0).toFixed();
+      this.totalSold = parseFloat(this.logs.reduce((a, b) => a + (b.value_sold || 0), 0).toFixed();
       this.totalProfitLoss = parseFloat(this.totalSold - this.totalBought).toFixed();
     }
   }
