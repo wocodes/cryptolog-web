@@ -78,9 +78,9 @@
         <ul v-if="logs.length">
           <li class="grid grid-cols-4">
             <span class="font-bold bg-gray-400 p-1 rounded-tl-xl">Date</span>
-            <span class="font-bold bg-gray-400 p-1">Bought</span>
-            <span class="font-bold bg-gray-400 p-1">Sold</span>
-            <span class="font-bold bg-gray-400 p-1 rounded-tr-xl">Difference</span>
+            <span class="font-bold bg-gray-400 p-1">Bought<br>${{ totalBought }}</span>
+            <span class="font-bold bg-gray-400 p-1">Sold<br>${{ totalSold }}</span>
+            <span class="font-bold bg-gray-400 p-1 rounded-tr-xl">Difference<br>${{ totalProfitLoss }}</span>
           </li>
 
           <li v-for="(log, index) in logs" :key="index" class="grid grid-cols-4 p-1 border-gray-400 border-b">
@@ -123,7 +123,10 @@ export default {
       tradingMode: 'auto',
       subscriptionStatus: null,
       walletBalance: 0,
-      logs: []
+      logs: [],
+      totalBought: 0,
+      totalSold: 0,
+      totalProfitLoss: 0,
     }
   },
 
@@ -145,6 +148,9 @@ export default {
 
       this.logs = await BotTradeService.getLogs();
 
+      if(this.logs.length) {
+        this.calculateLogTotals();
+      }
     } catch (e) {
       Alerts.showErrorToast(e);
     }
@@ -184,6 +190,12 @@ export default {
         .catch(e => Alerts.showErrorToast(e.response.data.message, e))
       }
     },
+
+    calculateLogTotals() {
+      this.totalBought = this.logs.reduce((a, b) => a + (b.value_bought || 0), 0);
+      this.totalSold = this.logs.reduce((a, b) => a + (b.value_sold || 0), 0);
+      this.totalProfitLoss = this.totalSold - this.totalBought;
+    }
   }
 }
 </script>
