@@ -3,12 +3,13 @@
     <h1 class="font-semibold mb-5">AI Trade</h1>
 
     <div class="success-data text-white bg-green-600 rounded-xl p-2 font-bold shadow mb-10" v-if="successData" v-html="successData"></div>
+    <div class="success-data text-white bg-red-600 rounded-xl p-2 font-bold shadow mb-10" v-if="errorData" v-html="errorData"></div>
 
 
-    <div class="md:grid md:grid-cols-2">
+    <div class="md:grid md:grid-cols-2" v-if="subscribedToAITrade">
       <div class="block w-full mb-10">
         <label class="text-lg mb-4 block">
-          <input v-model="subscribedToAutoTrade"
+          <input v-model="subscribedToAITrade"
                  class="appearance-none
              h-5 w-5
              checked:bg-blue-600
@@ -17,7 +18,7 @@
                  name="autotrade"
                  type="checkbox"
           />
-          Subscribe for Auto Trade
+          Subscribe for AI Trade
           <a href="#" title="Subscribing for AI Trade requires a recurring charge of $10">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="#999">
               <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
@@ -25,8 +26,8 @@
           </a>
         </label>
 
-        <div v-if="subscribedToAutoTrade" class="md:bg-transparent bg-white opacity-80 rounded-xl p-2 md:p-0">
-          <p class="mb-1">Choose trading mode: (Auto or Manual)</p>
+        <div v-if="subscribedToAITrade" class="md:bg-transparent bg-white opacity-80 rounded-xl p-2 md:p-0">
+          <p class="mb-1">Choose trading strategy</p>
           <!--      <div class="grid grid-cols-4 text-center">-->
           <div class="flow-root">
             <div class="text-center p-1 float-left md:h-28 md:w-28 h-18 w-1/2">
@@ -117,7 +118,8 @@ export default {
       // subscriptionFee: parseInt(process.env.TRADING_BOT_FEE),
       tradingAmount: 0,
       successData: null,
-      subscribedToAutoTrade: false,
+      errorData: null,
+      subscribedToAITrade: false,
       tradingMode: 'auto',
       subscriptionStatus: null,
       walletBalance: 0,
@@ -132,7 +134,11 @@ export default {
       this.logs = await BotTradeService.getLogs();
 
       this.subscriptionStatus = statusResponse.data.data;
-      this.subscribedToAutoTrade = !!this.subscriptionStatus;
+      this.subscribedToAITrade = !!this.subscriptionStatus;
+
+      if(!this.subscribedToAITrade) {
+        this.errorData = `<ul class="m-0 p-0 font-light"><li><span class="fas fa-times"></span> Can't use AI Trade as you don't have an active subscription. Please subscribe.</li></ul>`
+      }
 
       this.walletBalance = await WalletService.getBalance();
 
@@ -176,7 +182,7 @@ export default {
         })
         .catch(e => Alerts.showErrorToast(e.response.data.message, e))
       }
-    }
+    },
   }
 }
 </script>
