@@ -78,8 +78,12 @@
         <ul v-if="logs.length">
           <li class="grid grid-cols-4">
             <span class="font-bold bg-gray-400 p-1 rounded-tl-xl">Date</span>
-            <span class="font-bold bg-gray-400 p-1">Bought<br>${{ totalBought }}</span>
-            <span class="font-bold bg-gray-400 p-1">Sold<br>${{ totalSold }}</span>
+            <span class="font-bold bg-gray-400 p-1">Bought
+<!--              <br>${{ totalBought }}-->
+            </span>
+            <span class="font-bold bg-gray-400 p-1">Sold
+<!--              <br>${{ totalSold }}-->
+            </span>
             <span class="font-bold bg-gray-400 p-1 rounded-tr-xl">Difference<br>
               <span :class="{'text-green-800': totalProfitLoss > 0, 'text-red-600': totalProfitLoss < 0}">
                 ${{ totalProfitLoss }}
@@ -193,8 +197,8 @@ export default {
     },
 
     calculateLogTotals() {
-      this.totalBought = parseFloat(this.logs.reduce((a, b) => a + (b.value_bought || 0), 0).toFixed();
-      this.totalSold = parseFloat(this.logs.reduce((a, b) => a + (b.value_sold || 0), 0).toFixed();
+      this.totalBought = parseFloat(this.logs.reduce((a, b) => a + (b.value_bought || 0), 0)).toFixed();
+      this.totalSold = parseFloat(this.logs.reduce((a, b) => a + (b.value_sold || 0), 0)).toFixed();
       this.totalProfitLoss = parseFloat(this.totalSold - this.totalBought).toFixed();
     }
   }
