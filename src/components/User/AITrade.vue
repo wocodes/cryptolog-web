@@ -98,7 +98,6 @@
             <span :class="{'text-red-700': log.value_sold - log.value_bought < 0, 'text-green-600': log.value_sold - log.value_bought > 0}">
               ${{ parseFloat(log.value_sold - log.value_bought).toFixed(2) }}
             </span>
-            <span v-if="!log.value_sold">-</span>
           </li>
         </ul>
       </div>
